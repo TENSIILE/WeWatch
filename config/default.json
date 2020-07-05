@@ -1,0 +1,5 @@
+{
+   "PORT": 5000,
+   "mongoURL":"mongodb+srv://Vladislav:1q3z2a34err@wewatch.g8t1v.azure.mongodb.net/app?retryWrites=true&w=majority",
+   "jwtSecret": "1234567890"
+}
