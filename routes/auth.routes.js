@@ -3,7 +3,7 @@ const bcrypt   = require('bcryptjs')
 const {check, validationResult} = require('express-validator')
 const jwt      = require('jsonwebtoken')
 const User     = require('../models/User')
-const config   = require('../config/default.json')
+const config   = require('config')
 
 
 const router = Router()
@@ -18,6 +18,7 @@ router.post('/register',
     ],
     async (req, res) => {
         try {
+            
             const error = validationResult(req)
 
             if(!error.isEmpty()){
@@ -65,7 +66,7 @@ router.post('/login',
                 })
             }
 
-            const {login,password} = req.body
+            const {login, password} = req.body
 
             const user = await User.findOne({ login })
 
@@ -74,6 +75,7 @@ router.post('/login',
             }
 
             const isMatch = await bcrypt.compare(password, user.password)
+            
 
             if(!isMatch){
                 return res.status(400).json({ message: 'Неверный пароль, попробуйте снова!' })
@@ -84,7 +86,7 @@ router.post('/login',
                 config.get('jwtSecret'),
                 { expiresIn:'1h' }
             )
-
+            
             res.json({ token, userId: user._id })
 
         } catch (e) {

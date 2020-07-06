@@ -1,0 +1,66 @@
+.alert{
+    $primary: #007bff;
+    $secondary: #6c757d;
+    $success: #28a745;
+    $info: #17a2b8;
+    $warning: #ffc107;
+    $danger: #dc3545;
+
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 20px;
+    padding: 0px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 350px;
+    vertical-align: middle;
+
+    background: $secondary;
+    border:2px solid darken($secondary, $amount: 20);
+    color: lighten($secondary, $amount: 100);
+
+    span{
+        margin-left: 3em;
+        font-size: 2em;
+        cursor: pointer;
+        transition: .4s;
+        margin-top: -7px;
+        
+        &:hover{
+            opacity: .8;
+        }
+    }
+
+    &.alert-primary{
+        background: $primary;
+        border:2px solid darken($primary, $amount: 10);
+        color: lighten($primary, $amount: 40);
+    }
+
+    &.alert-success{
+        background: $success;
+        border:2px solid darken($success, $amount: 10);
+        color: lighten($success, $amount: 40);
+    }
+
+    &.alert-info{
+        background: $info;
+        border:2px solid darken($info, $amount: 10);
+        color: lighten($info, $amount: 40);
+    }
+
+    &.alert-warning{
+        background: darken($warning, $amount: 5);
+        border:2px solid darken($warning, $amount: 10);
+        color: lighten($warning, $amount: 40);
+    }
+
+    &.alert-danger{
+        background: $danger;
+        border:2px solid darken($danger, $amount: 10);
+        color: lighten($danger, $amount: 40);
+    }
+}

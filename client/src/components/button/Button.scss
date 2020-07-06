@@ -1,0 +1,40 @@
+.btn{
+    color:#696879;
+    background: rgba(134,134,134,.2);
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: .4s;
+    height: 43px;
+    border-radius:10px;
+    margin-right: 10px;
+    padding: 0 30px;
+    width: 100%;
+
+    &:link{
+        text-decoration: none;
+        text-align: center;
+        line-height: 43px;
+    }
+
+
+    &:last-child{
+        margin: 0;
+    }
+
+    &:hover{
+        filter: brightness(80%);
+    }
+
+    &:active{
+        filter: brightness(60%);
+    }
+
+    &.primary{
+        color:white !important;
+        background: #1B45FF !important;
+        padding: 0 30px;
+        width: min-content;
+    }
+}
+
