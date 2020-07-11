@@ -1,26 +1,14 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { AuthInput } from './../../components/authInput/AuthInput'
 import { Button } from './../../components/button/Button'
 import { Checkbox } from '../../components/checkbox/Checkbox'
 import { ContextInput } from '../../contexts/contextInput'
 import { VerificationPass } from '../../components/verification/VerificationPass'
-import nonVisible from '../../static/icons/non-visible.svg'
 
 
-
-export const SignUp = ({changePath}) => {
+export const SignUp = () => {
     const {form, changeInputsHandler, loading, registerHandler,
-            stateCheckbox, setStateCheckbox, statusTextPass} = useContext(ContextInput)
-
-    const [typePassword, setTypePassword] = useState('password')
-
-    const changeTypePassword = () => {
-        if (typePassword === 'password') {
-            setTypePassword('text')
-        }else{
-            setTypePassword('password')
-        }
-    }
+        stateCheckbox, setStateCheckbox, statusTextPass} = useContext(ContextInput)
 
     return(
         <div className='SignUp'>
@@ -42,13 +30,11 @@ export const SignUp = ({changePath}) => {
             />
             <AuthInput 
                 label='Пароль'
-                type={typePassword}
+                type='password'
                 placeholder='Введите свой пароль'
                 name='password'
                 onChange={changeInputsHandler}
                 text={form.password}
-                icon={nonVisible}
-                onClickIcon={changeTypePassword}
             />
 
             <VerificationPass password={form.password}/>
@@ -79,7 +65,7 @@ export const SignUp = ({changePath}) => {
                 <Button 
                     text='Назад'
                     classNames='btn'
-                    onClick={() => changePath('login')}
+                    linkObj={{isLink:true, path:'/login'}}
                     disabled={loading}
                 />
             </div>

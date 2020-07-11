@@ -19,8 +19,6 @@ export const useHttp = () => {
             
             if (!response.ok) {
                 setError(data.errors)
-                console.log('000', 123);
-                
                 throw new Error(data.message || 'Произошла ошибка!')
             }
 

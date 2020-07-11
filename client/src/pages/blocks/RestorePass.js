@@ -6,7 +6,7 @@ import { VerificationPass } from '../../components/verification/VerificationPass
 import { ContextAlert } from '../../contexts/alert/contextAlert'
 
 
-export const RestorePass = ({changePath}) => {
+export const RestorePass = () => {
     const alert = useContext(ContextAlert)
     const {form, changeInputsHandler, loading, statusTextPass} = useContext(ContextInput)
     const [codeEntryInputRecovery, setCodeEntryInputRecovery]  = useState(false)
@@ -57,7 +57,7 @@ export const RestorePass = ({changePath}) => {
                         <Button
                             text='Назад'
                             classNames='btn'
-                            onClick={() => changePath('login')}
+                            linkObj={{isLink:true, path:'/login'}}
                             disabled={loading}
                         />
                     </div>

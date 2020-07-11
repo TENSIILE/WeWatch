@@ -58,9 +58,3 @@ export const AuthInput = ({label, type, placeholder, name, text, onChange, style
         </div>
     )
 }
-
-/*
-
-
-
-*/

@@ -1,9 +1,6 @@
 import React, { useState, useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import imageBack from '../static/img/img_slider.png'
-import { LogIn } from './blocks/LogIn'
-import { SignUp } from './blocks/SignUp'
-import { RestorePass } from './blocks/RestorePass'
 import { useHttp } from '../hooks/http.hook'
 import { ContextInput } from '../contexts/contextInput'
 import { ContextAuth } from '../contexts/contextAuth'
@@ -13,12 +10,13 @@ import { ContextAlert } from '../contexts/alert/contextAlert'
 import './Auth.scss'
 
 
-export const AuthPage = () => { 
+export const AuthPage = ({children}) => { 
     const auth = useContext(ContextAuth)
 
     const alert = useContext(ContextAlert)
 
-    const [ path, setPath ]    = useState('login')
+    const history = useHistory()
+
     const { loading, request, error} = useHttp()
     
 
@@ -42,10 +40,11 @@ export const AuthPage = () => {
 
         try {
             await request('api/auth/register', 'POST', {...form})
-            setPath('login')
+            alert.show('success', 'Поздравляю, Вы зарегистрировали аккаунт', 'Успешно!')
+            history.push('/login')
         } catch (e) {
             alert.show('danger', e.message, 'Ошибка!') 
-            console.log(error)
+            // console.log(error)
         }
     }
 
@@ -54,7 +53,7 @@ export const AuthPage = () => {
             const data = await request('api/auth/login', 'POST', { login: form.login_auth, password: form.password_auth })
             auth.login(data.token, data.userId)
         }catch(e){
-            alert.show('danger', e.message, 'Ошибка!') 
+            alert.show('danger', e.message, 'Ошибка!')  
         }
     }
 
@@ -71,7 +70,6 @@ export const AuthPage = () => {
             setStateCheckbox, classVerification, setClassVerification,
             statusTextPass, setStatusTextPass
         }}>
-            {/* {alert.isOpen ? <Alert {...alert.configAlert}/> : null} */}
             <Alert {...alert.configAlert}/>
             <div className='wrapper_authentication'>
                 <div className='leftSide'>
@@ -79,13 +77,7 @@ export const AuthPage = () => {
                         <h1 className='heading'>WeWatch</h1>
                         <div className='wrapper_control'>
                             <div className='control'>
-                                {
-                                    path === 'login' ? 
-                                        <LogIn changePath={setPath}/> : 
-                                    path === 'restorePass' ? 
-                                        <RestorePass changePath={setPath}/> : 
-                                    <SignUp changePath={setPath}/>
-                                }     
+                                {children}
                                 <p className='lead-text-help'>Имеются проблемы ? &nbsp;
                                     <Link to='#' className='link link-focused'>Получить помощь</Link>
                                 </p>

@@ -5,7 +5,7 @@ import { Button } from './../../components/button/Button'
 import { ContextInput } from '../../contexts/contextInput'
 
 
-export const LogIn = ({changePath}) => {
+export const LogIn = () => {
     const { form, changeInputsHandler, loading, loginHandler } = useContext(ContextInput)
 
     return (
@@ -34,9 +34,8 @@ export const LogIn = ({changePath}) => {
                 <Link
                     className='link'
                     id='link-forget-password'
-                    to="#"
+                    to="/login/restore"
                     style={{margin:'1em 0'}}
-                    onClick={() => changePath('restorePass')}
                 >
                     Забыли пароль?
                 </Link>
@@ -52,7 +51,7 @@ export const LogIn = ({changePath}) => {
                     <Button 
                         text='Регистрация' 
                         classNames='btn' 
-                        onClick={() => changePath('signUp')} 
+                        linkObj={{isLink:true, path:'/signup'}}
                         disabled={loading}
                     />
                 </div>
