@@ -10,23 +10,24 @@
     .verification-line{
         border-radius: 10px;
         height: 10px;
-        background: #dc3545;
+        background: var(--basis-red);
         width: 50px;
         transition: .4s;
 
         &.middle-progress{
-            background: #ffc107;
+            background: var(--basis-yellow);
             width: 150px;
         }
 
         &.full-progress{
-            background: #28a745;;
+            background: var(--basis-green);
             width: 250px;
         }
     }
 
     .verification-label{
-        color:grey;
+        color:var(--first-text);
+        transition: .4s;
     }
     
 }

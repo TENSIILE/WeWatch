@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import './verificationPass.scss'
 import { ContextInput } from './../../contexts/contextInput'
 
@@ -6,7 +6,7 @@ export const VerificationPass = ({password}) => {
     const {classVerification, setClassVerification, 
         statusTextPass, setStatusTextPass} = useContext(ContextInput)
     
-    useCallback(useEffect(() => {
+    useEffect(() => {
 
         if (password.length > 7) {
             setClassVerification('middle-progress')
@@ -27,7 +27,7 @@ export const VerificationPass = ({password}) => {
         }
 
        
-    },[password]), [])
+    },[password])
 
     return (
        <div className='verification-password'>

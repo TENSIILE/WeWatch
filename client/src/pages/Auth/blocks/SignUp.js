@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
-import { AuthInput } from './../../components/authInput/AuthInput'
-import { Button } from './../../components/button/Button'
-import { Checkbox } from '../../components/checkbox/Checkbox'
-import { ContextInput } from '../../contexts/contextInput'
-import { VerificationPass } from '../../components/verification/VerificationPass'
+import { AuthInput } from './../../../components/authInput/AuthInput'
+import { Button } from './../../../components/button/Button'
+import { Checkbox } from './../../../components/checkbox/Checkbox'
+import { ContextInput } from './../../../contexts/contextInput'
+import { VerificationPass } from './../../../components/verification/VerificationPass'
 
 
 export const SignUp = () => {

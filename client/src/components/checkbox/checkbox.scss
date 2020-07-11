@@ -1,11 +1,12 @@
 .checkbox{
     position: relative;
+
     input#checkbox{
         position: relative;
         appearance: none;
         width: 20px;
         height: 20px;
-        border:2px solid #1B45FF;
+        border:2px solid var(--basis-blue);
         border-radius: 4px;
         outline: none;
         cursor: pointer;
@@ -20,7 +21,7 @@
             transform: translate(-50%,-50%);
             width: 10px;
             height: 10px;
-            background: #1B45FF;
+            background: var(--basis-blue);
             border-radius: 2px;
             transition: .4s;
             opacity: 0;
@@ -33,12 +34,12 @@
         }
 
         &:hover{
-            background: #1b45ff2a;
+            opacity: .7;
         }
     }
 
     label{
-        color:#696879;
+        color:var(--first-text);
         white-space: pre-line;
         margin-left: 10px;
         position: absolute;

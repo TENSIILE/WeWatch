@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { AuthInput } from './../../components/authInput/AuthInput'
-import { Button } from './../../components/button/Button'
-import { ContextInput } from '../../contexts/contextInput'
+import { AuthInput } from './../../../components/authInput/AuthInput'
+import { Button } from './../../../components/button/Button'
+import { ContextInput } from './../../../contexts/contextInput'
 
 
 export const LogIn = () => {

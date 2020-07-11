@@ -1,10 +1,10 @@
 import React  from 'react'
-import {Switch, Route, Redirect} from 'react-router-dom'
-import { MainPage } from './pages/MainPage'
-import { AuthPage } from './pages/AuthPage'
-import { SignUp } from './pages/blocks/SignUp'
-import { RestorePass } from './pages/blocks/RestorePass'
-import { LogIn } from './pages/blocks/LogIn'
+import { Switch, Route, Redirect } from 'react-router-dom'
+import { MainPage } from './pages/Main/MainPage'
+import { AuthPage } from './pages/Auth/AuthPage'
+import { SignUp } from './pages/Auth/blocks/SignUp'
+import { RestorePass } from './pages/Auth/blocks/RestorePass'
+import { LogIn } from './pages/Auth/blocks/LogIn'
 
 export const useRoutes = isAuthenticated => {
     if (isAuthenticated) {

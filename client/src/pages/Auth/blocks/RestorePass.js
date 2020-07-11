@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react'
-import { AuthInput } from './../../components/authInput/AuthInput'
-import { Button } from './../../components/button/Button'
-import { ContextInput } from '../../contexts/contextInput'
-import { VerificationPass } from '../../components/verification/VerificationPass'
-import { ContextAlert } from '../../contexts/alert/contextAlert'
+import { AuthInput } from './../../../components/authInput/AuthInput'
+import { Button } from './../../../components/button/Button'
+import { ContextInput } from './../../../contexts/contextInput'
+import { VerificationPass } from './../../../components/verification/VerificationPass'
+import { ContextAlert } from './../../../contexts/alert/contextAlert'
 
 
 export const RestorePass = () => {
@@ -88,7 +88,7 @@ export const RestorePass = () => {
 
                     <AuthInput 
                         label='Новый пароль'
-                        type='text'
+                        type='password'
                         placeholder='Введите новый пароль'
                         name='new_password'
                         onChange={changeInputsHandler}

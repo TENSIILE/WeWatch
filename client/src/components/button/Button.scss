@@ -1,6 +1,6 @@
 .btn{
-    color:#696879;
-    background: rgba(134,134,134,.2);
+    color:var(--first-text);
+    background: var(--third-background);
     outline: none;
     border: none;
     cursor: pointer;
@@ -10,6 +10,7 @@
     margin-right: 10px;
     padding: 0 30px;
     width: 100%;
+    font-size: 13px;
 
     &:link{
         text-decoration: none;
@@ -28,7 +29,8 @@
     }
 
     &:hover{
-        filter: brightness(80%);
+        // opacity: .7;
+        filter: brightness(90%);
     }
 
     &:active{
@@ -36,8 +38,8 @@
     }
 
     &.primary{
-        color:white !important;
-        background: #1B45FF !important;
+        color:white;
+        background: var(--basis-blue) !important;
         padding: 0 30px;
         width: min-content;
     }

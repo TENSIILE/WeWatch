@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import imageBack from '../static/img/img_slider.png'
-import { useHttp } from '../hooks/http.hook'
-import { ContextInput } from '../contexts/contextInput'
-import { ContextAuth } from '../contexts/contextAuth'
-import { Alert } from './../components/alert/Alert'
-import { ContextAlert } from '../contexts/alert/contextAlert'
+import imageBack from '../../static/img/img_slider.png'
+import { useHttp } from './../../hooks/http.hook'
+import { ContextInput } from './../../contexts/contextInput'
+import { ContextAuth } from './../../contexts/contextAuth'
+import { Alert } from './../../components/alert/Alert'
+import { ContextAlert } from './../../contexts/alert/contextAlert'
 
 import './Auth.scss'
 
@@ -17,7 +17,7 @@ export const AuthPage = ({children}) => {
 
     const history = useHistory()
 
-    const { loading, request, error} = useHttp()
+    const { loading, request } = useHttp()
     
 
     const [form, setForm] = useState({
@@ -44,7 +44,6 @@ export const AuthPage = ({children}) => {
             history.push('/login')
         } catch (e) {
             alert.show('danger', e.message, 'Ошибка!') 
-            // console.log(error)
         }
     }
 

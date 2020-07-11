@@ -5,7 +5,7 @@
   
     .leftSide{
       min-width: 800px;
-      background: #fff;
+      background: var(--first-background);
       height: 100%;
   
       .container{
@@ -16,6 +16,7 @@
           font-size: 10em;
           font-family: 'Thillends';
           margin-bottom: 0;
+          color:var(--first-text);
         }
   
         .wrapper_control{
@@ -32,7 +33,7 @@
           width: 360px;
   
           .link{
-            color:rgba(134,134,134,.5);
+            color:var(--second-text);
             text-decoration: none;
             margin: 1.5em 0;
             margin-top: 0;
@@ -45,13 +46,13 @@
   
           .lead-text-help{
             margin-top: 1.5em;
-            color:#696879;
+            color:var(--second-text);
           }
   
   
           .link-focused{
-            color:#1B45FF;
-            text-decoration: underline;
+            color:var(--basis-blue);
+            // text-decoration: underline;
           }
   
           .line_buttons{
