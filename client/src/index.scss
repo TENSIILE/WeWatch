@@ -1,6 +1,37 @@
 :root{
+  --basis-blue: #007BFF;
+  --basis-red: #DC3545;
+  --basis-green:#53D769;
+  --basis-sky:#17A2B8;
+  --basis-yellow:#FFC107;
+  --basis-white-transparent:rgba(255, 255, 255, 0.1);
 
+  --first-background:#FFFFFF;
+  --second-background:#F4F7F8;
+  --third-background:#EFEFEF;
+
+  --first-text:#3C3F44;
+  --second-text:#B1B6BB;
+  --third-text:#A7ACB2;
 }
+
+
+
+@font-face{
+  src: url('static/fonts/16068.otf');
+  font-family: 'Zing';
+  font-weight: bold;
+  font-style: italic;
+}
+
+
+@font-face{
+  src: url('static/fonts/Thillends.otf');
+  font-family: 'Thillends';
+  font-weight: bold;
+  font-style: italic;
+}
+
 
 body {
   margin: 0;
@@ -9,29 +40,5 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-
-.wrapper_authentication{
-  display: flex;
-  height: 100vh;
   overflow: hidden;
-
-  .leftSide{
-    min-width: 600px;
-    background: #fff;
-    height: 100%;
-  }
-
-  .rightSide{
-    width: 100%;
-    min-width: 500px;
-    height: 100%;
-
-    img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
 }

@@ -1,0 +1,47 @@
+.btn{
+    color:var(--first-text);
+    background: var(--third-background);
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: .4s;
+    height: 43px;
+    border-radius:10px;
+    margin-right: 10px;
+    padding: 0 30px;
+    width: 100%;
+    font-size: 13px;
+
+    &:link{
+        text-decoration: none;
+        text-align: center;
+        line-height: 43px;
+    }
+
+    &:disabled{
+        filter: brightness(0.5) !important;
+        opacity: .5 !important;
+        cursor: default !important;
+    }
+
+    &:last-child{
+        margin: 0;
+    }
+
+    &:hover{
+        // opacity: .7;
+        filter: brightness(90%);
+    }
+
+    &:active{
+        filter: brightness(60%);
+    }
+
+    &.primary{
+        color:white;
+        background: var(--basis-blue) !important;
+        padding: 0 30px;
+        width: min-content;
+    }
+}
+

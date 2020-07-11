@@ -1,0 +1,107 @@
+.alert{
+    $primary: #007bff;
+    $secondary: #6c757d;
+    $success: #28a745;
+    $info: #17a2b8;
+    $warning: #ffc107;
+    $danger: #dc3545;
+
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 20px;
+    padding: 0px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 350px;
+    vertical-align: middle;
+
+    background: $secondary;
+    border:2px solid darken($secondary, $amount: 20);
+    color: lighten($secondary, $amount: 100);
+
+    div{
+        margin-left: 3em;
+        
+        svg{
+            padding: 7px;
+            border-radius: 30%;
+            fill:white;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: .4s;
+
+            height: 15px;
+            width: 15px;
+
+            &:hover{
+                opacity: .8;
+                background: rgba(255,255,255,.3);
+            }
+
+            &:active{
+                background: rgba(255,255,255,.1);
+                // transform: rotateZ(-90deg);
+            }
+        }
+    }
+
+    &.alert-primary{
+        background: $primary;
+        border:2px solid darken($primary, $amount: 10);
+        color: lighten($primary, $amount: 40);
+    }
+
+    &.alert-success{
+        background: $success;
+        border:2px solid darken($success, $amount: 10);
+        color: lighten($success, $amount: 40);
+    }
+
+    &.alert-info{
+        background: $info;
+        border:2px solid darken($info, $amount: 10);
+        color: lighten($info, $amount: 40);
+    }
+
+    &.alert-warning{
+        background: darken($warning, $amount: 5);
+        border:2px solid darken($warning, $amount: 10);
+        color: lighten($warning, $amount: 40);
+    }
+
+    &.alert-danger{
+        background: $danger;
+        border:2px solid darken($danger, $amount: 10);
+        color: lighten($danger, $amount: 40);
+    }
+}
+
+
+.animationAlert-enter{
+    opacity: 0;
+}
+
+.animationAlert-enter-active{
+    transition: opacity .8s ease-out;
+    opacity: 1;
+    animation: animationAlert .35s ease forwards;
+}
+
+.animationAlert-exit-active{
+    transition: opacity 1.5s ease-out;
+    opacity: 0;
+    animation: animationAlert .5s ease forwards alternate-reverse;
+}
+
+@keyframes animationAlert{
+    0%{
+        transform: translateX(200%);
+    }
+    100%{
+        transform: translateX(-50%);
+    }
+}
