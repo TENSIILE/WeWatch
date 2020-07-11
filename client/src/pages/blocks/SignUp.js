@@ -1,15 +1,29 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { AuthInput } from './../../components/authInput/AuthInput'
 import { Button } from './../../components/button/Button'
 import { Checkbox } from '../../components/checkbox/Checkbox'
 import { ContextInput } from '../../contexts/contextInput'
+import { VerificationPass } from '../../components/verification/VerificationPass'
+import nonVisible from '../../static/icons/non-visible.svg'
+
 
 
 export const SignUp = ({changePath}) => {
-    const {form, changeInputsHandler, loading, registerHandler, stateCheckbox, setStateCheckbox} = useContext(ContextInput)
+    const {form, changeInputsHandler, loading, registerHandler,
+            stateCheckbox, setStateCheckbox, statusTextPass} = useContext(ContextInput)
+
+    const [typePassword, setTypePassword] = useState('password')
+
+    const changeTypePassword = () => {
+        if (typePassword === 'password') {
+            setTypePassword('text')
+        }else{
+            setTypePassword('password')
+        }
+    }
 
     return(
-        <>
+        <div className='SignUp'>
             <AuthInput 
                 label='Логин'
                 type='text'
@@ -28,12 +42,17 @@ export const SignUp = ({changePath}) => {
             />
             <AuthInput 
                 label='Пароль'
-                type='password'
+                type={typePassword}
                 placeholder='Введите свой пароль'
                 name='password'
                 onChange={changeInputsHandler}
                 text={form.password}
+                icon={nonVisible}
+                onClickIcon={changeTypePassword}
             />
+
+            <VerificationPass password={form.password}/>
+
             <AuthInput 
                 label='Повторный Пароль'
                 type='password'
@@ -51,9 +70,19 @@ export const SignUp = ({changePath}) => {
             />
 
             <div className='line_buttons' style={{marginTop:'1em'}}>
-                <Button text='Зарегистрироваться' classNames='btn primary' disabled={loading} onClick={registerHandler}/>
-                <Button text='Назад' classNames='btn' onClick={() => changePath('login')} disabled={loading}/>
+                <Button 
+                    text='Зарегистрироваться'
+                    classNames='btn primary' 
+                    disabled={!stateCheckbox || statusTextPass === 'Слабый' || loading}
+                    onClick={registerHandler}
+                />
+                <Button 
+                    text='Назад'
+                    classNames='btn'
+                    onClick={() => changePath('login')}
+                    disabled={loading}
+                />
             </div>
-        </>
+        </div>
     )
 }

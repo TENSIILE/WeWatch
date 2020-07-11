@@ -1,0 +1,32 @@
+.verification-password{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    margin-bottom: 1.5em;
+    transition: .4s;
+    overflow: hidden;
+
+    .verification-line{
+        border-radius: 10px;
+        height: 10px;
+        background: #dc3545;
+        width: 50px;
+        transition: .4s;
+
+        &.middle-progress{
+            background: #ffc107;
+            width: 150px;
+        }
+
+        &.full-progress{
+            background: #28a745;;
+            width: 250px;
+        }
+    }
+
+    .verification-label{
+        color:grey;
+    }
+    
+}

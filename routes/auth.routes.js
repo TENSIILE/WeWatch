@@ -59,25 +59,25 @@ router.post('/login',
         try {
             const error = validationResult(req)
 
-            if(!error.isEmpty()){
+            if (!error.isEmpty()) {
                 return res.status(400).json({ 
                     errors: error.array(), 
                     message: "Некорректные данные при авторизации" 
                 })
             }
 
-            const {login, password} = req.body
+            const { login, password } = req.body
 
             const user = await User.findOne({ login })
 
-            if(!user){
+            if (!user) {
                 return res.status(400).json({ message: 'Такого пользователя не существует!' })
             }
 
             const isMatch = await bcrypt.compare(password, user.password)
             
 
-            if(!isMatch){
+            if (!isMatch) {
                 return res.status(400).json({ message: 'Неверный пароль, попробуйте снова!' })
             }
 

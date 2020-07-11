@@ -17,6 +17,11 @@
         line-height: 43px;
     }
 
+    &:disabled{
+        filter: brightness(0.5) !important;
+        opacity: .5 !important;
+        cursor: default !important;
+    }
 
     &:last-child{
         margin: 0;

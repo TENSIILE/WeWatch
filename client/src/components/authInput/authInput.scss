@@ -1,18 +1,18 @@
 .authInput{
     position: relative;
-    margin: 15px 0;
+    margin: 1.5em 0;
     width: 100%;
 
     label{
         position: absolute;
         color: #696879;
-        background: red;
         left: 25px;
         top: -15px;
         background: #fff;
         border-radius: 10px;
         padding: 3px 10px;
         font-size: 12px;
+        z-index: 2;
     }
 
     input{
@@ -22,6 +22,35 @@
         background-color: rgba(134,134,134,.2);
         border-radius: 10px;
         width: 300px;
+
+        &:disabled{
+            filter: brightness(0.5) !important;
+            opacity: .5 !important;
+            cursor: default !important;
+        }
+    }
+
+    .icon-input{
+        width: 20px;
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        fill:grey;
+        cursor: pointer;
+        transition: .4s;
+        padding: 5px;
+        border-radius: 50%;
+        opacity: .5;
+
+        &:hover{
+            background: rgba(0,0,0,.1);
+            opacity: 1;
+        }
+
+        div{
+            line-height: 0;
+        }
     }
 }
 
