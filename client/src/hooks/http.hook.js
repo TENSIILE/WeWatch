@@ -4,7 +4,7 @@ export const useHttp = () => {
     const [loading, setLoading] = useState(false)
     const [error, setError]     = useState(false)
 
-    const request = useCallback(async (url, method = 'GET', body = null, headers = {}) => {
+    const request = useCallback( async (url, method = 'GET', body = null, headers = {}) => {
         setLoading(true)
         try {
 
@@ -22,13 +22,13 @@ export const useHttp = () => {
                 throw new Error(data.message || 'Произошла ошибка!')
             }
 
-
             setLoading(false)
 
             return data
 
         } catch (e) {
             setLoading(false)
+            setError(e)
             throw e
         }
     }, [])

@@ -19,7 +19,7 @@
     }
 
     &:disabled{
-        filter: brightness(0.5) !important;
+        filter: brightness(0.9) !important;
         opacity: .5 !important;
         cursor: default !important;
     }
@@ -29,19 +29,98 @@
     }
 
     &:hover{
-        // opacity: .7;
         filter: brightness(90%);
     }
 
     &:active{
-        filter: brightness(60%);
+        filter: brightness(80%);
     }
 
     &.primary{
         color:white;
-        background: var(--basis-blue) !important;
+        background: var(--basis-blue);
         padding: 0 30px;
         width: min-content;
+        filter: brightness(100%) !important;
+
+        &:hover{
+            background: #1e8bff !important;
+        }
+
+        &.half-opacity{
+            background: rgba(0, 123, 255, 0.2) !important;
+            color:var(--basis-blue);
+
+            &:hover{
+                color:white !important;
+                background: var(--basis-blue) !important;
+            }
+        }
+
+        &.transparently-btn{
+            color:var(--basis-blue) !important;
+            font-size: 13px !important;
+            transition: .2s !important;
+            border-radius: 4px !important;
+            padding: 5px 10px !important;
+            box-shadow: 0 1px 1px var(--color-shadow) !important;
+            text-decoration: none !important;
+            background: transparent !important;
+            height: unset;
+
+            &:hover{
+                background: rgba(0, 123, 255, 0.2) !important;
+            }
+
+            &:active{
+                background: var(--basis-blue) !important;
+                color:white !important;
+            }
+        }
+    }
+
+    &.danger{
+        color:white;
+        background: var(--basis-red) !important;
+        padding: 0 30px;
+        width: min-content;
+        filter: brightness(100%) !important;
+
+        &:hover{
+            background: #b63c49 !important;
+        }
+
+        &.half-opacity{
+            background: rgba(220, 53, 70, 0.15) !important;
+            color:var(--basis-red);
+
+            &:hover{
+                color:white !important;
+                background: var(--basis-red) !important;
+            }
+        }
+
+        &.transparently-btn{
+            color:var(--basis-red) !important;
+            font-size: 13px !important;
+            transition: .2s !important;
+            border-radius: 4px !important;
+            padding: 5px 10px !important;
+            box-shadow: 0 1px 1px var(--color-shadow) !important;
+            text-decoration: none !important;
+            background: transparent !important;
+            height: unset;
+
+            &:hover{
+                color:var(--basis-red) !important;
+                background: rgba(220, 53, 70, 0.2) !important;
+            }
+
+            &:active{
+                background: var(--basis-red) !important;
+                color:white !important;
+            }
+        }
     }
 }
 

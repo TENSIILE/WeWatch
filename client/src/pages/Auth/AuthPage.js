@@ -39,7 +39,7 @@ export const AuthPage = ({children}) => {
         }
 
         try {
-            await request('api/auth/register', 'POST', {...form})
+            await request('api/auth/register', 'POST', {login:form.login, email:form.email, password:form.password})
             alert.show('success', 'Поздравляю, Вы зарегистрировали аккаунт', 'Успешно!')
             history.push('/login')
         } catch (e) {
@@ -50,6 +50,7 @@ export const AuthPage = ({children}) => {
     const loginHandler = async () => {
         try{
             const data = await request('api/auth/login', 'POST', { login: form.login_auth, password: form.password_auth })
+            alert.hide()
             auth.login(data.token, data.userId)
         }catch(e){
             alert.show('danger', e.message, 'Ошибка!')  

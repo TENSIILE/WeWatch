@@ -1,30 +1,35 @@
 const nodemailer = require("nodemailer")
 
-export const sendMessageToMail = async email => {
+export const useSendMail = () => {
     const fromPerson = '"WeWatch 👻" <wewatch.inc@mail.ru>'
 
     const subjectMessage = {
         passwordRecovery: 'Восстановление пароля от аккаунта WeWatch'
     }
-     
-    const transporter = nodemailer.createTransport({
-        host: "smtp.mail.ru",
-        port: 465,
-        secure: true,
-        auth: {
-            user: "wewatch.inc@mail.ru", 
-            pass: "messenger2020",
-        },
-        
-    }, {
-        from: 'Mailer WeWatch <wewatch.inc@mail.ru>'
-    })
+
+    const sendMail = async (email, subjectMail) => {
+        const transporter = nodemailer.createTransport({
+            host: "smtp.mail.ru",
+            port: 465,
+            secure: true,
+            auth: {
+                user: "wewatch.inc@mail.ru", 
+                pass: "messenger2020",
+            },
+            
+        }, {
+            from: 'Mailer WeWatch <wewatch.inc@mail.ru>'
+        })
+
+        await transporter.sendMail({
+            from: fromPerson,
+            to: email.to, 
+            subject: subjectMail,
+            text: email.text, 
+            html: email.html
+        })
+    }
     
-    await transporter.sendMail({
-        from: fromPerson,
-        to: email.to, 
-        subject: email.subject,
-        text: email.text, 
-        html: email.html
-    })
+
+    return { subjectMessage, sendMail }
 }

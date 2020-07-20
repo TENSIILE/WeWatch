@@ -1,0 +1,107 @@
+.user-account{
+    position: relative;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--white-dark-background);
+
+    .user-header{
+        position: relative;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 220px;
+        border-radius: 30px;
+        
+
+        img{
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            border-radius: 30px;
+        }
+    }
+
+    .wrapper-user-info{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        margin: 0 50px;
+        transform: translateY(-60px);
+
+
+        .user-photo-and-data{
+            display: flex;
+            font-weight: 600;
+            font-size: 20px;
+            align-items: center;
+    
+            p{
+                margin: 0;
+                height: min-content;
+                margin-left: 20px;
+                margin-top: 30px;
+                color:var(--first-text);
+                font-size: 25px;
+            }
+    
+    
+            .avatar{
+                position: relative;
+                height: 150px;
+                width: 150px;
+                min-width: 150px;
+                min-height: 150px;
+    
+                img{
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
+                    border-radius: 30px;
+                }
+            }
+        }
+
+        .table-information{
+            position: relative;
+            display: grid;
+            min-width: 400px;
+            margin-top: 20px;
+            min-height: 100px;
+    
+            .row{
+                display: grid;
+                padding: 15px;
+                grid-template-columns: 1fr 1fr 1fr;
+                border-bottom: 1px solid var(--second-background);
+    
+                .ceil{
+                    color:var(--first-text);
+
+                    &:nth-child(2){
+                        text-align: left !important;
+                    }
+
+                    &:first-child{
+                        font-weight: 600;
+                    }
+
+                    &:last-child{
+                        text-align: right;
+                    }
+                }
+            }
+        }
+    } 
+
+    .user-control{
+        position: relative;
+        margin-top: 20px;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    button#btn-exit{
+        width: 100%;
+    }
+}

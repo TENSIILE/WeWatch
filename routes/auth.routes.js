@@ -3,6 +3,7 @@ const bcrypt   = require('bcryptjs')
 const {check, validationResult} = require('express-validator')
 const jwt      = require('jsonwebtoken')
 const User     = require('../models/User')
+const UserInfo = require('../models/UserInformation')
 const config   = require('config')
 
 
@@ -38,13 +39,15 @@ router.post('/register',
     
             const hashedPassword = await bcrypt.hash(password, 12)
             const user = new User({email, login, password: hashedPassword})
+            const additionalInfoUser = new UserInfo({user: user._id, created: new Date().toLocaleString(), languages: ['Не указано']})
 
             await user.save()
+            await additionalInfoUser.save()
 
             res.status(201).json({ message: 'Пользователь создан' })
 
         } catch (e) {
-            res.status(500).json({message: 'Произошла ошибка, попробуйте снова!'})
+            res.status(500).json({message: 'Произошла ошибка, попробуйте снова!' + "   " + e })
         }
     }
 )

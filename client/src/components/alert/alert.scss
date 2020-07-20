@@ -28,7 +28,7 @@
         svg{
             padding: 7px;
             border-radius: 30%;
-            fill:white;
+            fill:rgba(255,255,255,.5);
             display: flex;
             align-items: center;
             cursor: pointer;
@@ -39,7 +39,7 @@
 
             &:hover{
                 opacity: .8;
-                background: rgba(255,255,255,.3);
+                background: rgba(255,255,255,.2);
             }
 
             &:active{

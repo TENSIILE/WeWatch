@@ -1,0 +1,33 @@
+.input{
+    position: relative;
+    box-sizing: border-box;
+
+    input{
+      position: absolute;
+      border:none;
+      outline:none;
+      background: var(--first-background);
+      padding: 15px 20px;
+      border-radius:15px;
+      box-shadow:0 0 1px 1px rgba(0,0,0,.05);
+      width: 100%;
+      padding-right: 70px;
+      box-sizing: border-box;
+
+      &::placeholder{
+        color:var(--second-text);
+      }
+    }
+}
+
+
+input.input-default{
+  position: relative;
+  border:none;
+  outline:none;
+  background: #fff;
+  padding: 15px 20px;
+  border-radius:15px;
+  box-shadow:0 0 1px 1px rgba(0,0,0,.05);
+  // width: 100%;
+}
