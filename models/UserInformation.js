@@ -3,7 +3,9 @@ const config                 = require('config')
 
 const schema = new Schema({
     user:      {type: Types.ObjectId, ref:'User'},
-    name:      {type: String, default:'Новый пользователь'},
+    name:      {type: String, default:'Новый'},
+    lastname:  {type: String, default:'пользователь'},
+    status:    {type: String, default: 'Пустой статус'},
     created:   {type: String},
     languages: [{type: String}],
     country:   {type: String, default: 'Не указано'},

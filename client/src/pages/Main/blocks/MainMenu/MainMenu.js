@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import Home from '../../../../static/icons/Home.svg'
 import Video from '../../../../static/icons/Play.svg'
@@ -6,12 +6,16 @@ import Chat from '../../../../static/icons/Edit-tools.svg'
 import Search from '../../../../static/icons/Search.svg'
 import Settings from '../../../../static/icons/Settings.svg'
 import { ButtonMini } from '../../../../components/buttonMini/ButtonMini'
-import vlad from '../../../../static/img/vlad.jpg'
+import { ContextGetInfo } from '../../../../contexts/contextGetInfo'
+
+import user from '../../../../static/img/user.jpg'
 
 import './mainMenu.scss'
 
 
 export const MainMenu = () => {
+    const { infoUser } = useContext(ContextGetInfo)
+    
     const [focus, setFocus] = useState({home:true})
     const defaultFocus = {home: false, video:false, chat:false, search:false, settings:false, profile:false}
 
@@ -61,7 +65,7 @@ export const MainMenu = () => {
                 <Link to='/profile'>
                     <ButtonMini icon="" id='profile' onClick={setActiveButtonsOnClick} focus={focus.profile} style={{width:55, height:55}}>
                         <div className='indicator-online'></div>
-                        <img src={vlad} alt=''/>
+                        <img src={!!infoUser ? infoUser.userAdditional.avatar : user} alt=''/>
                     </ButtonMini>
                 </Link>
             </div>

@@ -1,12 +1,13 @@
 import React, { useState, useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import imageBack from '../../static/img/img_slider.png'
 import { useHttp } from './../../hooks/http.hook'
 import { ContextInput } from './../../contexts/contextInput'
 import { ContextAuth } from './../../contexts/contextAuth'
 import { Alert } from './../../components/alert/Alert'
 import { ContextAlert } from './../../contexts/alert/contextAlert'
 
+import imageBack from '../../static/img/img_slider.png'
+import config from '../../config.json'
 import './Auth.scss'
 
 
@@ -34,12 +35,12 @@ export const AuthPage = ({children}) => {
 
 
     const registerHandler = async () => {
-        if(form.password !== form.password_repeat){
+        if (form.password !== form.password_repeat) {
             return alert.show('warning', 'Ваши пароли не совпадают!', 'Предупреждение!') 
         }
 
         try {
-            await request('api/auth/register', 'POST', {login:form.login, email:form.email, password:form.password})
+            await request(`${config.hostServer}/api/auth/register`, 'POST', { login: form.login, email: form.email, password: form.password })
             alert.show('success', 'Поздравляю, Вы зарегистрировали аккаунт', 'Успешно!')
             history.push('/login')
         } catch (e) {
@@ -49,10 +50,10 @@ export const AuthPage = ({children}) => {
 
     const loginHandler = async () => {
         try{
-            const data = await request('api/auth/login', 'POST', { login: form.login_auth, password: form.password_auth })
+            const data = await request(`${config.hostServer}/api/auth/login`, 'POST', { login: form.login_auth, password: form.password_auth })
             alert.hide()
             auth.login(data.token, data.userId)
-        }catch(e){
+        }catch (e) {
             alert.show('danger', e.message, 'Ошибка!')  
         }
     }

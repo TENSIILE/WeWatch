@@ -2,11 +2,41 @@ import React from 'react'
 import './Button.scss'
 import { Link } from 'react-router-dom'
 
-export const Button = ({text, classNames, linkObj = { isLink: false }, onClick, disabled = false, style = null, id = ''}) => (
+export const Button = ({text, classNames, linkObj = { isLink: false }, onClick, disabled = false, style = null, id = '', emitLabel = false, htmlFor}) => (
     <>
         {
-            linkObj.isLink  ? <Link id={id} className={classNames} to={linkObj.path} style={style}>{text}</Link>
-                            : <button id={id} className={classNames} onClick={onClick} disabled={disabled} style={style}>{text}</button>
+            linkObj.isLink  ? (
+                <Link 
+                    id={id}
+                    className={classNames}
+                    to={linkObj.path} 
+                    style={style}
+                >
+                    {text}
+                </Link>
+                )
+                : emitLabel ? (
+                    <label
+                        id={id}
+                        className={classNames}
+                        onClick={onClick}
+                        disabled={disabled}
+                        style={style}
+                        htmlFor={htmlFor}
+                    >
+                        {text}
+                    </label>
+                ) : (
+                        <button
+                            id={id}
+                            className={classNames}
+                            onClick={onClick}
+                            disabled={disabled}
+                            style={style}
+                        >
+                            {text}
+                        </button>
+                    )
         }
         
     </>

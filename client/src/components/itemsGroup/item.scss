@@ -10,11 +10,11 @@
     padding: 10px;
 
     &:hover{
-        background: var(--third-background);
+        // background: var(--third-background);
     }
 
     &:active{
-        opacity: .9;
+        background: var(--third-background);
     }
     
 
@@ -29,6 +29,30 @@
         margin-left: 10px !important;
         margin: 0;
         color:var(--first-text);
+    }
+
+    .dots{
+        position: relative;
+        margin-left: auto;
+        height: 20px;
+        cursor: pointer;
+
+        &:hover{
+            svg{
+                fill:var(--first-text);
+            }
+        }
+
+        div{
+            height: 0;
+        }
+        
+        svg{
+            height: 20px;
+            width: 25px;
+            fill:var(--third-text);
+            transition: .4s;
+        }
     }
     
 }   

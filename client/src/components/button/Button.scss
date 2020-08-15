@@ -1,5 +1,5 @@
 .btn{
-    color:var(--first-text);
+    color:var(--second-text);
     background: var(--third-background);
     outline: none;
     border: none;
@@ -11,6 +11,7 @@
     padding: 0 30px;
     width: 100%;
     font-size: 13px;
+    display: block;
 
     &:link{
         text-decoration: none;
@@ -29,11 +30,12 @@
     }
 
     &:hover{
-        filter: brightness(90%);
+        filter: brightness(95%);
+        color:var(--first-text);
     }
 
     &:active{
-        filter: brightness(80%);
+        filter: brightness(90%);
     }
 
     &.primary{
@@ -43,8 +45,16 @@
         width: min-content;
         filter: brightness(100%) !important;
 
+        &:disabled{
+            background: var(--basis-blue) !important;
+        }
+
         &:hover{
-            background: #1e8bff !important;
+            background: #1e8bff;
+        }
+
+        &:active{
+            background: rgb(29, 117, 211) !important;
         }
 
         &.half-opacity{
@@ -54,6 +64,10 @@
             &:hover{
                 color:white !important;
                 background: var(--basis-blue) !important;
+            }
+
+            &:active{
+                background: rgb(29, 117, 211) !important;
             }
         }
 
@@ -90,6 +104,10 @@
             background: #b63c49 !important;
         }
 
+        &:active{
+            background: #a53540 !important;
+        }
+
         &.half-opacity{
             background: rgba(220, 53, 70, 0.15) !important;
             color:var(--basis-red);
@@ -97,6 +115,10 @@
             &:hover{
                 color:white !important;
                 background: var(--basis-red) !important;
+            }
+
+            &:active{
+                background: #a53540 !important;
             }
         }
 
@@ -122,5 +144,54 @@
             }
         }
     }
+
+    &.success{
+        color:white;
+        background: var(--basis-green) !important;
+        padding: 0 30px;
+        width: min-content;
+        filter: brightness(100%) !important;
+
+        &:hover{
+            background: #48b65a !important;
+        }
+
+        &.half-opacity{
+            background: rgba(83, 215, 105, .2) !important;
+            color:var(--basis-green);
+
+            &:hover{
+                color:white !important;
+                background: var(--basis-green) !important;
+            }
+        }
+
+        &.transparently-btn{
+            color:var(--basis-green) !important;
+            font-size: 13px !important;
+            transition: .2s !important;
+            border-radius: 4px !important;
+            padding: 5px 10px !important;
+            box-shadow: 0 1px 1px var(--color-shadow) !important;
+            text-decoration: none !important;
+            background: transparent !important;
+            height: unset;
+
+            &:hover{
+                color:var(--basis-green) !important;
+                background: rgba(83, 215, 105, .2) !important;
+            }
+
+            &:active{
+                background: var(--basis-green) !important;
+                color:white !important;
+            }
+        }
+    }
 }
 
+
+
+label.btn{
+    line-height: 43px;
+}

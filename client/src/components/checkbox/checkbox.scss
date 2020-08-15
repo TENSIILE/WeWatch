@@ -33,13 +33,13 @@
             visibility: visible;
         }
 
-        &:hover{
-            opacity: .7;
-        }
+        // &:hover{
+        //     opacity: .7;
+        // }
     }
 
     label{
-        color:var(--first-text);
+        color:var(--second-text);
         white-space: pre-line;
         margin-left: 10px;
         position: absolute;

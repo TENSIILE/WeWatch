@@ -2,12 +2,14 @@ import React  from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { MainPage } from './pages/Main/MainPage'
 import { AuthPage } from './pages/Auth/AuthPage'
-import { SignUp } from './pages/Auth/blocks/SignUp'
-import { RestorePass } from './pages/Auth/blocks/RestorePass'
-import { LogIn } from './pages/Auth/blocks/LogIn'
+import { SignUp } from './pages/Auth/layouts/SignUp'
+import { RestorePass } from './pages/Auth/layouts/RestorePass'
+import { LogIn } from './pages/Auth/layouts/LogIn'
 
 import { Profile } from './pages/Main/views/Profile/Profile'
 import { Home } from './pages/Main/views/Home/Home'
+import { Settings } from './pages/Main/views/Settings/Settings'
+import { Search } from './pages/Main/views/Search/Search'
 
 export const useRoutes = isAuthenticated => {
     if (isAuthenticated) {
@@ -16,6 +18,16 @@ export const useRoutes = isAuthenticated => {
                 <Route path="/home">
                     <MainPage>
                         <Home/>
+                    </MainPage>
+                </Route>
+                <Route path="/search">
+                    <MainPage>
+                        <Search/>
+                    </MainPage>
+                </Route>
+                <Route path="/settings">
+                    <MainPage>
+                        <Settings/>
                     </MainPage>
                 </Route>
                 <Route path="/profile">
@@ -30,7 +42,7 @@ export const useRoutes = isAuthenticated => {
 
     return (
         <Switch>
-            <Route path="/login">
+            <Route path="/login" exact>
                 <AuthPage>
                     <LogIn/>
                 </AuthPage>

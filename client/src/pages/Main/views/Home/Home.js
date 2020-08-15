@@ -1,12 +1,11 @@
 import React from 'react'
+import { Sidebar } from '../../blocks/Sidebar/Sidebar'
 
 export const Home = () => {
     return (
         <>
-            <div className='left-sidebar'>
-               
-            </div>
-            <div className='user-account'>
+            <Sidebar/>
+            <div className='main'>
 
             </div>
             <div className='list-friends'>
