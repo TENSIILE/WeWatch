@@ -8,6 +8,7 @@ const PORT = config.get('PORT')
 const app = express()
 
 app.use(express.json({ extended: true }))
+
 app.use(cors())
 
 app.use('/upload/image', express.static(__dirname + '/upload/image'))
@@ -19,6 +20,7 @@ app.use((req, res, next) => {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
     next()
 })
+
 
 app.use('/api/auth', require('./routes/auth.routes'))
 app.use('/getInfo', require('./routes/getInfo.routes'))

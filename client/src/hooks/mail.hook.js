@@ -1,6 +1,7 @@
 const nodemailer = require("nodemailer")
 
 export const useSendMail = () => {
+
     const fromPerson = '"WeWatch 👻" <wewatch.inc@mail.ru>'
 
     const subjectMessage = {
