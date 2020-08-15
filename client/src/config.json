@@ -1,0 +1,4 @@
+{
+    "hostServer":"http://localhost:5000",
+    "nameDataLocalStorage": "userData"
+}

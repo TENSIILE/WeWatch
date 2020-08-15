@@ -1,14 +1,24 @@
 :root{
   --basis-blue: #007BFF;
   --basis-red: #DC3545;
+  --basis-red-dark: #a53540;
   --basis-green:#53D769;
   --basis-sky:#17A2B8;
   --basis-yellow:#FFC107;
-  --basis-white-transparent:rgba(255, 255, 255, 0.1);
+  --basis-white-transparent:rgba(255, 255, 255, 0.05);
+  --basis-white-transparent2:rgba(255, 255, 255, 0.1);
+  --basis-black-transparent:rgba(0, 0, 0, 0.02);
+  --basis-black-transparent2:rgba(0, 0, 0, 0.5);
+  --basis-black-transparent3:rgba(0, 0, 0, 0.1);
+
+  --menu-color: #007BFF;
 
   --first-background:#FFFFFF;
   --second-background:#F4F7F8;
   --third-background:#EFEFEF;
+  
+  --white-dark-background:#FFFFFF;
+  --color-shadow:rgba(0,0,0,0.1);
 
   --first-text:#3C3F44;
   --second-text:#B1B6BB;
@@ -42,3 +52,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
 }
+
+
+input[type='file']{
+  opacity: 0;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+

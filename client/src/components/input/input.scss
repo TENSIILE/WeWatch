@@ -1,0 +1,49 @@
+.input{
+  position: relative;
+  display: flex;
+  box-sizing: border-box;
+
+  input{
+    position: relative;
+    // position: absolute;
+    border: none;
+    outline: none;
+    background: var(--first-background);
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 1px 1px rgba(0,0,0,.05);
+    width: 100%;
+    padding-right: 70px;
+    box-sizing: border-box;
+    color:var(--first-text);
+
+    &::placeholder{
+      color: var(--third-text);
+    }
+  }
+}
+
+
+input.input-default{
+  position: relative;
+  display: flex;
+  border:none;
+  outline:none;
+  background: var(--first-background);
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow:0 0 1px 1px rgba(0,0,0,.05);
+  box-sizing: border-box;
+
+  &.grey-background{
+    background: var(--second-background);
+  }
+}
+
+
+input.input-hidden{
+  opacity: 0;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}

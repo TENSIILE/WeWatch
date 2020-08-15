@@ -1,0 +1,105 @@
+.catalog_list{
+    position: relative;
+
+    div{
+        position: absolute;
+        right: 10px;
+        top: 11px;
+        transform: translateY(-50%);
+
+        div{
+            height: 18px;
+
+            svg{
+                width: 18px;
+                fill:var(--second-text);
+                cursor: pointer;
+                transition: .4s;
+
+                &:hover{
+                    fill:var(--first-text);
+                }
+            }
+        }
+    }
+
+    ul.list-item{
+        display: flex;
+        flex-wrap: wrap;
+        list-style:none;
+        padding: 0;
+        margin-left: 0;
+        margin: 0;
+        transition: .4s;
+
+        &.margin-on{
+            margin: 15px;
+            margin-left: 0;
+            margin-bottom: 0;
+        }
+      
+        li{
+            position: relative;
+            display: flex;
+            justify-content: center;
+            font-family: sans-serif;
+            background: var(--second-background);
+            margin: 5px;
+            padding: 10px;
+            border-radius:4px;
+            cursor:pointer;
+            white-space:pre-line;
+            transition:.2s, transform .4s;
+            
+            p{
+                display: block;
+                margin: 0;
+                color:var(--first-text);
+                opacity: 1;
+                transition: opacity .4s;
+            }
+        
+            &:hover{
+                background: var(--basis-red);
+
+                p{
+                    opacity: 0;
+                }
+                
+                svg{
+                    width: 25px;
+                    opacity: 1;
+                    visibility:visible;
+                    fill:white;
+                    height: 30px;
+                }
+            }
+        
+            &:active{
+                background: var(--basis-red-dark);
+            }
+
+            div{
+                height: 0;
+                display: contents;
+                margin: 0 auto;
+
+                div{
+                    svg{
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%,-50%);
+                        visibility:hidden;
+                        opacity: 0;
+                        width: 0;
+                        height: 17px;
+                        margin-left: 0;
+                        transition: opacity .4s, visibility .4s, width .4s, margin-left .4s;
+                        fill:var(--first-text);
+                    }
+                }
+            }
+        }
+    }
+}
