@@ -70,7 +70,7 @@
       
     &::-webkit-scrollbar-thumb{
         background: var(--basis-blue);
-        border-radius: 30px;
+        border-radius: 20px;
     }
       
     &::-webkit-scrollbar-track{
@@ -102,5 +102,21 @@
             padding-bottom: 0;
             margin-top: 0;
         }  
+    }
+
+    .list-my-friends{
+        @extend .list-my-room;
+    }
+
+    .list-visited-room{
+        @extend .list-my-room;
+    }
+}
+
+.zone{
+    @extend .zone-my-created-room;
+
+    &::-webkit-scrollbar-track{
+        background: var(--second-background);
     }
 }

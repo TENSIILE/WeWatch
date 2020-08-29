@@ -10,7 +10,7 @@ import Settings from '../../../../static/icons/Settings.svg'
 import { ButtonMini } from '../../../../components/buttonMini/ButtonMini'
 import { ContextGetInfo } from '../../../../contexts/contextGetInfo'
 import { ContextBadge } from '../../../../contexts/contextBadge'
-import { ContextConMenu } from '../../../../contexts/ContextConMenu'
+import { ContextConMenu } from '../../../../contexts/contextConMenu'
 
 import user from '../../../../static/img/user.jpg'
 

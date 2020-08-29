@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, {useState, useContext, useCallback } from 'react'
 import { ContextAuth } from '../../../../contexts/contextAuth'
 import { ContextGetInfo } from '../../../../contexts/contextGetInfo'
 import { useHttp } from '../../../../hooks/http.hook'
@@ -6,6 +6,7 @@ import { Input } from '../../../../components/input/Input'
 import { Item } from '../../../../components/itemsGroup/Item'
 import { Sidebar } from '../../layouts/Sidebar/Sidebar'
 import { Loader } from '../../../../components/loader/Loader'
+import { SearchZone } from '../../layouts/Sidebar/parts/controlRequestFriends/SearchZone'
 
 import search from '../../../../static/icons/Search.svg'
 import config from '../../../../config.json'
@@ -16,39 +17,39 @@ export const Search = () => {
          rerender, setRerender } = useContext(ContextGetInfo)
     const { userId }             = useContext(ContextAuth)
     const { request, loading }   = useHttp()
+
     
     const [visibledButtonAddFriend, 
-                  setVisibledButtonAddFriend]   = useState(true)
+                   setVisibledButtonAddFriend]   = useState(true)
 
-    const [findPersonInput, setFindPersonInput] = useState('')
-    const [people, setPeople]                   = useState([])
-    const [findedHuman, setFindedHuman]         = useState('')
-    let login                                   = ''
+    const [findPersonInput, setFindPersonInput ] = useState('')
+    const [people, setPeople]                    = useState([])
+    const [findedHuman, setFindedHuman]          = useState('')
+    let login = ''
 
-    const FindAllNewFriends = async () => {
+    const FindAllNewFriends = useCallback( async () => {
 
         if (!findPersonInput.trim()) return setPeople([])
-
-        console.log(findedHuman)
         
         if (findedHuman.toString() === findPersonInput.slice(1)) return
 
         if (findPersonInput.includes('@')) {
            login = findPersonInput.slice(1)
-        }
         
-        try {
-            const arrayPeople = await request(`${config.hostServer}/api/getInfo/user/basicInfo`, 'POST', { login })
+           try {
+                const arrayPeople = await request(`${config.hostServer}/api/getInfo/user/basicInfo`, 'POST', { login })
 
-            setPeople([arrayPeople])
-            infoUser.user.login.toLowerCase() === login.toLowerCase() ? setVisibledButtonAddFriend(false) : setVisibledButtonAddFriend(true)
+                setPeople([arrayPeople])
 
-            setFindedHuman(arrayPeople.user.login)
+                infoUser.user.login.toLowerCase() === login.toLowerCase() ? setVisibledButtonAddFriend(false) : setVisibledButtonAddFriend(true)
+
+                setFindedHuman(arrayPeople.user.login)
             
-        } catch (e) {
-            setPeople([])
-        }
-    }
+            } catch (e) {
+                setPeople([])
+            }
+        } 
+    }, [findPersonInput, login, people])
 
     const keyDownFindAllNewFriends = e => {
         if (e.key === 'Enter') {
@@ -76,10 +77,13 @@ export const Search = () => {
         return this.map(array => array.map(human => human.user).includes(person.userAdditional.user)).includes(true) 
     }
     /*eslint no-extend-native: ["error", { "exceptions": ["Array"] }]*/
-    
+
     return (
         <>
-            <Sidebar searchZoneActive={true} onClickDelete={cancelTheApplication} onClickAccept={makeFriends}/> 
+            <Sidebar>
+                <SearchZone onClickDelete={cancelTheApplication} onClickAccept={makeFriends}/>
+            </Sidebar>
+             
             <div className='main-search region'>
                 <h2>Поиск друзей</h2>
                 <hr id='title-border-bottom'/>

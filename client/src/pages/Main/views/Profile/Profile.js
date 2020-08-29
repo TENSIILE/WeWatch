@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { useHistory }  from 'react-router-dom'
 import { ReactSVG } from 'react-svg'
 import { useHttp } from '../../../../hooks/http.hook'
 import { RowInfo } from '../../../../components/rowInfo/RowInfo'
@@ -11,6 +10,7 @@ import { Modal } from '../../../../components/modal/Modal'
 import { ContextAuth } from '../../../../contexts/contextAuth'
 import { ContextGetInfo } from '../../../../contexts/contextGetInfo'
 import { ContextAlert } from '../../../../contexts/alert/contextAlert'
+import { MyRooms } from '../../layouts/Sidebar/parts/myRooms/MyRooms'
 
 import user from '../../../../static/img/user.jpg'
 import header from '../../../../static/img/header.png'
@@ -30,7 +30,6 @@ export const Profile = () => {
 
     const auth         = useContext(ContextAuth)
     const alert        = useContext(ContextAlert)
-    const history      = useHistory()
     const { request }  = useHttp()
 
     const [openModal, setOpenModal]         = useState(false)
@@ -93,12 +92,7 @@ export const Profile = () => {
 
     const controlInputsProfile = e => {
        return setChangeDataProfile({ ...changeDataProfile, [e.target.name]: e.target.value })
-    }
-    
-    const logoutAccount = () => {
-        auth.logout()
-        history.push('/login')
-    }      
+    }     
 
     const onClickBtnSetImage = ( nameInput, e ) => {
         try {
@@ -124,15 +118,18 @@ export const Profile = () => {
                 size='large' 
                 title='Установить изображение' 
                 eventOpen={{openModal, setOpenModal}} 
-                idMainBtn={idBtnSetImage}>
-
+                idMainBtn={idBtnSetImage}
+            >
                 <img src={!!srcUrlImage ? srcUrlImage : header} alt=''/>
             </Modal>
 
-            <Sidebar isEmpty={false}/>
+            <Sidebar>
+                <MyRooms isEmpty={false}/>
+            </Sidebar>
             <div className='user-account'>
                 <div className='user-header'>
                     <img src={!!infoUser ? infoUser.userAdditional.header : header} alt=''/>
+                    
                     <form action={`${config.hostServer}/upload/header?userId=${auth.userId}`} method='POST' encType='multipart/form-data'>
 
                         <ButtonMini 
@@ -153,6 +150,7 @@ export const Profile = () => {
                     <div className='user-photo-and-data'>
                         <div className='avatar'>
                             <img src={!!infoUser ? infoUser.userAdditional.avatar : user} alt=''/>
+
                             <form action={`${config.hostServer}/upload/avatar?userId=${auth.userId}`} method='POST' encType='multipart/form-data' className='input-hidden'>
 
                                 <ButtonMini
@@ -260,7 +258,7 @@ export const Profile = () => {
                             text='Выйти'
                             classNames='btn danger half-opacity'
                             id='btn-exit'
-                            onClick={logoutAccount}
+                            onClick={auth.logout}
                         />
                     </div>
                 </div>

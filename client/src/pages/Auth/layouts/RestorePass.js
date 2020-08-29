@@ -76,7 +76,7 @@ export const RestorePass = () => {
                         />
                         <Button
                             text='Назад'
-                            classNames='btn'
+                            classNames='btn simple'
                             linkObj={{isLink:true, path:'/login'}}
                             disabled={loading}
                         />

@@ -29,6 +29,7 @@
 
     .dots {
         position: relative;
+        display: flex;
         margin-left: auto;
         height: 20px;
         cursor: pointer;
@@ -44,8 +45,8 @@
         }
 
         svg {
-            height: 20px;
-            width: 25px;
+            height: 17px;
+            width: 20px;
             fill: var(--third-text);
             transition: .4s;
         }

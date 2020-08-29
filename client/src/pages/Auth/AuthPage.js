@@ -3,8 +3,8 @@ import { Link, useHistory } from 'react-router-dom'
 import { useHttp } from './../../hooks/http.hook'
 import { ContextInput } from './../../contexts/contextInput'
 import { ContextAuth } from './../../contexts/contextAuth'
-import { Alert } from './../../components/alert/Alert'
 import { ContextAlert } from './../../contexts/alert/contextAlert'
+import { Alert } from './../../components/alert/Alert'
 
 import imageBack from '../../static/img/img_slider.png'
 import config from '../../config.json'
@@ -12,9 +12,8 @@ import './Auth.scss'
 
 
 export const AuthPage = ({children}) => { 
-    const auth = useContext(ContextAuth)
-
-    const alert = useContext(ContextAlert)
+    const auth        = useContext(ContextAuth)
+    const alert       = useContext(ContextAlert)
 
     const history = useHistory()
 
