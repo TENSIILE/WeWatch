@@ -1,0 +1,31 @@
+span.badge {
+    position: absolute;
+    display: block;
+    top: -5px;
+    right: -5px;
+    min-width: 25px;
+    max-width: 50px;
+    height: 25px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 3px solid var(--menu-color);
+    background: var(--basis-green);
+    text-align: center;
+    line-height: 18px;
+    font-size: .9em;
+    padding: 5px;
+    padding-top: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transform-origin: center center;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0);
+    transition: .4s;
+
+    &.open {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1);
+    }
+}

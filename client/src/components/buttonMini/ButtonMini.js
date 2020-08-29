@@ -4,7 +4,7 @@ import { ReactSVG } from 'react-svg'
 
 import './buttonmini.scss'
 
-export const ButtonMini = ({icon, id = '', linkObj={}, onClick, newClass = "", focus, style, children, emitLabel = false, htmlFor}) => {
+export const ButtonMini = ({icon, id = '', linkObj={}, onClick, onClickRightButton, newClass = "", focus, style, children, emitLabel = false, htmlFor}) => {
     const [active, setActive] = useState('')
 
     useEffect(() => {
@@ -20,6 +20,7 @@ export const ButtonMini = ({icon, id = '', linkObj={}, onClick, newClass = "", f
                         to={linkObj.path}
                         className={`btn-switch-menu ${newClass} ${active}`}
                         onClick={onClick}
+                        onContextMenu={onClickRightButton}
                         id={id}
                         style={style}
                     >
@@ -34,6 +35,7 @@ export const ButtonMini = ({icon, id = '', linkObj={}, onClick, newClass = "", f
                         <button
                             className={`btn-switch-menu ${newClass} ${active}`}
                             onClick={onClick}
+                            onContextMenu={onClickRightButton}
                             id={id}
                             style={style}
                         >
@@ -45,6 +47,7 @@ export const ButtonMini = ({icon, id = '', linkObj={}, onClick, newClass = "", f
                         <label
                             className={`btn-switch-menu ${newClass} ${active}`}
                             onClick={onClick}
+                            onContextMenu={onClickRightButton}
                             id={id}
                             style={style}
                             htmlFor={htmlFor}

@@ -50,7 +50,7 @@ export const LogIn = () => {
                     />
                     <Button 
                         text='Регистрация' 
-                        classNames='btn' 
+                        classNames='btn simple' 
                         linkObj={{isLink:true, path:'/signup'}}
                         disabled={loading}
                     />

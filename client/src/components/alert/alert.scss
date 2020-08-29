@@ -1,4 +1,4 @@
-.alert{
+.alert {
     $primary: #007bff;
     $secondary: #6c757d;
     $success: #28a745;
@@ -10,108 +10,166 @@
     top: 50px;
     left: 50%;
     transform: translateX(-50%);
-    border-radius: 20px;
-    padding: 0px 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    border-radius: 15px;
+    // padding: 0px 15px;
+    padding: 15px;
+    // display: flex;
+    // justify-content: space-between;
+    // align-items: center;
     min-width: 350px;
-    vertical-align: middle;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
 
     background: $secondary;
-    border:2px solid darken($secondary, $amount: 20);
+    border: 2px solid darken($secondary, $amount: 20);
     color: lighten($secondary, $amount: 100);
-    z-index: 99999999999999;
+    z-index: 100;
 
-    p{
+    .main-content-alert {
+        display: flex;
+        align-items: center;
+    }
+
+    .additional-information {
+        width: 100%;
+        height: 100px;
+        margin-top: 15px;
+        border-top: 1px solid var(--basis-white-transparent2);
+        transition: .4s;
+    }
+
+    .icon-themes {
+        div {
+            margin-right: 1em;
+
+            svg {
+                width: 35px;
+                height: 35px;
+                cursor: default !important;
+
+                &:hover {
+                    background: unset !important;
+                }
+
+                &:active {
+                    background: unset !important;
+                }
+            }
+        }
+    }
+
+    @mixin color-icon-themes ($color) {
+        .icon-themes {
+            div {
+                svg {
+                    background: darken($color, $amount: 10) !important;
+                }
+            }
+        }
+    }
+
+    p {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
         margin-right: 2em;
 
-        strong{
+        strong {
             margin-right: 1em;
         }
     }
 
-    div{
+    div {
         margin: 0;
-        
-        svg{
+
+        svg {
             padding: 7px;
             border-radius: 30%;
-            fill:rgba(255,255,255,1);
+            fill: rgba(255, 255, 255, 1);
             display: flex;
             align-items: center;
             cursor: pointer;
             opacity: .6;
             transition: .4s;
 
-            height: 15px;
-            width: 15px;
+            height: 28px;
+            width: 28px;
 
-            &:hover{
-                opacity: .8;
-                background: rgba(255,255,255,.2);
+
+            &:hover {
+                background: rgba(255, 255, 255, .2);
             }
 
-            &:active{
-                background: rgba(255,255,255,.1);
+            &:active {
+                background: rgba(255, 255, 255, .1);
                 // transform: rotateZ(-90deg);
             }
         }
     }
 
-    &.alert-primary{
+    &.alert-primary {
         background: $primary;
-        border:2px solid darken($primary, $amount: 10);
+        border: 2px solid darken($primary, $amount: 10);
         color: lighten($primary, $amount: 40);
+
+        @include color-icon-themes($primary);
     }
 
-    &.alert-success{
+    &.alert-success {
         background: $success;
-        border:2px solid darken($success, $amount: 10);
+        border: 2px solid darken($success, $amount: 10);
         color: lighten($success, $amount: 40);
+
+        @include color-icon-themes($success);
     }
 
-    &.alert-info{
+    &.alert-info {
         background: $info;
-        border:2px solid darken($info, $amount: 10);
+        border: 2px solid darken($info, $amount: 10);
         color: lighten($info, $amount: 40);
+
+        @include color-icon-themes($info);
     }
 
-    &.alert-warning{
+    &.alert-warning {
         background: darken($warning, $amount: 5);
-        border:2px solid darken($warning, $amount: 10);
+        border: 2px solid darken($warning, $amount: 10);
         color: lighten($warning, $amount: 40);
+
+        @include color-icon-themes($warning);
     }
 
-    &.alert-danger{
+    &.alert-danger {
         background: $danger;
-        border:2px solid darken($danger, $amount: 10);
+        border: 2px solid darken($danger, $amount: 10);
         color: lighten($danger, $amount: 40);
+
+        @include color-icon-themes($danger);
     }
 }
 
 
-.animationAlert-enter{
+.animationAlert-enter {
     opacity: 0;
 }
 
-.animationAlert-enter-active{
+.animationAlert-enter-active {
     transition: opacity .8s ease-out;
     opacity: 1;
     animation: animationAlert .35s ease forwards;
 }
 
-.animationAlert-exit-active{
+.animationAlert-exit-active {
     transition: opacity 1.5s ease-out;
     opacity: 0;
     animation: animationAlert .5s ease forwards alternate-reverse;
 }
 
-@keyframes animationAlert{
-    0%{
+@keyframes animationAlert {
+    0% {
         transform: translateX(200%);
     }
-    100%{
+
+    100% {
         transform: translateX(-50%);
     }
 }

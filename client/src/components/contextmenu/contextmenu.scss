@@ -1,0 +1,204 @@
+.contextmenu {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 200px;
+    border-radius: 10px;
+    background: var(--first-background);
+    transform-origin: left bottom;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, .05);
+    transform: scale(0) rotateZ(-40deg);
+    opacity: 0;
+
+    visibility: hidden;
+    border: 1px solid lightgrey;
+    transition: all .4s, width .2s;
+
+    z-index: 10;
+
+    &.open {
+        transform: scale(1) rotateZ(0deg);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    &.menu-status {
+        left: 20px;
+        bottom: 20px;
+        top: unset;
+
+        ul {
+            li.indicator {
+                position: relative;
+                padding-left: 35px;
+
+                &::before {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    left: 15px;
+                    margin-top: 8px;
+                    transform: translate(-50%, -50%);
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    border: 2px solid;
+                    transition: .2s;
+                }
+
+                &::after {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    left: 15px;
+                    margin-top: 8px;
+                    transform: translate(-50%, -50%);
+                    width: 5px;
+                    height: 5px;
+                    border-radius: 50%;
+                    transition: .2s;
+                }
+            }
+
+            li.indicator.online::before {
+                border-color: var(--basis-green);
+            }
+
+            li.indicator.sleep::before {
+                border-color: var(--basis-yellow);
+            }
+
+            li.indicator.breaker::before {
+                border-color: var(--basis-red);
+            }
+
+            li.indicator.offline::before {
+                border-color: var(--first-text);
+            }
+
+
+
+            li.indicator.online::after {
+                background: var(--basis-green);
+            }
+
+            li.indicator.sleep::after {
+                background: var(--basis-yellow);
+            }
+
+            li.indicator.breaker::after {
+                background: var(--basis-red);
+            }
+
+            li.indicator.offline::after {
+                background: var(--first-text);
+            }
+
+
+
+            li:hover.indicator.online::before {
+                background: var(--basis-green);
+            }
+
+            li:hover.indicator.sleep::before {
+                background: var(--basis-yellow);
+            }
+
+            li:hover.indicator.breaker::before {
+                background: var(--basis-red);
+            }
+
+            li:hover.indicator.offline::before {
+                background: var(--second-background);
+                border-color: var(--second-background);
+            }
+
+            li:hover.indicator.offline::after {
+                background: var(--second-background);
+                border-color: var(--second-background);
+            }
+        }
+    }
+
+    ul {
+        list-style: none;
+        padding: 10px;
+        margin: 0;
+
+        hr {
+            margin: 5px 0;
+            height: .5px;
+            border: none;
+            background: var(--basis-black-transparent3);
+        }
+
+        li {
+            padding: 10px;
+            cursor: pointer;
+            transition: .1s;
+            color: var(--basis-black-transparent2);
+            font-size: 13px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            text-align: left;
+
+            span {
+                font-size: 13px;
+                // margin: 8px;
+                // opacity:.5;
+                margin: 0;
+                opacity: 0;
+                transition: .4s;
+                height: 0;
+            }
+
+            &:hover {
+                background: #007BFF;
+                color: white;
+                border-radius: 4px;
+
+                span {
+                    height: 60px;
+                    opacity: .5;
+                    margin: 8px;
+                }
+            }
+
+            &:active {
+                background: var(basis-blue);
+            }
+
+            &.danger {
+                color: var(--basis-red);
+
+                &:hover {
+                    background: var(--basis-red);
+                    color: white;
+                }
+
+                &:active {
+                    background: var(--basis-red-dark);
+                }
+            }
+
+            &.success {
+                color: #53D769;
+
+                &:hover {
+                    background: #53D769;
+                    color: white;
+                }
+            }
+
+            &.warning {
+                color: var(--basis-yellow);
+
+                &:hover {
+                    background: var(--basis-yellow);
+                    color: white;
+                }
+            }
+        }
+    }
+}

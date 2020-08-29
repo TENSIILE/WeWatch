@@ -1,24 +1,24 @@
-.checkbox{
+.checkbox {
     position: relative;
 
-    input#checkbox{
+    input#checkbox {
         position: relative;
         appearance: none;
         width: 20px;
         height: 20px;
-        border:2px solid var(--basis-blue);
+        border: 2px solid var(--basis-blue);
         border-radius: 4px;
         outline: none;
         cursor: pointer;
         transition: .4s;
 
-        &:before{
+        &:before {
             content: "";
             position: absolute;
             display: block;
             top: 50%;
             left: 50%;
-            transform: translate(-50%,-50%);
+            transform: translate(-50%, -50%);
             width: 10px;
             height: 10px;
             background: var(--basis-blue);
@@ -28,23 +28,18 @@
             visibility: hidden;
         }
 
-        &:checked::before{
+        &:checked::before {
             opacity: 1;
             visibility: visible;
         }
-
-        // &:hover{
-        //     opacity: .7;
-        // }
     }
 
-    label{
-        color:var(--second-text);
+    label {
+        color: var(--second-text);
         white-space: pre-line;
         margin-left: 10px;
         position: absolute;
         top: 0;
         cursor: pointer;
     }
-
 }

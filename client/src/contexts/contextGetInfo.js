@@ -1,5 +1,8 @@
 import React from 'react'
 
 export const ContextGetInfo = React.createContext({
-    infoUser: null
+    infoUser: null,
+    rerender: null,
+    setRerender: null,
+    listRequestFriends: null
 })

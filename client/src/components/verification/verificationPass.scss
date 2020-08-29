@@ -1,4 +1,4 @@
-.verification-password{
+.verification-password {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -7,27 +7,27 @@
     transition: .4s;
     overflow: hidden;
 
-    .verification-line{
+    .verification-line {
         border-radius: 10px;
         height: 10px;
         background: var(--basis-red);
         width: 50px;
         transition: .4s;
 
-        &.middle-progress{
+        &.middle-progress {
             background: var(--basis-yellow);
             width: 150px;
         }
 
-        &.full-progress{
+        &.full-progress {
             background: var(--basis-green);
             width: 250px;
         }
     }
 
-    .verification-label{
-        color:var(--second-text);
+    .verification-label {
+        color: var(--second-text);
         transition: .4s;
     }
-    
+
 }

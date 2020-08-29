@@ -1,16 +1,16 @@
 import React from 'react'
-import { Sidebar } from '../../blocks/Sidebar/Sidebar'
+import { Sidebar } from '../../layouts/Sidebar/Sidebar'
+
+import './home.scss'
 
 export const Home = () => {
     return (
         <>
             <Sidebar/>
-            <div className='main'>
+            <div className='main-home'>
 
             </div>
-            <div className='list-friends'>
-
-            </div>
+            <Sidebar newClass='sidebar-my-friends' textEmpty='У вас нет друзей'/>
         </>
     )
 }

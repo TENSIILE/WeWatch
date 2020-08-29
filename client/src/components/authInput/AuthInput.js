@@ -3,7 +3,7 @@ import './authInput.scss'
 import {ReactSVG} from 'react-svg'
 import nonVisible from '../../static/icons/non-visible.svg'
 
-export const AuthInput = ({label, type, placeholder, name, text, onChange, style=null, disabled, innerStyle, icon = '', onClickIcon = null}) => {
+export const AuthInput = ({label, type, placeholder, name, text, onChange, style=null, disabled, innerStyle, icon = null, onClickIcon = null}) => {
     const [typePassword, setTypePassword] = useState('password')
 
     const changeTypePassword = () => {
@@ -29,11 +29,15 @@ export const AuthInput = ({label, type, placeholder, name, text, onChange, style
                             disabled={disabled}
                             style={innerStyle}
                         />
-                        <ReactSVG
-                            src={icon}
-                            onClick={onClickIcon}
-                            className='icon-input'
-                        />
+                        {
+                            icon ? (
+                                <ReactSVG
+                                    src={icon}
+                                    onClick={onClickIcon}
+                                    className='icon-input'
+                                />
+                            ) : null
+                        }
                     </>
                 ) : (
                     <>

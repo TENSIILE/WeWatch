@@ -47,7 +47,11 @@
         flex-direction: column;
          
         a{
-            margin-bottom: 1em;
+            position: relative;
+            margin-bottom: 1.5em;
+            text-decoration: none;
+            color:white;
+            height: 60px;
         }
     }
 
@@ -75,9 +79,10 @@
         .indicator-online{
             position: absolute;
             top: 0;
-            right: 5px;
-            width: 12px;
-            height: 12px;
+            right: 0;
+            width: 15px;
+            height: 15px;
+            border:2px solid var(--menu-color);
             background-color: var(--basis-green);
             border-radius: 50%;
             transition: .4s;

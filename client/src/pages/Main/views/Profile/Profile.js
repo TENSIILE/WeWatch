@@ -4,7 +4,7 @@ import { ReactSVG } from 'react-svg'
 import { useHttp } from '../../../../hooks/http.hook'
 import { RowInfo } from '../../../../components/rowInfo/RowInfo'
 import { ButtonMini } from '../../../../components/buttonMini/ButtonMini'
-import { Sidebar } from '../../blocks/Sidebar/Sidebar'
+import { Sidebar } from '../../layouts/Sidebar/Sidebar'
 import { Button } from '../../../../components/button/Button'
 import { Loader } from '../../../../components/loader/Loader'
 import { Modal } from '../../../../components/modal/Modal'
@@ -25,7 +25,9 @@ import './profile.scss'
 
 
 export const Profile = () => {
-    const { infoUser, rerender, setRerender } = useContext(ContextGetInfo)
+    const { infoUser, rerender,
+         setRerender } = useContext(ContextGetInfo)
+
     const auth         = useContext(ContextAuth)
     const alert        = useContext(ContextAlert)
     const history      = useHistory()
@@ -37,7 +39,9 @@ export const Profile = () => {
     const [languages, setLanguages]         = useState([])
     
     useEffect(() => {
-        if (!!infoUser) setLanguages(infoUser.userAdditional.languages)
+        if (!!infoUser && infoUser.userAdditional.languages.toString() !== 'Не указано') {
+            setLanguages(infoUser.userAdditional.languages)
+        }
     }, [infoUser])
     
 
@@ -46,20 +50,23 @@ export const Profile = () => {
         'Имя:':"", 'Фамилия:':"", 'Статус:':"", 'Ник:':"",
         'Языки:':"", 'Страна:':"", 'Город:':""
     })
-    const [maxLengthСhangeDataProfile, setMaxLengthChangeDataProfile] = useState({
+
+    const maxLengthСhangeDataProfile = {
         'Имя:':20, 'Фамилия:':25, 'Статус:':250, 'Ник:':20,
         'Языки:':20, 'Страна:':25, 'Город:':25
-    })
+    }
+
 
     const saveDataProfile = async () => {
         try {
+            
             trimDataProfile()
 
-            const readyData = { ...changeDataProfile, ...{ 'languages': [...languages] }} 
-            await request(`${config.hostServer}/getInfo/user/savedata`, 'POST', { userId:JSON.parse(localStorage.getItem(config.nameDataLocalStorage)).userId, userInfo:readyData })
+            const readyData = { ...changeDataProfile, 'languages': [...languages] } 
+            await request(`${config.hostServer}/api/getInfo/user/savedata`, 'POST', { userId:auth.userId, userInfo:readyData })
 
             cancelDataProfile()
-            setRerender(!rerender)
+            
         } catch (e) {
             alert.show('danger', e.message, 'Ошибка!') 
         }
@@ -68,12 +75,15 @@ export const Profile = () => {
     const cancelDataProfile = () => {
         setChangeProfile(false)
         clearDataProfile()
+        setRerender(!rerender)
     }
 
     const clearDataProfile = () => {
+        let clearingDataInputs
         for(const data in changeDataProfile)
-            setMaxLengthChangeDataProfile(changeDataProfile[data] = "")
-            
+            clearingDataInputs = { ...clearingDataInputs, [data]:changeDataProfile[data] = "" }     
+
+        setChangeDataProfile(clearingDataInputs)
     }
 
     const trimDataProfile = () => {
@@ -82,11 +92,10 @@ export const Profile = () => {
     }
 
     const controlInputsProfile = e => {
-       return setChangeDataProfile({...changeDataProfile, [e.target.name]: e.target.value})
+       return setChangeDataProfile({ ...changeDataProfile, [e.target.name]: e.target.value })
     }
     
     const logoutAccount = () => {
-        clearDataProfile()
         auth.logout()
         history.push('/login')
     }      
@@ -117,10 +126,10 @@ export const Profile = () => {
                 eventOpen={{openModal, setOpenModal}} 
                 idMainBtn={idBtnSetImage}>
 
-                <img src={!!srcUrlImage ? srcUrlImage : header} alt=''
-            />
+                <img src={!!srcUrlImage ? srcUrlImage : header} alt=''/>
             </Modal>
-            <Sidebar isEmpty={true}/>
+
+            <Sidebar isEmpty={false}/>
             <div className='user-account'>
                 <div className='user-header'>
                     <img src={!!infoUser ? infoUser.userAdditional.header : header} alt=''/>
@@ -151,7 +160,7 @@ export const Profile = () => {
                                     newClass='fly circle'
                                     emitLabel={true}
                                     htmlFor='file'
-                                    style={{width:30, height:30, margin:0}}
+                                    style={{width:40, height:40, margin:0}}
                                 >
                                     <input type='file' id='file' name='avatar-input' onChange={e => onClickBtnSetImage('avatar', e)} accept="image/jpeg,image/png"/>
                                 </ButtonMini>
@@ -162,21 +171,21 @@ export const Profile = () => {
                         </div>
                         <div className='user-fullname'>
                             <div className='username'>
-                            {
-                                !! infoUser ? (
-                                    <>
-                                    {
-                                        !changeProfile ? 
-                                            <ReactSVG
-                                                src={pen}
-                                                className='penEdit'
-                                                onClick={() => setChangeProfile(true)}
-                                            /> : null
-                                    }
-                                        <p>{infoUser.userAdditional.name + ' ' + infoUser.userAdditional.lastname}</p>
-                                    </>
-                                ) : null
-                            }
+                                {
+                                    !! infoUser ? (
+                                        <>
+                                        {
+                                            !changeProfile ? 
+                                                <ReactSVG
+                                                    src={pen}
+                                                    className='penEdit'
+                                                    onClick={() => setChangeProfile(true)}
+                                                /> : null
+                                        }
+                                            <p>{infoUser.userAdditional.name + ' ' + infoUser.userAdditional.lastname}</p>
+                                        </>
+                                    ) : null
+                                }
                             </div>
                             <p 
                                 id='status-text' 
@@ -195,7 +204,7 @@ export const Profile = () => {
                             changeProfile ? (
                                 <>
                                     {
-                                        infoUser.tableInformationEdit.map((row,index) => {
+                                        infoUser.tableInformationEdit.map((row, index) => {
                                             return (
                                                 <RowInfo
                                                     key={index}
@@ -214,7 +223,7 @@ export const Profile = () => {
                             ) : (
                                 <>
                                     {
-                                        infoUser.tableInformation.map((row,index) => {
+                                        infoUser.tableInformation.map((row, index) => {
                                             return (
                                                 <RowInfo
                                                     key={index}
@@ -240,11 +249,10 @@ export const Profile = () => {
                                     /> 
                                     <Button
                                         text='Отмениить'
-                                        classNames='btn half-opacity'
+                                        classNames='btn half-opacity simple'
                                         id='btn-cancel-data'
                                         onClick={cancelDataProfile}
                                     /> 
-                                    
                                 </div>
                             : null
                         }

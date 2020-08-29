@@ -1,58 +1,100 @@
-.item-room{
+.item {
     position: relative;
     display: flex;
     align-items: center;
     background: transparent;
     border-radius: 10px;
     cursor: pointer;
-    transition: .2s;
+    transition: .1s;
     margin-top: 10px;
     padding: 10px;
 
-    &:hover{
-        // background: var(--third-background);
-    }
-
-    &:active{
+    &:active {
         background: var(--third-background);
     }
-    
 
-    img{
+
+    img {
         width: 35px;
         height: 35px;
         object-fit: cover;
         border-radius: 50%;
     }
 
-    p{
+    p {
         margin-left: 10px !important;
         margin: 0;
-        color:var(--first-text);
+        color: var(--first-text);
     }
 
-    .dots{
+    .dots {
         position: relative;
         margin-left: auto;
         height: 20px;
         cursor: pointer;
 
-        &:hover{
-            svg{
-                fill:var(--first-text);
+        &:hover {
+            svg {
+                fill: var(--first-text);
             }
         }
 
-        div{
+        div {
             height: 0;
         }
-        
-        svg{
+
+        svg {
             height: 20px;
             width: 25px;
-            fill:var(--third-text);
+            fill: var(--third-text);
             transition: .4s;
         }
     }
-    
-}   
+
+    &.adding-new-friend {
+        cursor: default;
+        overflow: hidden;
+
+        &.list-request-friends {
+            // min-height: 60px;  
+
+            img {
+                width: 35px;
+                height: 35px;
+            }
+        }
+
+        img {
+            width: 45px;
+            height: 45px;
+        }
+
+        p {
+            margin-left: 15px !important;
+            margin-right: 15px !important;
+            cursor: default !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        button {
+            margin-left: auto;
+            width: auto;
+
+            &:first-child {
+                margin-left: auto !important;
+            }
+
+            &:nth-of-type(2) {
+                margin-left: unset;
+            }
+        }
+
+        &:hover {
+            background: var(--third-background) !important;
+        }
+    }
+
+
+}

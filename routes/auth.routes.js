@@ -6,11 +6,8 @@ const User     = require('../models/User')
 const UserInfo = require('../models/UserInformation')
 const config   = require('config')
 
-
 const router = Router()
 
-
-// api/auth
 router.post('/register',
     [
         check('login', 'Некорректный логин').isLength({ min: 3 }),
@@ -29,7 +26,7 @@ router.post('/register',
                 })
             }
 
-            const {login, email, password} = req.body
+            const { login, email, password } = req.body
 
             const candidate = await User.findOne({ email })
 
@@ -37,9 +34,9 @@ router.post('/register',
                 return res.status(400).json({ message:'Такой пользователь уже существует!' })
             }
     
-            const hashedPassword = await bcrypt.hash(password, 12)
-            const user = new User({email, login, password: hashedPassword})
-            const additionalInfoUser = new UserInfo({user: user._id, created: new Date().toLocaleString(), languages: ['Не указано']})
+            const hashedPassword     = await bcrypt.hash(password, 12)
+            const user               = new User({ email, login, password: hashedPassword })
+            const additionalInfoUser = new UserInfo({ user: user._id, created: new Date().toLocaleString(), languages: ['Не указано'] })
 
             await user.save()
             await additionalInfoUser.save()
@@ -47,12 +44,11 @@ router.post('/register',
             res.status(201).json({ message: 'Пользователь создан' })
 
         } catch (e) {
-            res.status(500).json({message: 'Произошла ошибка, попробуйте снова!' + "   " + e })
+            res.status(500).json({ message: 'Произошла ошибка, попробуйте снова!' })
         }
     }
 )
 
-// api/auth/login
 router.post('/login',
     [
         check('login', 'Введите корректный логин').isLength({ min: 3 }).exists(),
@@ -93,7 +89,7 @@ router.post('/login',
             res.json({ token, userId: user._id })
 
         } catch (e) {
-            res.status(500).json({message: 'Произошла ошибка, попробуйте снова!'})
+            res.status(500).json({ message: 'Произошла ошибка, попробуйте снова!' })
         }
     }
 )

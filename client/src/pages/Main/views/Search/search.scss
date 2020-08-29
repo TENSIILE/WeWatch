@@ -1,0 +1,32 @@
+.main-search{
+    overflow: hidden;
+    min-width: 600px;
+
+    .managing-friends{
+        position: relative;
+        overflow: hidden;
+        height: calc(100% - 63px);
+        padding: 5px;
+       
+        .list-new-friends{
+            overflow-x: hidden;
+            overflow-y: auto;
+            height: calc(100% - 97px);
+            // padding: 0 1em;
+
+            span#empty-text{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+                color:var(--second-text);
+                z-index: 2;
+                font-size: 2em;
+                text-align: center;
+                line-height: 150%;
+                font-size: 1.6em;
+                font-weight: 100;
+            }
+        }
+    }
+}

@@ -1,13 +1,22 @@
 import React from 'react'
 import { Item } from '../../../../components/itemsGroup/Item'
 import { Input } from '../../../../components/input/Input'
+
+import { SearchZone } from './parts/controlRequestFriends/SearchZone'
+
 import search from '../../../../static/icons/Search.svg'
 import user from '../../../../static/img/user.jpg'
 import './sidebar.scss'
 
-export const Sidebar = ({isEmpty = true, textEmpty = 'Пока у вас нет комнат'}) => {
+export const Sidebar = ({isEmpty = true, textEmpty = 'Пока у вас нет комнат', newClass = "", searchZoneActive = false, onClickAccept, onClickDelete}) => {
     return (
-        <div className='left-sidebar'>
+        <div className={`sidebar ${newClass}`}>
+            {
+                searchZoneActive ? (
+                    <SearchZone onClickDelete={onClickDelete} onClickAccept={onClickAccept}/>
+                ) : null
+            }
+           
             {
                 !isEmpty ? (
                     <>
@@ -28,7 +37,7 @@ export const Sidebar = ({isEmpty = true, textEmpty = 'Пока у вас нет 
                             </div>
                         </div>
                     </>
-                ) : <span id='empty-text'>{textEmpty}</span>
+                ) : !searchZoneActive ? <span id='empty-text'>{textEmpty}</span> : null
             }
         </div>
     )

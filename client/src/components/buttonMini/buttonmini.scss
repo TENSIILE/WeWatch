@@ -1,9 +1,9 @@
-.btn-switch-menu{
+.btn-switch-menu {
     position: relative;
-    border:none;
+    border: none;
     outline: none;
     cursor: pointer;
-    margin-bottom: 1.5em;
+    // margin-bottom: 1.5em;
     width: 60px;
     height: 60px;
     background: var(--basis-white-transparent);
@@ -12,7 +12,7 @@
     padding: 0;
 
 
-    &#profile{
+    &#profile {
         background: transparent !important;
     }
 
@@ -20,49 +20,50 @@
     &.active {
         background: white !important;
 
-        svg{
-            path{
+        svg {
+            path {
                 fill: var(--basis-blue) !important;
             }
         }
     }
 
-    &.fly{
+    &.fly {
         background: var(--basis-blue) !important;
-        box-shadow: 0 0 10px var(--basis-blue);
+        // box-shadow: 0 0 10px var(--basis-blue);
+        box-shadow: 0 0 10px #007bff86;
         position: absolute;
         right: 10px;
         top: -15px;
         height: 50px;
         width: 50px;
 
-        &:active{
-            box-shadow: 0 0 20px var(--basis-blue);
+        &:active {
+            box-shadow: 0 0 10px var(--basis-blue);
         }
 
-        svg{
+        svg {
             width: 16px;
             height: 16px;
         }
 
-        &.circle{
+        &.circle {
             bottom: -5px;
             right: -5px;
             width: 40px;
             height: 40px;
-            top:unset;
+            top: unset;
             box-shadow: unset;
             border-radius: 50%;
             border: 4px solid var(--white-dark-background);
 
-            &:hover{
-               background: var(--basis-green) !important;
+            &:hover {
+                background: var(--basis-green) !important;
             }
         }
     }
 
-   
-    &:before{
+
+    &:before {
         content: "";
         display: block;
         position: absolute;
@@ -77,16 +78,16 @@
         opacity: 0;
     }
 
-    &:hover{
+    &:hover {
         background: var(--basis-white-transparent2);
     }
 
-    &:hover::before{
+    &:hover::before {
         height: 80%;
         opacity: 1;
     }
 
-    svg{
+    svg {
         position: absolute;
         left: 50%;
         top: 50%;
@@ -97,17 +98,17 @@
 
     }
 
-    &:last-child{
+    &:last-child {
         margin-bottom: 0;
     }
 }
 
-.btn-switch-menu.active.btn-switch-menu::before{
+.btn-switch-menu.active.btn-switch-menu::before {
     height: 80% !important;
     opacity: 1 !important;
 }
 
-.btn-switch-menu.btn-switch-menu.fly::before{
+.btn-switch-menu.btn-switch-menu.fly::before {
     height: 0 !important;
     opacity: 0 !important;
     visibility: hidden !important;

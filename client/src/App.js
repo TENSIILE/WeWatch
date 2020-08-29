@@ -6,25 +6,26 @@ import { ContextAuth } from './contexts/contextAuth'
 import { AlertState } from './contexts/alert/alertState'
 
 
-function App() {
-  const {token, login, logout, userId} = useAuth()
-  const isAuthenticated = !!token
-  let routes = useRoutes(isAuthenticated)
+const App = () => {
+    const {token, login, logout, userId} = useAuth()
+    const isAuthenticated = !!token
+    let routes = useRoutes(isAuthenticated)
 
+    document.oncontextmenu = () => false
 
-  return (
-    <AlertState>
-      <ContextAuth.Provider value={{
-        token, login, logout, userId, isAuthenticated
-      }}>
-        <BrowserRouter>
-          <div className="containter">
-            {routes}
-          </div>
-        </BrowserRouter>
-      </ContextAuth.Provider>
-    </AlertState>
-  )
+    return (
+        <AlertState>
+        <ContextAuth.Provider value={{
+            token, login, logout, userId, isAuthenticated
+        }}>
+            <BrowserRouter>
+            <div className="containter">
+                {routes}
+            </div>
+            </BrowserRouter>
+        </ContextAuth.Provider>
+        </AlertState>
+    )
 }
 
 export default App 

@@ -4,7 +4,6 @@
     overflow: hidden;
     background: var(--menu-color);
 
-
     .main-content{
         display: flex;
         background: var(--white-dark-background);
@@ -12,20 +11,5 @@
         border-radius: 40px 0 0 40px;
         overflow: hidden;
         height: 100vh;
-
-
-        .left-sidebar{
-            position: relative;
-            background: var(--second-background);
-            height: 100%;
-            width: 350px;
-            min-width: 350px;
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            padding: 10px;
-            box-sizing: border-box;
-
-        }
     }
 }

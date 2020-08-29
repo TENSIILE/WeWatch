@@ -1,37 +1,19 @@
 .user-account{
     position: relative;
-    padding: 20px;
+    padding: 30px;
     width: 100%;
+    min-width: 600px;
     box-sizing: border-box;
     background: var(--white-dark-background);
     overflow-y: auto;
     overflow-x: hidden;
     margin: 0px;
-    padding: 15px !important;
+    // padding: 15px !important;
 
 
     &::-webkit-scrollbar{
-        width: 8px;
         display: none;
     }
-
-    // &::-webkit-scrollbar:horizontal{
-    //     height: 8px;
-    // }
-      
-    // &::-webkit-scrollbar-corner{
-    //     display: none;
-    // }
-      
-    // &::-webkit-scrollbar-thumb{
-    //     background: var(--basis-blue);
-    //     border-radius: 30px;
-    // }
-      
-    // &::-webkit-scrollbar-track{
-    //     border-radius: 30px;
-    //     background: var(--second-background);
-    // }
 
     .user-header{
         position: relative;
@@ -173,7 +155,7 @@
     
             .row{
                 display: grid;
-                padding: 15px;
+                padding: 15px 0;
                 grid-template-columns: 1fr 1fr;
                 border-bottom: 1px solid var(--second-background);
     

@@ -19,9 +19,10 @@ export const Input = ({style, isWithButton = false, icon, onClick, placeholder, 
                     maxLength={maxLength}
                 />
            ) : (
-                <div className='input' style={style}>
+                <div className='input-block' style={style}>
                     <input
                         type='text'
+                        className={newClass}
                         placeholder={placeholder}
                         name={name}
                         value={value}

@@ -1,4 +1,4 @@
-.modal{
+.modal {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -6,7 +6,7 @@
     right: 0;
     width: 100%;
     height: 100vh;
-    background: rgba(0,0,0,.8);
+    background: rgba(0, 0, 0, .8);
     backdrop-filter: blur(10px);
     display: flex;
     justify-content: center;
@@ -14,7 +14,7 @@
     z-index: 9999;
     transition: .8s;
 
-    .window{
+    .window {
         position: relative;
         display: flex;
         flex-direction: column;
@@ -27,23 +27,23 @@
         transition: .8s;
         box-sizing: border-box;
 
-        &.little{
+        &.little {
             width: 400px !important;
             height: 200px !important;
         }
 
-        &.middle{
+        &.middle {
             width: 600px !important;
             height: 500px !important;
         }
 
-        &.large{
+        &.large {
             width: 1200px !important;
             height: 800px !important;
         }
 
 
-        .head{
+        .head {
             position: relative;
             display: flex;
             align-items: center;
@@ -53,36 +53,36 @@
             width: 100%;
             height: 50px;
             // background: red;
-            
-            p#title{
+
+            p#title {
                 margin: 0;
                 font-size: 1.5em;
                 font-weight: 600;
                 margin-left: 10px;
-                color:var(--first-text);
+                color: var(--first-text);
             }
 
-            .btn-close-modal{
+            .btn-close-modal {
                 position: relative;
                 margin-right: 10px;
                 height: 20px;
 
-                svg{
+                svg {
                     position: relative;
                     width: 20px;
                     height: 20px;
-                    fill:var(--second-text);
+                    fill: var(--second-text);
                     cursor: pointer;
                     transition: .2s;
 
-                    &:hover{
-                        fill:var(--first-text);
+                    &:hover {
+                        fill: var(--first-text);
                     }
                 }
             }
         }
 
-        .body{
+        .body {
             position: relative;
             margin: 1em 0;
             display: flex;
@@ -90,29 +90,29 @@
             flex-grow: 2;
             height: 80%;
 
-            #customization{
+            #customization {
                 position: relative;
                 padding: 0px;
                 min-width: 0%;
-                width:0%;
+                width: 0%;
                 opacity: 0;
                 visibility: hidden;
                 text-align: center;
-                color:var(--first-text);
+                color: var(--first-text);
                 background: var(--second-background);
                 border-radius: 10px;
                 overflow: hidden;
                 margin-right: 0px;
                 transition: .2s ease-out;
 
-                h3#settings-label{
-                    color:var(--first-text);
+                h3#settings-label {
+                    color: var(--first-text);
                     font-weight: 500;
                 }
 
-                &.open{
+                &.open {
                     min-width: 30%;
-                    width:30%;
+                    width: 30%;
                     opacity: 1;
                     visibility: visible;
                     padding: 10px;
@@ -120,11 +120,11 @@
                 }
             }
 
-            .data-output{
+            .data-output {
                 height: 100%;
                 width: 100%;
 
-                :only-child{
+                :only-child {
                     width: 100%;
                     height: 100%;
                     border-radius: 10px;
@@ -133,7 +133,7 @@
             }
         }
 
-        .footer{
+        .footer {
             position: relative;
             display: flex;
             justify-content: flex-end;
@@ -141,7 +141,7 @@
             height: 50px;
             width: 100%;
 
-            .btn-toggle-customs{
+            .btn-toggle-customs {
                 position: absolute;
                 left: 0;
                 display: flex;
@@ -154,12 +154,12 @@
                 transition: .4s;
                 opacity: .5;
 
-                &:hover{
+                &:hover {
                     padding: 10px 20px;
                     opacity: 1;
                 }
-                
-                #arrow{
+
+                #arrow {
                     position: relative;
                     margin-left: 10px;
                     margin-right: 10px;
@@ -167,26 +167,26 @@
                     transition: .4s;
                     height: 21px;
 
-                    svg{
+                    svg {
                         width: 12px;
                         height: 12px;
-                        fill:var(--first-text);
+                        fill: var(--first-text);
                     }
 
-                    &.open{
+                    &.open {
                         transform: rotateZ(0deg);
                     }
                 }
-                
-                
-                #settings{
+
+
+                #settings {
                     position: relative;
                     height: 21px;
 
-                    svg{
+                    svg {
                         height: 20px;
                         width: 20px;
-                        fill:var(--first-text);
+                        fill: var(--first-text);
                     }
                 }
             }
@@ -194,7 +194,7 @@
     }
 }
 
-.animationModal-enter{
+.animationModal-enter {
     opacity: 0;
     transform: translateY(-100%);
 
@@ -204,23 +204,23 @@
     }
 }
 
-.animationModal-enter-active{
+.animationModal-enter-active {
     transition: .8s ease;
     opacity: 1;
     transform: translateY(0);
 
-    &.modal .window{
+    &.modal .window {
         opacity: 1;
         transform: scale(1);
     }
 }
 
-.animationModal-exit-active{
+.animationModal-exit-active {
     transition: .8s ease;
     opacity: 0;
     transform: translateY(-100%);
 
-    &.modal .window{
+    &.modal .window {
         opacity: 0;
         transform: scale(0);
     }

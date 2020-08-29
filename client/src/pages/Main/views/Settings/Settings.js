@@ -1,5 +1,5 @@
 import React from 'react'
-import { Sidebar } from '../../blocks/Sidebar/Sidebar'
+import { Sidebar } from '../../layouts/Sidebar/Sidebar'
 
 import './settings.scss'
 
@@ -7,9 +7,9 @@ export const Settings = () => {
     return (
         <>
             <Sidebar textEmpty='Здесь пусто, настроек пока нет'/>
-            <div className='settings-area'>
+            <div className='settings-area region'>
                 <h2>Настройки</h2>
-                <hr/>
+                <hr id='title-border-bottom'/>
             </div>
         </>
     )

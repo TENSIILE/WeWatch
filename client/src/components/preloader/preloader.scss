@@ -1,0 +1,125 @@
+.preloader {
+    position: absolute;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    opacity: 1;
+    visibility: visible;
+    transition: 1s;
+    z-index: 150;
+
+    &.hidden {
+        opacity: 0;
+        visibility: hidden;
+
+        .sides {
+
+            .substrate {
+                opacity: 0;
+                visibility: hidden;
+            }
+
+            .block {
+                width: 0 !important;
+                // transform: rotateX(45deg);
+            }
+        }
+    }
+
+    h1 {
+        position: relative;
+        font-weight: lighter;
+        margin: 0;
+        padding: 0;
+        z-index: 100;
+        color: var(--first-text);
+        text-align: center;
+        font-size: 10em;
+        font-family: 'Thillends';
+    }
+
+    .sides {
+        position: relative;
+        width: 100%;
+        display: flex;
+
+        .substrate {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--first-background);
+        }
+
+        .left {
+            position: absolute;
+            left: 0;
+            // left: -200px;
+            // transform: skewX(-45deg);
+        }
+
+        .right {
+            position: absolute;
+            right: 0;
+            // right: -200px;
+            // transform: skewX(45deg);
+        }
+
+        .block {
+            background: var(--first-background);
+            // width: 200%;
+            width: 50%;
+            top: 0px;
+            height: 100vh;
+            display: block;
+            transition: 1s;
+        }
+    }
+
+    .content {
+        position: absolute;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        p {
+            position: relative;
+            margin: 0;
+            margin-top: 3em;
+            font-weight: lighter;
+            color: var(--basis-red);
+            border-radius: 4px;
+            padding: 10px 20px;
+            background: var(--third-background);
+            animation: pulse 1.2s infinite linear;
+            display: block;
+
+            span {
+                color: var(--first-text);
+            }
+
+
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(177, 177, 177, 0.2);
+            }
+
+            70% {
+                box-shadow: 0 0 0 20px rgba(177, 177, 177, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(177, 177, 177, 0);
+            }
+        }
+    }
+}
