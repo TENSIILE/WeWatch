@@ -1,5 +1,7 @@
 import React from 'react'
+import { ReactSVG } from 'react-svg'
 import { Loader } from '../../components/loader/Loader'
+import WeWatch from '../../static/icons/WeWatch.svg'
 
 import './preloader.scss'
 
@@ -12,7 +14,7 @@ export const Preloader = ({visible = true}) => {
                 <div className='right block'></div>
             </div>
             <div className='content'>
-                <h1>WeWatch</h1>
+                <ReactSVG src={WeWatch} className='logo'/>
                 <Loader style={{top:'95%', right: '0%', left: 'unset'}}/>
                 <p>Подсказка: <span>Чтобы поменять цветовую тему нажмите на клавиши Shift + T</span></p>
             </div>

@@ -14,14 +14,19 @@ export const Alert = ({status=null, text, heading, onClick}) => {
     const alert = useContext(ContextAlert)
 
     return (
-        <CSSTransition in={alert.isOpen} timeout={3000} classNames={'animationAlert'} mountOnEnter unmountOnExit>
+        <CSSTransition 
+            in={alert.isOpen}
+            timeout={2000} 
+            classNames={'animationAlert'} 
+            mountOnEnter unmountOnExit
+         >
             <div className={`alert alert-${status}`}>
                 <div className='main-content-alert'>   
-                    <ReactSVG src={status === 'danger' ?
+                    <ReactSVG src ={status === 'danger' ?
                             error : status === 'warning' ?
                             error : status === 'info' ?
-                            info : status === 'primary' ?
-                            info : status === 'success' ?
+                            info  : status === 'primary' ?
+                            info  : status === 'success' ?
                             success : error} className='icon-themes'/>             
                     <p> <strong>{heading}</strong> {text} </p>
                     <ReactSVG onClick={onClick} src={closeSvg}/>

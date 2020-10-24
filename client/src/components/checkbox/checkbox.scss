@@ -1,7 +1,7 @@
 .checkbox {
     position: relative;
 
-    input#checkbox {
+    input.checkbox {
         position: relative;
         appearance: none;
         width: 20px;
@@ -41,5 +41,11 @@
         position: absolute;
         top: 0;
         cursor: pointer;
+    }
+
+    &.darken-text{
+        label{
+            color:var(--first-text) !important;
+        }
     }
 }

@@ -2,11 +2,13 @@ import React from 'react'
 import { ButtonMini } from '../buttonMini/ButtonMini'
 import './input.scss'
 
-export const Input = ({style, isWithButton = false, icon, onClick, placeholder, newClass = null, onChange, onKeyDown, value, name, maxLength}) => {
+export const Input = ({ style, isWithButton = false, icon, onClick, placeholder, newClass = '',
+    onChange, onKeyDown, onKeyUp, value, name, maxLength, disabled = false }) => {
+        
     return (
         <>
         {
-           !isWithButton ?  (
+           !isWithButton ? (
                 <input 
                     type='text'
                     className={`input-default ${newClass}`}
@@ -16,7 +18,10 @@ export const Input = ({style, isWithButton = false, icon, onClick, placeholder, 
                     value={value}
                     onChange={onChange}
                     onKeyDown={onKeyDown}
+                    onKeyUp={onKeyUp}
                     maxLength={maxLength}
+                    disabled={disabled}
+                    
                 />
            ) : (
                 <div className='input-block' style={style}>
@@ -28,7 +33,9 @@ export const Input = ({style, isWithButton = false, icon, onClick, placeholder, 
                         value={value}
                         onChange={onChange}
                         onKeyDown={onKeyDown}
+                        onKeyUp={onKeyUp}
                         maxLength={maxLength}
+                        disabled={disabled}
                     />
 
                     <ButtonMini

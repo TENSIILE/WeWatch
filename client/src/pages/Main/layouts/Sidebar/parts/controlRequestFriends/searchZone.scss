@@ -15,6 +15,7 @@
         div.item {
             &:first-child {
                 margin-top: 0;
+                margin-bottom: 0;
             }
         }
 
@@ -91,4 +92,28 @@
             }
         }
     }
+}
+
+.candidate_friend-enter {
+    height: 0 !important;
+    padding: 0 !important; 
+    opacity: 0 !important;
+    visibility: visible !important;
+    transition: .4s !important;
+}
+
+.candidate_friend-enter-active {
+    transition: .4s !important;
+    height: 55px !important;
+    padding: 10px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.candidate_friend-exit-active {
+    transition: .4s;
+    height: 0px !important;
+    padding: 0px !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
 }

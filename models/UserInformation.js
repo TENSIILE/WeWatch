@@ -11,7 +11,8 @@ const schema = new Schema({
     country:   {type: String, default: 'Не указано'},
     city:      {type: String, default: 'Не указано'},
     avatar:    {type: String, default: config.get('hostServer') + '/upload/image/USER.jpeg'},
-    header:    {type: String, default: config.get('hostServer') + '/upload/image/HEADER.png'}
+    header:    {type: String, default: config.get('hostServer') + '/upload/image/HEADER.png'},
+    statusOnline: {type: String, required: true, default: 'offline'},
 })
 
 module.exports = model('UserInformation', schema)

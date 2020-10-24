@@ -1,0 +1,51 @@
+.list-ready-links{
+    height: 460px;
+    
+    ul{
+        position: relative;
+        list-style: none;
+        padding: 10px;
+        margin: 0;
+        max-height: 340px;
+        overflow-x: hidden;
+        overflow: auto;
+        height: 100%;
+
+        li{
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 5px 10px;
+            border-radius: 10px;
+            margin-top: 1em;
+            background: var(--third-background);
+            color:var(--first-text);
+
+            img{
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                margin-right: 10px;
+                object-fit: cover;
+            }
+
+            button.btn{
+                margin-left: auto;
+            }
+
+            &:first-child{
+                margin-top: 0;
+            }
+        }
+
+        #empty-text{
+            position: absolute;
+            color:var(--second-text);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            text-align: center;
+        }
+    }
+}

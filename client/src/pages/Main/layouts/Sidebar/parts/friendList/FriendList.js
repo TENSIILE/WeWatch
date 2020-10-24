@@ -1,13 +1,15 @@
 import React from 'react'
 import { Input } from '../../../../../../components/input/Input'
 import { Item } from '../../../../../../components/itemsGroup/Item'
+import { useSearcher } from '../../../../../../hooks/searcher.hook'
 
-import user from '../../../../../../static/img/user.jpg'
 import search from '../../../../../../static/icons/Search.svg'
 
 import '../../sidebar.scss'
 
-export const FriendList = ({isEmpty, textEmpty}) => {
+export const FriendList = ({isEmpty, textEmpty = 'У Вас нет друзей', list}) => {
+    const searcher = useSearcher(list)
+
     return (
         <>
             {
@@ -21,14 +23,31 @@ export const FriendList = ({isEmpty, textEmpty}) => {
                                 newClass={'grey-background'}
                                 style={{margin: '15px 10px 0 10px', width:'100%'}}
                                 placeholder='Найти друга...'
+                                value={searcher.input}
+                                onChange={e => searcher.setInput(e.target.value)}
+                                onKeyUp={searcher.search}
                             />
                         </div>
 
                         <div className='zone'>
                             <p className='title-list'>Мои друзья</p>
                             <div className='list-my-friends'>
-                                <Item src={user} text='Имя Фамилия' dotsActive={true}/>
-                                <Item src={user} text='Имя Фамилия' dotsActive={true}/>
+                                {
+                                    !!searcher.array.length ? searcher.array.map((friend, index) => {
+                                        return (
+                                            <Item
+                                                key={friend.user} 
+                                                src={friend.avatar} 
+                                                text={friend.name + ' ' + friend.lastname} 
+                                                dotsActive={true}
+                                                isListFriend={true}
+                                                index={index}
+                                                data={friend.user}
+                                                statusOnline={friend.statusOnline}
+                                            />
+                                        )
+                                    }) : <span id='empty-text'>Друг не найден</span> 
+                                }
                             </div>
                         </div>
                     </>

@@ -1,80 +1,64 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
+import { ContextModal } from '../../contexts/modal/contextModal'
 import { CSSTransition } from 'react-transition-group'
 import { ReactSVG } from 'react-svg'
 import { Button } from '../button/Button'
-import { Input } from '../input/Input'
-import arrow from '../../static/icons/arrow-left.svg'
 import closeSvg from '../../static/icons/close2.svg'
-import settings from '../../static/icons/Settings.svg'
+import { DELETE_FRIEND } from '../../types/components'
 
 import './modal.scss'
 
-export const Modal = ({title = null, isShowCustomizationZoneImage = false, size = 'middle', children, eventOpen = {}, idMainBtn = null, options}) => {
-    const [openCustomization, setOpenCustomization] = useState(false)
-    const [valueUrlToPicture, setValueUrlToPicture] = useState('')
+export const Modal = ({ title = null, size = 'middle', style, children, idMainBtn = null, action, disabledArea }) => {
+    const modal = useContext(ContextModal)
 
-    //https://sun1-29.userapi.com/c857736/v857736923/1cf0d6/Ggmc2yQfr50.jpg
-    const toggleSettingsHandler = () => setOpenCustomization(!openCustomization)
- 
     return (
-        <CSSTransition in={eventOpen.openModal} timeout={1000} classNames={'animationModal'} mountOnEnter unmountOnExit>
-            <div className='modal'>
-                <div className={`window ${size}`}>
+        <CSSTransition  
+            in={modal.visible[action]}
+            timeout={1000} 
+            classNames={'animationModal'} 
+            mountOnEnter unmountOnExit
+        >
+            <div className='modal' onClick={e => modal.hide(action, e)}>
+                <div className={`window ${size}`} style={style}>
                     <div className='head'>
-                        <p id='title'>{title}</p>
+                        {
+                            title !== null ? (
+                                <p id='title' 
+                                    className={action === DELETE_FRIEND ? 'title-center' : ''}
+                                >
+                                    {title}
+                                </p> 
+                            ) : null
+                        }
 
-                        <ReactSVG
-                            src={closeSvg}
-                            className='btn-close-modal'
-                            onClick={() => eventOpen.setOpenModal(false)}
-                        />
+                        {
+                            action !== DELETE_FRIEND ? (
+                                <ReactSVG
+                                    src={closeSvg}
+                                    className='btn-close-modal'
+                                    onClick={() => modal.hide(action)}
+                                />
+                            ) : null
+                        }
 
                     </div>
                     <div className='body'>
-                        {
-                            isShowCustomizationZoneImage ? (
-                                <div id='customization' className={openCustomization ? 'open' : null}>
-                                    <h3 id='settings-label'>Настройки</h3>
-
-                                    <Input
-                                        placeholder='Введите url до картинки'
-                                        text={valueUrlToPicture}
-                                        onChange={e => setValueUrlToPicture(e.target.value)}
-                                        className='input'
-                                        style={{width:'100%'}}
-                                    />
-
-                                    <Button
-                                        text='Установить картинку'
-                                        classNames='btn primary half-opacity'
-                                        style={{marginTop:'1em', width:'100%'}}
-                                    />
-
-                                </div>
-                            ) : null 
-                        }
-                    
                         <div className='data-output'>
                             {children}
                         </div>
                     </div>
-                    <div className='footer'>
-                        {
-                            isShowCustomizationZoneImage ? (
-                                <div className='btn-toggle-customs' onClick={toggleSettingsHandler}>
-                                    <ReactSVG src={settings} id='settings'/>
-                                    <ReactSVG src={arrow} id='arrow' className={openCustomization ? 'open' : null}/>
-                                </div>
-                            ) : null
-                        }
-
-                        <Button
-                            text='Подтвердить'
-                            classNames='btn success half-opacity'
-                            emitLabel={true}
-                            htmlFor={idMainBtn}
-                        />
-                    </div>
+                    {
+                        disabledArea !== 'footer' ? (
+                            <div className='footer'>
+                                <Button
+                                    text='Подтвердить'
+                                    classNames='btn success half-opacity'
+                                    emitLabel={true}
+                                    htmlFor={idMainBtn}
+                                />
+                            </div>
+                        ) : null
+                    }
                 </div>
             </div>
         </CSSTransition>

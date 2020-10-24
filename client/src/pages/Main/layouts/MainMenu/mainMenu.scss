@@ -78,14 +78,11 @@
 
         .indicator-online{
             position: absolute;
-            top: 0;
+            top: 3px;
             right: 0;
-            width: 15px;
-            height: 15px;
-            border:2px solid var(--menu-color);
-            background-color: var(--basis-green);
-            border-radius: 50%;
-            transition: .4s;
+            width: 10px;
+            height: 10px;
+            box-shadow: 0 0 0 3px var(--menu-color);
             z-index: 2;
         }
 

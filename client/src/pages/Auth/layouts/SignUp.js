@@ -22,7 +22,7 @@ export const SignUp = () => {
             />
             <AuthInput 
                 label='Почта'
-                type='text'
+                type='email'
                 placeholder='Введите свою почту'
                 name='email'
                 onChange={changeInputsHandler}

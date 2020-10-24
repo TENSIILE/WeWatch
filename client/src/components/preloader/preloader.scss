@@ -41,6 +41,66 @@
         font-family: 'Thillends';
     }
 
+    .logo {
+        width: 50em;
+        height: 10em;
+
+        svg {
+            fill: none;
+            width: 50em;
+            height: 10em;
+
+            path {
+                stroke-width: .2;
+                stroke-miterlimit: 10;
+                // fill: none;
+                fill:var(--first-text);
+                fill-opacity: 0;
+                stroke: var(--first-text);
+
+                stroke-dasharray: 226;
+                stroke-dashoffset: 226;
+                stroke-linecap: round;
+                animation: animateText 3.5s ease-in-out forwards;
+                transform-origin: center;
+            }
+
+            @keyframes animateText {
+                0% {
+                    stroke-dashoffset: 226;
+                }
+
+                10% {
+                    stroke-dashoffset: 233;
+                }
+
+                70%{
+                    fill-opacity: 0;
+                    stroke-opacity: 1;
+                }
+
+                90%{
+                    fill-opacity: 1;
+                    stroke-opacity: 0;
+                }
+
+                95%{
+                    stroke-opacity: 0;
+                }
+
+                99% {
+                    stroke-dashoffset: 79; 
+                }
+
+                100% {
+                    stroke-dashoffset: 70;
+                    stroke-opacity: 0;
+                    fill-opacity: 1;
+                }
+            }
+        }
+    }
+
     .sides {
         position: relative;
         width: 100%;
@@ -100,6 +160,7 @@
             background: var(--third-background);
             animation: pulse 1.2s infinite linear;
             display: block;
+            font-weight: 500;
 
             span {
                 color: var(--first-text);

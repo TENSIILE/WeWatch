@@ -1,4 +1,4 @@
-import React, {useState, useContext, useCallback } from 'react'
+import React, {useState, useContext, useCallback, useRef } from 'react'
 import { ContextAuth } from '../../../../contexts/contextAuth'
 import { ContextGetInfo } from '../../../../contexts/contextGetInfo'
 import { useHttp } from '../../../../hooks/http.hook'
@@ -25,7 +25,11 @@ export const Search = () => {
     const [findPersonInput, setFindPersonInput ] = useState('')
     const [people, setPeople]                    = useState([])
     const [findedHuman, setFindedHuman]          = useState('')
-    let login = ''
+    // let login = ''
+
+    const login = useRef('')
+
+
 
     const FindAllNewFriends = useCallback( async () => {
 
@@ -34,14 +38,14 @@ export const Search = () => {
         if (findedHuman.toString() === findPersonInput.slice(1)) return
 
         if (findPersonInput.includes('@')) {
-           login = findPersonInput.slice(1)
+           login.current = findPersonInput.slice(1)
         
            try {
-                const arrayPeople = await request(`${config.hostServer}/api/getInfo/user/basicInfo`, 'POST', { login })
+                const arrayPeople = await request(`${config.hostServer}/api/getInfo/user/basicInfo`, 'POST', { login: login.current })
 
                 setPeople([arrayPeople])
 
-                infoUser.user.login.toLowerCase() === login.toLowerCase() ? setVisibledButtonAddFriend(false) : setVisibledButtonAddFriend(true)
+                infoUser.user.login.toLowerCase() === login.current.toLowerCase() ? setVisibledButtonAddFriend(false) : setVisibledButtonAddFriend(true)
 
                 setFindedHuman(arrayPeople.user.login)
             
@@ -49,7 +53,7 @@ export const Search = () => {
                 setPeople([])
             }
         } 
-    }, [findPersonInput, login, people])
+    }, [findPersonInput, login, request, findedHuman, infoUser])
 
     const keyDownFindAllNewFriends = e => {
         if (e.key === 'Enter') {
@@ -81,7 +85,10 @@ export const Search = () => {
     return (
         <>
             <Sidebar>
-                <SearchZone onClickDelete={cancelTheApplication} onClickAccept={makeFriends}/>
+                <SearchZone 
+                    onClickDelete={cancelTheApplication}
+                    onClickAccept={makeFriends}
+                 />
             </Sidebar>
              
             <div className='main-search region'>

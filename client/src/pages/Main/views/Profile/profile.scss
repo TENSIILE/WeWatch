@@ -12,7 +12,17 @@
 
 
     &::-webkit-scrollbar{
-        display: none;
+        // display: none;
+        width: 15px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-clip: padding-box;
+        border: 4px solid transparent;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: unset;
     }
 
     .user-header{
@@ -102,6 +112,7 @@
                     color:var(--first-text);
                     font-size: 25px;
                     white-space: nowrap;
+                    font-weight: 400;
                 }
 
                 #status-text{
@@ -169,7 +180,7 @@
                     &:first-child{
                         display: flex;
                         align-items: center;
-                        font-weight: 600;
+                        font-weight: 400;
                     }
 
                     &:last-child{

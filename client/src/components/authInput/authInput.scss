@@ -33,6 +33,21 @@
                 z-index: -1;
             }
         }
+
+        &:not([value='']):valid ~ .validate-icon.good {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        &[value=''] ~ .validate-icon.good {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        &:invalid ~ .validate-icon.bad {
+            opacity: 1;
+            visibility: visible;
+        }
     }
 
     .icon-input {
@@ -56,6 +71,38 @@
 
         div {
             line-height: 0;
+        }
+    }
+
+    .validate-icon {
+        width: 15px;
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0;
+        visibility: hidden;
+        transition: .4s;
+
+        div {
+            svg {
+                width: 17px;
+                height: 15px;
+            }
+        }
+
+        &.good {
+            svg {
+                fill: var(--basis-green);
+            }
+        }
+
+        &.bad {
+            svg {
+                fill:var(--basis-red);
+                width: 15px;
+                height: 13px;
+            }
         }
     }
 }

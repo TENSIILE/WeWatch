@@ -37,6 +37,7 @@ input.input-default {
     border-radius: 10px;
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, .05);
     box-sizing: border-box;
+    color:var(--first-text);
 
     &.grey-background {
         background: var(--second-background);

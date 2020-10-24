@@ -36,6 +36,14 @@
         top: -15px;
         height: 50px;
         width: 50px;
+        overflow: hidden;
+
+        &.enlarge-size{
+            svg{
+                width: 18px;
+                height: 18px;
+            }
+        }
 
         &:active {
             box-shadow: 0 0 10px var(--basis-blue);
@@ -55,10 +63,16 @@
             box-shadow: unset;
             border-radius: 50%;
             border: 4px solid var(--white-dark-background);
+            overflow: visible !important;
 
             &:hover {
                 background: var(--basis-green) !important;
             }
+        }
+
+        &.success-light{
+            background: var(--basis-green) !important;
+            box-shadow: 0 0 10px #00ff2286;
         }
     }
 

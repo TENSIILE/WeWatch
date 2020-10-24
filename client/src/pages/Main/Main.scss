@@ -12,4 +12,52 @@
         overflow: hidden;
         height: 100vh;
     }
+
+    .tooltip{
+        &::after{
+            content: attr(title-tooltip);
+            position: absolute;
+            top: -20px;
+            // left: 50%;
+            transform: translate(0, -100%);
+            // transform: translateX(-50%) translateY(20px);
+            display: block;
+            width: 150px;
+            background: rgba(0,0,0,.95);
+            color:rgba(255, 255, 255, 0.5);
+            padding: 10px;
+            border-radius: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform-origin: bottom;
+            white-space: pre-line;
+            transition: opacity .4s, visibility .4s, transform .4s;
+            transition-delay: 0s;
+        }
+    
+        &:hover{
+            &::after{
+                opacity: 1;
+                visibility: visible;
+                transition-delay: 1s !important;
+            }
+        }
+
+        &.tooltip-simple:hover{
+            &::after{
+                height: unset !important;
+                left: unset !important;
+                transition-delay: .3s !important;
+            }
+        }
+    }
+
+    @media (max-width: 1300px) {
+        .sidebar.sidebar-my-friends{
+            overflow: hidden !important;
+            min-width: 0 !important;
+            width: 0 !important; 
+            padding: 0 !important;
+        }
+    }
 }

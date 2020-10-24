@@ -1,6 +1,7 @@
 const {Router} = require('express')
 const User     = require('../models/User')
 const UserInfo = require('../models/UserInformation')
+const auth     = require('../middleware/auth.middleware')
 
 const router = Router()
 
@@ -132,9 +133,9 @@ router.post('/request/delete', async (req, res) => {
     }
 })
 
-router.get('/listRequestFriends', async (req, res) => {
+router.get('/listRequestFriends', auth, async (req, res) => {
     try{
-        const user                    = await User.findOne({ _id: req.query.userId })
+        const user                    = await User.findOne({ _id: req.user.userId })
         const listRequestFriend       = await User.find({ _id: user.friendRequestList })
         const myListRequestFriend     = await User.find({ _id: user.myFriendRequestList })
         const userFriendsList         = await User.find({ _id: user.friends })
@@ -159,6 +160,40 @@ router.get('/listRequestFriends', async (req, res) => {
         res.json({ list: listSubscribers, listMyRequestFriend, userFriends: listMyFriends })
 
     }catch(e){
+        res.status(500).json({ message:'Произошла ошибка, попробуйте снова!' })
+    }
+})
+
+
+router.post('/remove', auth, async (req, res) => {
+    try {
+        const { friendId } = req.body
+        const userId       = req.user.userId
+
+        const user       = await User.findById(userId)
+        const userFriend = await User.findById(friendId)
+
+        const dataUser   = user.friends.filter(friend => friend.toString() !== userFriend._id.toString())
+        const result     = { friends: dataUser }
+
+        const dataFriend   = userFriend.friends.filter(friend => friend.toString() !== user._id.toString())
+        const resultFriend = { friends: dataFriend } 
+        
+        await User.findByIdAndUpdate( 
+            { _id: user._id },
+            { $set: result },
+            { new: false }
+        )
+
+        await User.findByIdAndUpdate( 
+            { _id: userFriend._id },
+            { $set: resultFriend },
+            { new: false }
+        )
+
+        res.json({ message: 'Друг был успешно удалён!' })
+
+    } catch (e) {
         res.status(500).json({ message:'Произошла ошибка, попробуйте снова!' })
     }
 })

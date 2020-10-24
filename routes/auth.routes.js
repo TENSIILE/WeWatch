@@ -4,7 +4,9 @@ const {check, validationResult} = require('express-validator')
 const jwt      = require('jsonwebtoken')
 const User     = require('../models/User')
 const UserInfo = require('../models/UserInformation')
+
 const config   = require('config')
+const { route } = require('./getInfo.routes')
 
 const router = Router()
 
@@ -93,5 +95,48 @@ router.post('/login',
         }
     }
 )
+
+router.post('/login/checked_valid', async (req, res) => {
+    try {
+        
+        const { login } = req.body
+
+        const user = await User.findOne({ login })
+
+        if (user) {
+            throw new Error('Такой логин уже существует!')
+        }
+
+        res.json({ message: 'Все отлично, продождай!' })
+        
+
+    } catch (e) {
+        res.status(500).json({ message: e.message || 'Произошла ошибка, попробуйте снова!' })
+    }
+})
+
+router.post('/token/refresh', async (req, res) => {
+    try {
+    
+        const { userId } = req.body
+
+        const user = await User.findById(userId)
+
+        if (!user) {
+            return res.status(400).json({ message: 'Такого пользователя не существует!' })
+        }
+
+        const token = jwt.sign(
+            { userId: user._id },
+            config.get('jwtSecret'),
+            { expiresIn:'1h' }
+        )
+
+        res.json({ token, userId: user._id })
+
+    } catch (e) {
+        res.status(500).json({ message: 'Произошла ошибка, попробуйте снова!' })
+    }
+})
 
 module.exports = router

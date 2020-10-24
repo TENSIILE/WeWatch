@@ -1,0 +1,47 @@
+.information-block{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    // background:red;
+    height: 100%;
+    padding: 0 1em;
+    overflow: auto;
+
+    &.connecting-information-block-to-room {
+        position: relative;
+
+        div{
+            margin-bottom: 1em;
+
+            div{
+                svg{
+                    height: 13em;
+                }
+            }
+        }
+    }
+
+    div{
+        div{
+            svg{
+                width: 15em;
+                height: 14em;
+                fill:var(--basis-blue);
+            }
+        }
+    }
+
+    .information-block__text{
+        position: relative;
+        width: 350px;
+        color:var(--second-text); 
+        font-size: 1.5em;
+        margin: 1em 0;
+        margin-bottom: 1.5em;
+        font-weight: lighter;
+        text-align: center;
+    }
+}

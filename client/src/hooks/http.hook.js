@@ -23,6 +23,8 @@ export const useHttp = () => {
 
             setLoading(false)
 
+            setError(data.errors)
+
             return data
 
         } catch (e) {
@@ -32,5 +34,5 @@ export const useHttp = () => {
         }
     }, [])
 
-    return { loading, request, error}
+    return { loading, request, error }
 }

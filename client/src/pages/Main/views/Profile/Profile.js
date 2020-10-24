@@ -10,6 +10,7 @@ import { Modal } from '../../../../components/modal/Modal'
 import { ContextAuth } from '../../../../contexts/contextAuth'
 import { ContextGetInfo } from '../../../../contexts/contextGetInfo'
 import { ContextAlert } from '../../../../contexts/alert/contextAlert'
+import { ContextModal } from '../../../../contexts/modal/contextModal'
 import { MyRooms } from '../../layouts/Sidebar/parts/myRooms/MyRooms'
 
 import user from '../../../../static/img/user.jpg'
@@ -30,9 +31,9 @@ export const Profile = () => {
 
     const auth         = useContext(ContextAuth)
     const alert        = useContext(ContextAlert)
+    const modal        = useContext(ContextModal)
     const { request }  = useHttp()
 
-    const [openModal, setOpenModal]         = useState(false)
     const [srcUrlImage, setSrcUrlImage]     = useState(false)
     const [idBtnSetImage, setIdBtnSetImage] = useState('')
     const [languages, setLanguages]         = useState([])
@@ -94,13 +95,13 @@ export const Profile = () => {
        return setChangeDataProfile({ ...changeDataProfile, [e.target.name]: e.target.value })
     }     
 
-    const onClickBtnSetImage = ( nameInput, e ) => {
+    const onClickBtnSetImage = (nameInput, e) => {
         try {
             const file = e.target.files[0]
             const url  = URL.createObjectURL(file)
             
             setSrcUrlImage(url)
-            setOpenModal(true)
+            modal.show('installImageProfile')
 
             if (nameInput === 'avatar') {
                 setIdBtnSetImage('submit-save-avatar')
@@ -112,21 +113,35 @@ export const Profile = () => {
         } catch (e) {}
     }
 
+    const ref = React.useRef(null)
+
+    // const sendImg = async () => {
+    //     const formData = new FormData()
+    //     formData.append('avatar-input', ref.current.files[0])
+
+    //     const options = {
+    //         method:'POST',
+    //         body: formData,
+    //     }
+    //     await fetch(`${config.hostServer}/upload/avatar?userId=${auth.userId}`, options)
+    // }
+
     return (
         <>
             <Modal 
                 size='large' 
                 title='Установить изображение' 
-                eventOpen={{openModal, setOpenModal}} 
                 idMainBtn={idBtnSetImage}
+                action='installImageProfile'
             >
                 <img src={!!srcUrlImage ? srcUrlImage : header} alt=''/>
             </Modal>
 
             <Sidebar>
-                <MyRooms isEmpty={false}/>
+                <MyRooms/>
             </Sidebar>
-            <div className='user-account'>
+            
+            <div className='user-account beautiful-scrollbar'>
                 <div className='user-header'>
                     <img src={!!infoUser ? infoUser.userAdditional.header : header} alt=''/>
                     
@@ -160,12 +175,11 @@ export const Profile = () => {
                                     htmlFor='file'
                                     style={{width:40, height:40, margin:0}}
                                 >
-                                    <input type='file' id='file' name='avatar-input' onChange={e => onClickBtnSetImage('avatar', e)} accept="image/jpeg,image/png"/>
+                                    <input type='file' id='file' ref={ref} name='avatar-input' onChange={e => onClickBtnSetImage('avatar', e)} accept="image/jpeg,image/png"/>
                                 </ButtonMini>
                                 
                                 <input type='submit' id='submit-save-avatar' className='input-hidden' value='Сохранить' />
                             </form>
-                            
                         </div>
                         <div className='user-fullname'>
                             <div className='username'>

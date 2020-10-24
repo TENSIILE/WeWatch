@@ -1,14 +1,15 @@
 const {Router} = require('express')
 const User     = require('../models/User')
 const UserInfo = require('../models/UserInformation')
+const auth     = require('../middleware/auth.middleware')
 
 const router   = Router()
 
-router.get('/user', async (req, res) => {
+router.get('/user', auth, async (req, res) => {
     try {
-        
-        const userAdditional = await UserInfo.findOne({ user:req.query.userId })
-        const user           = await User.findById(req.query.userId)
+    
+        const userAdditional = await UserInfo.findOne({ user:req.user.userId })
+        const user           = await User.findById(req.user.userId)
 
         if (!userAdditional) {
             return res.status(400).json({ message: 'Такого пользователя не существует!' })
@@ -44,7 +45,8 @@ router.get('/user', async (req, res) => {
             rooms:user.rooms,
             friends:user.friends,
             friendRequestList:user.friendRequestList,
-            statusCode: user.statusCode
+            statusCode: user.statusCode,
+            statusOnline: user.statusOnline
         }
 
         res.json({ userAdditional, user:newUser, tableInformation, tableInformationEdit })
@@ -72,7 +74,7 @@ router.post('/user/basicInfo', async (req, res) => {
         const newUser = {
             login: user.login,
         }
-
+        
         res.json({ userAdditional, user:newUser })
 
     }catch(e){

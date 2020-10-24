@@ -2,15 +2,18 @@ import React, { useState, useEffect, useCallback, useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Badge } from '../../../../components/badge/Badge'
 import { Contextmenu } from '../../../../components/contextmenu/Contextmenu'
+import { IndicatorOnline } from '../../../../components/indicatorOnline/IndicatorOnline'
+import { ButtonMini } from '../../../../components/buttonMini/ButtonMini'
+import { ContextGetInfo } from '../../../../contexts/contextGetInfo'
+import { ContextBadge } from '../../../../contexts/contextBadge'
+import { ContextConMenu } from '../../../../contexts/contextmenu/contextConMenu'
+import { ContextIndicatorOnline } from "../../../../contexts/indicatorOnline/contextIndicatorOnline"
+
 import Home from '../../../../static/icons/Home.svg'
 import Video from '../../../../static/icons/Play.svg'
 import Chat from '../../../../static/icons/Edit-tools.svg'
 import Search from '../../../../static/icons/Search.svg'
 import Settings from '../../../../static/icons/Settings.svg'
-import { ButtonMini } from '../../../../components/buttonMini/ButtonMini'
-import { ContextGetInfo } from '../../../../contexts/contextGetInfo'
-import { ContextBadge } from '../../../../contexts/contextBadge'
-import { ContextConMenu } from '../../../../contexts/contextConMenu'
 
 import user from '../../../../static/img/user.jpg'
 
@@ -20,20 +23,21 @@ import './mainMenu.scss'
 export const MainMenu = () => {
     const { infoUser }  = useContext(ContextGetInfo)
     const { textBadge } = useContext(ContextBadge)
-    const {openContextmenu, setOpenContextmenu} = useContext(ContextConMenu)
+    const contextmenu   = useContext(ContextConMenu)
+    const { statusIO }  = useContext(ContextIndicatorOnline)
     
-    const [focus, setFocus] = useState({ home:true })
-    const defaultFocus = { home: false, video:false, chat:false, search:false, settings:false, profile:false }
+    const [focus, setFocus] = useState({ home: true })
+    const defaultFocus      = { home: false, video:false, chat:false, search:false, settings:false, profile:false }
 
     const location = useLocation()
 
-    const page = location.pathname.substring(1, location.pathname.length)
+    const page = location.pathname.substring(1, location.pathname.length).split('/')[0]
     
     useCallback(useEffect(() => {
         setFocus({
             ...defaultFocus,
             [page]: true}) 
-    }, [page]), []) 
+    }, [page]), [defaultFocus]) 
     
 
     const setActiveButtonsOnClick = event => {
@@ -68,12 +72,19 @@ export const MainMenu = () => {
             </div>
             <div className='profile'>
                 <Link to='/profile'>
-                    <ButtonMini icon="" id='profile' onClick={setActiveButtonsOnClick} onClickRightButton={() => setOpenContextmenu(true)} focus={focus.profile} style={{width:55, height:55}}>
-                        <div className='indicator-online'></div>
+                    <ButtonMini 
+                        icon=""
+                        id='profile'
+                        onClick={setActiveButtonsOnClick}
+                        onClickRightButton={() => contextmenu.show('status')}
+                        focus={focus.profile}
+                        style={{width:55, height:55}}
+                    >   
+                        <IndicatorOnline status={statusIO}/> 
                         <img src={!!infoUser ? infoUser.userAdditional.avatar : user} alt=''/>
                     </ButtonMini>
                 </Link>
-                <Contextmenu open={openContextmenu}/>
+                <Contextmenu open={contextmenu.visible.status}/>
             </div>
         </div>
     )
