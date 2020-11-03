@@ -41,6 +41,12 @@
     box-sizing: border-box;
     transition: .4s;
 
+    &.rollUp {
+        width: 0;
+        min-width: 0;
+        padding: 0;
+    }
+
     span#empty-text{
         @extend .empty-text;
     }
@@ -48,6 +54,32 @@
     &.sidebar-my-friends{
         background: transparent !important;
         border-left: 1px solid var(--second-background);
+    }
+
+    .empty-data {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+
+        .icon-empty {
+            display: flex;
+            justify-content: center;
+            margin: auto;
+
+            svg {
+                fill:var(--second-text);
+                width: 45px;
+                height: 45px;
+            }
+        }
+
+        span {
+            position: relative !important;
+            left: unset !important;
+            top:unset !important;
+            transform: unset !important;
+        }
     }
 }
 
@@ -135,4 +167,17 @@
     &::-webkit-scrollbar-track{
         background: var(--second-background);
     }
+}
+
+.zone-my-dialogs {
+    @extend .zone-my-created-room;
+    padding: 5px;
+
+    .list-my-dialogs {
+        width: 100%;
+    }
+}
+
+.controlling-current-room {
+    @extend .sidebar-my-friends;
 }

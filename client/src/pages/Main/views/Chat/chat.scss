@@ -1,0 +1,105 @@
+.container-chat {
+    position: relative;
+    width: 100%;
+    min-width: 500px;
+
+    .no-dialogue-selected {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .dialog-chat {
+            display: flex;
+            justify-content: center;
+
+            div {
+                svg {
+                    width: 400px;
+                    height: 290px;
+                    fill:var(--third-text);
+                }
+            }
+        }
+
+        .empty-text {
+            margin-top: -2em;
+            position: unset;
+            left: unset;
+            top: unset;
+            transform: unset;
+        }
+    
+    }
+    
+
+    .im-chat-input {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 1em 1.5em;
+        padding-top: 1.5em;
+        background: var(--first-background);
+        border-top: 1px solid var(--second-background);
+        box-shadow: 0 -5px 30px rgba(0,0,0,.03);
+
+        .management-my-message {
+            position: relative;
+
+            .react-svg {
+                &.attachments-files {
+                    position: absolute;
+                    z-index: 10;
+                    top: 50%;
+                    left: 10px;
+                    transform: translateY(-50%);
+                }
+
+                &.smile {
+                    position: absolute;
+                    z-index: 10;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    right: 80px;
+                }
+
+                div {
+                    height: 20px;
+
+                    svg {
+                        width: 20px;
+                        height: 20px;
+                        fill:var(--third-text);
+                        cursor: pointer;
+                        transition: .2s;
+
+                        &:hover {
+                            fill:var(--first-text);
+                        }
+                    }
+                }
+            }
+        }
+
+        
+
+
+        input {
+            width: 100%;
+            padding-left: 3em;
+            padding-right: 8em;
+        }
+
+        p#notification {
+            color:var(--second-text);
+            margin: 9px;
+            margin-top: 1em;
+            font-size: 12px;
+            margin-bottom: 0;
+        }
+    }
+}

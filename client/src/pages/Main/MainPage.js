@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { MainMenu } from './layouts/MainMenu/MainMenu'
 import { Alert } from '../../components/alert/Alert'
 import { Preloader } from '../../components/preloader/Preloader'
+import { ModalContainer } from '../../components/modal/ModalContainer'
 import { ContextGetInfo } from '../../contexts/contextGetInfo'
 import { ContextAlert } from '../../contexts/alert/contextAlert'
 import { ContextBadge } from '../../contexts/contextBadge'
@@ -21,8 +22,9 @@ export const MainPage = ({ children }) => {
     return (
         <ContextGetInfo.Provider value={{infoUser, rerender, setRerender, listRequestFriends, createdMyRooms}}>
             <ContextBadge.Provider value={{textBadge: !!listRequestFriends ? listRequestFriends.list.length : null}}>
-            <Preloader visible={!finishLoading}/>
+            {/* <Preloader visible={!finishLoading}/> */}
             <Alert {...alert.configAlert}/>
+            <ModalContainer/>
             <div className='wrapper' onClick={contextmenu.delegateHiddenContextmenu}>
                 <MainMenu/>
                 <div className='main-content'>

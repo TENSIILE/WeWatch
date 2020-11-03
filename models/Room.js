@@ -7,7 +7,7 @@ const schema = new Schema({
     logo:           {type: String, default: config.get('hostServer') + '/upload/image/USER.jpeg'},
     party:          [{type: String}],
     securityKey:    {type: String},
-    linkVideos:     {type: String},
+    linkVideo:      {type: String},
     listLinkVideos: [{type: String}],
     сhatId:         {type: Types.ObjectId},
     currentVideo:   {type: String},

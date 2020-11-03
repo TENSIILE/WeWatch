@@ -4,7 +4,7 @@ import { CSSTransition } from 'react-transition-group'
 import { ReactSVG } from 'react-svg'
 import { Button } from '../button/Button'
 import closeSvg from '../../static/icons/close2.svg'
-import { DELETE_FRIEND } from '../../types/components'
+import { DELETE_FRIEND } from '../../types/modal'
 
 import './modal.scss'
 

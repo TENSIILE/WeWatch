@@ -24,6 +24,7 @@ app.use('/api/friends', require('./routes/friends.routes'))
 app.use('/api/recovery', require('./routes/passwordRecovery.routes'))
 app.use('/api/room', require('./routes/room.routes'))
 app.use('/api/status', require('./routes/statusOnline.routes'))
+app.use('/api/dialogs', require('./routes/dialogs.routes'))
 
 app.use('/upload/image', express.static(__dirname + '/upload/image'))
 app.use(require('./routes/upload.routes'))

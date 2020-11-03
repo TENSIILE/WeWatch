@@ -39,17 +39,9 @@ router.get('/user', auth, async (req, res) => {
         tableInformation     = Object.entries(tableInformation)
         tableInformationEdit = Object.entries(tableInformationEdit)
 
-        const newUser = {
-            login:user.login, 
-            email:user.email, 
-            rooms:user.rooms,
-            friends:user.friends,
-            friendRequestList:user.friendRequestList,
-            statusCode: user.statusCode,
-            statusOnline: user.statusOnline
-        }
+        delete user.password
 
-        res.json({ userAdditional, user:newUser, tableInformation, tableInformationEdit })
+        res.json({ userAdditional, user, tableInformation, tableInformationEdit })
 
     } catch (e) {
         res.status(500).json({ message: 'Произошла ошибка, попробуйте снова!' })
@@ -81,6 +73,24 @@ router.post('/user/basicInfo', async (req, res) => {
         res.status(500).json({message: 'Произошла ошибка, попробуйте снова!'})
     }
 })
+
+router.post('/user/byId', async (req, res) => {
+    try{
+
+        const { id } = req.body
+        
+        let user             = await User.findById(id)
+        const userAdditional = await UserInfo.findOne({ user: user._id })
+
+        delete user.password
+        
+        res.json({ userAdditional, user })
+
+    }catch(e){
+        res.status(500).json({message: 'Произошла ошибка, попробуйте снова!'})
+    }
+})
+
 
 router.post('/user/savedata', async (req, res) => {
     try {

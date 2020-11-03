@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Modal } from './Modal'
 import { ContextModal } from '../../contexts/modal/contextModal'
 import { RemoveFriend } from './parts/RemoveFriend'
-import { DELETE_FRIEND } from '../../types/components'
+import { DELETE_FRIEND } from '../../types/modal'
 
 
 export const ModalContainer = ({ disabledArea = 'footer', style = {width:500} }) => {

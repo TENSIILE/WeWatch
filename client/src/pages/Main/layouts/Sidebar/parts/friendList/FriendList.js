@@ -26,6 +26,7 @@ export const FriendList = ({isEmpty, textEmpty = 'У Вас нет друзей'
                                 value={searcher.input}
                                 onChange={e => searcher.setInput(e.target.value)}
                                 onKeyUp={searcher.search}
+                                onClick={searcher.search}
                             />
                         </div>
 

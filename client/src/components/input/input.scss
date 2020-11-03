@@ -3,6 +3,16 @@
     display: flex;
     box-sizing: border-box;
 
+    &.btn-mess-send {
+        .btn-switch-menu {
+            svg {
+                transform:translate(-40%, -55%) rotateZ(-45deg);
+                width: 19px;
+                height: 19px;
+            }
+        }
+    }
+
     input {
         position: relative;
         border: none;

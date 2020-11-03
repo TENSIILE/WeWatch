@@ -6,7 +6,7 @@ import { ContextAlert } from '../../../contexts/alert/contextAlert'
 import { ContextAuth } from '../../../contexts/contextAuth'
 import { useHttp } from '../../../hooks/http.hook'
 
-import { DELETE_FRIEND } from '../../../types/components'
+import { DELETE_FRIEND } from '../../../types/modal'
 import config from '../../../config.json'
 
 export const RemoveFriend = () => {

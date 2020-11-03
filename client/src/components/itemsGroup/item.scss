@@ -20,6 +20,8 @@
             position: relative;
             height: 35px !important;
             width: 35px !important;
+            min-width: 35px;
+            min-height: 35px;
 
             .status-online{
                 position: absolute;

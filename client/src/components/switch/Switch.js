@@ -3,7 +3,7 @@ import './switch.scss'
 
 export const SwitchBtn = ({size = null}) => {
     return (
-        <div class={`switch-btn ${size}`}>
+        <div className={`switch-btn ${size}`}>
             <input type="checkbox" id='switch'/>
             <label htmlFor="switch"></label>
         </div>

@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import { ContextModal } from './contextModal'
-import { DELETE_FRIEND } from '../../types/components'
+import { DELETE_FRIEND } from '../../types/modal'
 
 export const ModalState = ({ children }) => {
     const [visible, setVisible] = useState({

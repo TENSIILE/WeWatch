@@ -2,13 +2,12 @@ import React, { useContext, useState, useEffect } from 'react'
 import { InfoBlockRoom } from '../../../../components/infoBlockRoom/infoBlockRoom'
 import { Sidebar } from '../../layouts/Sidebar/Sidebar'
 import { FriendList } from '../../layouts/Sidebar/parts/friendList/FriendList'
-import { ModalContainer } from '../../../../components/modal/ModalContainer'
 import { RoomConnection } from '../../../../components/modal/parts/RoomConnection'
 import { RecentlyInRoom } from '../../layouts/Sidebar/parts/recentlyInRoom/RecentlyInRoom'
 import { ContextGetInfo } from '../../../../contexts/contextGetInfo'
 import { ContextModal } from '../../../../contexts/modal/contextModal'
 
-import { CONNECT_TO_ROOM } from '../../../../types/components'
+import { CONNECT_TO_ROOM } from '../../../../types/modal'
 import men from '../../../../static/icons/men.svg'
 import men_plus from '../../../../static/icons/people-plus.svg'
 
@@ -36,8 +35,6 @@ export const Home = ({ children }) => {
     
     return (
         <>  
-            <ModalContainer/>
-
             <Sidebar>
                 <RecentlyInRoom isEmpty={false}/>
             </Sidebar>

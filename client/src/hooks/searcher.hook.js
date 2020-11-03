@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
-import { searchAndFilter } from '../functions/functions'
+import { searchAndFilter } from '../utils/functions'
 
 export const useSearcher = data => {
     const dataReference     = useRef(null)

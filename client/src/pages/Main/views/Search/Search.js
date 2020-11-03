@@ -8,6 +8,9 @@ import { Sidebar } from '../../layouts/Sidebar/Sidebar'
 import { Loader } from '../../../../components/loader/Loader'
 import { SearchZone } from '../../layouts/Sidebar/parts/controlRequestFriends/SearchZone'
 
+import { socketsClient } from '../../../../sockets/sockets'
+import { REQUEST__FRIENDS_CHECK } from '../../../../types/socket'
+
 import search from '../../../../static/icons/Search.svg'
 import config from '../../../../config.json'
 import './search.scss'
@@ -22,13 +25,11 @@ export const Search = () => {
     const [visibledButtonAddFriend, 
                    setVisibledButtonAddFriend]   = useState(true)
 
-    const [findPersonInput, setFindPersonInput ] = useState('')
+    const [findPersonInput, setFindPersonInput]  = useState('')
     const [people, setPeople]                    = useState([])
     const [findedHuman, setFindedHuman]          = useState('')
-    // let login = ''
 
     const login = useRef('')
-
 
 
     const FindAllNewFriends = useCallback( async () => {
@@ -63,16 +64,19 @@ export const Search = () => {
 
     const sendFriendRequest = async person => {
         await request(`${config.hostServer}/api/friends/request`, 'POST', { toUser: person, fromUser: userId })
+        socketsClient.socket.emit(REQUEST__FRIENDS_CHECK)
         setRerender(!rerender)
     }
 
     const makeFriends = async candicate_friend => {
         await request(`${config.hostServer}/api/friends/accept`, 'POST', { toUser: candicate_friend, fromUser: userId })
+        socketsClient.socket.emit(REQUEST__FRIENDS_CHECK)
         setRerender(!rerender)
     }
 
     const cancelTheApplication = async (candicate_friend, type = 'other') => {
         await request(`${config.hostServer}/api/friends/request/delete`, 'POST', { userId, toUser: candicate_friend, typeRequestFriend: type })
+        socketsClient.socket.emit(REQUEST__FRIENDS_CHECK)
         setRerender(!rerender)
     }
 

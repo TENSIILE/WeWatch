@@ -8,9 +8,9 @@ router.post('/create', async (req, res) => {
     try{
         
         const { owner, title, party, securityKey, linkVideos, listLinkVideos } = req.body
-        
-        const room = new Room({ owner, title, party, securityKey, linkVideos, listLinkVideos })
 
+        const room = new Room({ owner, title, party, securityKey, linkVideos, listLinkVideos })
+        
         await room.save()
 
         res.status(201).json({ message: 'Комната была создана!', roomId: room._id })

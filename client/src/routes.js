@@ -10,48 +10,52 @@ import { Profile } from './pages/Main/views/Profile/Profile'
 import { Home } from './pages/Main/views/Home/Home'
 import { Settings } from './pages/Main/views/Settings/Settings'
 import { Search } from './pages/Main/views/Search/Search'
+import { Chat } from './pages/Main/views/Chat/Chat'
 
 import { CreatingRoom } from './pages/Main/layouts/CreatingRoom/CreatingRoom'
 import { LogicCreatingRoom } from './pages/Main/layouts/CreatingRoom/LogicCreatingRoom'
 import { MainState } from './contexts/mainPage/MainState'
+import { LogicChat } from './pages/Main/views/Chat/LogicChat'
 
 export const useRoutes = isAuthenticated => {
     if (isAuthenticated) {
         return (
             <MainState>
-                <Switch>
-                    <Route path="/home" exact>
-                        <MainPage>
+                 <MainPage>
+                    <Switch>
+                        <Route path="/home" exact>
                             <Home/>
-                        </MainPage>
-                    </Route>
-                    <Route path="/home/creating_room">
-                        <MainPage>
+                        </Route>
+                        <Route path="/home/creating_room">
                             <Home>
                                 <LogicCreatingRoom>
                                     <CreatingRoom/>
                                 </LogicCreatingRoom>
                             </Home>
-                        </MainPage>
-                    </Route>
-                    <Route path="/search">
-                        <MainPage>
+                        </Route>
+                        <Route path="/chat" exact>
+                            <LogicChat>
+                                <Chat/>
+                            </LogicChat>
+                        </Route>
+                        <Route path="/chat/:id">
+                            <LogicChat>
+                                <Chat/>
+                            </LogicChat>
+                        </Route>
+                        <Route path="/search">
                             <Search/>
-                        </MainPage>
-                    </Route>
-                    <Route path="/settings">
-                        <MainPage>
+                        </Route>
+                        <Route path="/settings">
                             <Settings/>
-                        </MainPage>
-                    </Route>
-                    <Route path="/profile">
-                        <MainPage>
+                        </Route>
+                        <Route path="/profile">
                             <Profile/>
-                        </MainPage>
-                    </Route>
-                    
-                    <Redirect to="/home"/>
-                </Switch>
+                        </Route>
+                        
+                        <Redirect to="/home"/>
+                    </Switch>
+                 </MainPage>
             </MainState>
         )
     }

@@ -51,12 +51,18 @@
     }
 
     &.simple {
-        color: var(--first-text) !important;
+        // color: var(--first-text) !important;
+        color:var(--basis-blue) !important;
+        
         background: transparent !important;
         border: 1px solid var(--second-background);
         filter:brightness(1) !important;
 
         &:hover {
+            border-color: var(--basis-blue);
+        }
+
+        &:active {
             background: var(--second-background) !important;
         }
     }

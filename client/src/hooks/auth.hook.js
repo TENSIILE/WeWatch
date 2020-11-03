@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect, useContext } from 'react'
 import { ContextIndicatorOnline } from '../contexts/indicatorOnline/contextIndicatorOnline'
 import { socketsClient } from '../sockets/sockets'
-import { getUserId } from '../functions/functions'
+import { getUserId } from '../utils/functions'
 
 import config from '../config.json'
 

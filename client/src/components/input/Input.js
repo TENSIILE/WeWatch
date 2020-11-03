@@ -3,7 +3,7 @@ import { ButtonMini } from '../buttonMini/ButtonMini'
 import './input.scss'
 
 export const Input = ({ style, isWithButton = false, icon, onClick, placeholder, newClass = '',
-    onChange, onKeyDown, onKeyUp, value, name, maxLength, disabled = false }) => {
+    onChange, onKeyDown, onKeyUp, value, name, maxLength, disabled = false, parentClass = '' }) => {
         
     return (
         <>
@@ -24,7 +24,7 @@ export const Input = ({ style, isWithButton = false, icon, onClick, placeholder,
                     
                 />
            ) : (
-                <div className='input-block' style={style}>
+                <div className={`input-block ${parentClass}`} style={style}>
                     <input
                         type='text'
                         className={newClass}

@@ -33,6 +33,7 @@ export const MyRooms = () => {
                                 value={searcher.input}
                                 onChange={e => searcher.setInput(e.target.value)}
                                 onKeyUp={searcher.search}
+                                onClick={searcher.search}
                             />
                         </div>
                 

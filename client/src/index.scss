@@ -1,8 +1,10 @@
 :root {
     --basis-blue: #007BFF;
+    --basis-blue-dark: #0062cc;
     --basis-red: #DC3545;
     --basis-red-dark: #a53540;
     --basis-green: #53D769;
+    --basis-green-dark: #28A745;
     --basis-sky: #17A2B8;
     --basis-yellow: #FFC107;
     --basis-white-transparent: rgba(255, 255, 255, 0.05);
@@ -60,6 +62,7 @@ body {
 
 
 input[type='file'] {
+    position: absolute;
     opacity: 0;
     visibility: hidden;
     width: 0;
@@ -124,6 +127,21 @@ input[type='file'] {
     
         &::-webkit-scrollbar-track {
             background: unset;
+        }
+
+        &.super-mini {
+            &::-webkit-scrollbar{
+                width: 23px;
+            }
+        
+            &::-webkit-scrollbar-thumb {
+                background-clip: padding-box;
+                border: 10px solid transparent;
+            }
+        
+            &::-webkit-scrollbar-track {
+                background: unset;
+            }
         }
     }
 }

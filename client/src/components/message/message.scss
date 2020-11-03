@@ -1,0 +1,121 @@
+.message {
+    position: relative;
+    display: flex;
+    width: 100%;
+    margin-bottom: 2em;
+
+    &.my-message {
+        position: relative;
+        flex-direction: row-reverse;
+        align-items: flex-end;
+
+        img.avatar {
+            border-radius: 10px 10px 10px 4px;
+        }
+
+        .content-message {
+            position: relative;
+            border-radius: 20px 20px 4px 20px;
+            margin-right: 0.5em;
+            margin-left: 0;
+            padding: 0.8em !important;
+            background: var(--second-background);
+            box-shadow: none;
+
+            p.fullname {
+                display: none;
+            }
+
+            p.text-message {
+                margin: 0;
+                color:var(--first-text);
+            }
+
+            span.datetime {
+                color:var(--first-text);
+            }
+        }
+
+        .isReading {
+            div {
+                svg {
+                   width: 13px;
+                   left: -25px;
+                   bottom: 5px;
+                   position: absolute;
+                   fill:var(--second-text);
+                }
+            }
+        }
+    }
+
+    img.avatar {
+        width: 45px;
+        height: 45px;
+        border-radius: 10px 4px 10px 10px;
+    }
+
+    .content-message {
+        display: flex;
+        flex-direction: column;
+        padding: .8em;
+        padding-top: .2em;
+        background: var(--basis-blue);
+        box-shadow: 0 2px 5px rgba(0, 123, 255,.3);
+        border-radius: 4px 20px 20px 20px;
+        margin-left: 0.5em;
+        min-width: 250px;
+        max-width: 550px;
+
+        p.fullname {
+            color:white;
+            margin: 0;
+            font-size: 15px;
+        }
+
+        .container-message {
+            display: flex;
+            flex-wrap: wrap;
+
+            img {
+                margin-top: 1em;
+                margin-right: 1em;
+                display: block;
+                width: 100%;
+                border-radius: 10px;
+                object-fit: cover;
+                min-width: 50px;
+                min-height: 50px;
+                max-width: 100px;
+                max-height: 100px;
+                cursor: pointer;
+                transition: .4s;
+
+                &:hover {
+                    transform: scale(1.05);
+                }
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+
+        p.text-message {
+            color:white;
+            white-space: pre-line;
+            margin: 0;
+            margin-top: .4em;
+            font-size: 14px;
+        }
+
+        span.datetime {
+            color:white;
+            margin-left: auto;
+            margin-right: .5em;
+            font-size: 13px;
+            margin-top: 0.5em;
+            opacity: .5;
+        }
+    }
+}

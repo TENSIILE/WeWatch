@@ -207,7 +207,7 @@
             }
 
             &:hover {
-                background: #007BFF;
+                background: var(--basis-blue);
                 color: white;
                 border-radius: 4px;
 
@@ -219,7 +219,7 @@
             }
 
             &:active {
-                background: var(basis-blue) !important;
+                background: var(--basis-blue-dark);
             }
 
             &.danger {

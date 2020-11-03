@@ -7,4 +7,6 @@ export const ContextMain = React.createContext({
     createdMyRooms: {},
     setRerender: () => {},
     rerender: false,
+    infoUserDialogs: [],
+    isReloading: false
 })

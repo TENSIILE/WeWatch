@@ -46,10 +46,6 @@
 
     &.online {
         background: var(--basis-green);
-
-        &::before {
-            animation: pulse2 2s ease 0s;
-        }
     }
 
     &.sleep {
