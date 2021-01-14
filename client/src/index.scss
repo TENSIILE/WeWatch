@@ -1,12 +1,21 @@
+@import './static/themes.scss';
+@import './static/bootstrap.scss';
+
 :root {
     --basis-blue: #007BFF;
     --basis-blue-dark: #0062cc;
+    --basis-blue-transparent: rgba(0, 98, 204,.1);
     --basis-red: #DC3545;
     --basis-red-dark: #a53540;
+    --basis-red-transparent:rgba(220, 53, 70, 0.1);
     --basis-green: #53D769;
     --basis-green-dark: #28A745;
+    --basis-green-transparent:rgba(40, 167, 69, .1);
     --basis-sky: #17A2B8;
     --basis-yellow: #FFC107;
+    --basis-yellow-dark:#d8a200;
+    --basis-yellow-transparent: rgba(255, 193, 7, .1);
+    
     --basis-white-transparent: rgba(255, 255, 255, 0.05);
     --basis-white-transparent2: rgba(255, 255, 255, 0.1);
 
@@ -14,25 +23,33 @@
     --basis-black-transparent2: rgba(0, 0, 0, 0.5);
     --basis-black-transparent3: rgba(0, 0, 0, 0.1);
 
+    --main-menu-color: #007BFF;
+
     --menu-color: #007BFF;
+    --menu-color-shadow: #007bff86;
 
     --first-background: #FFFFFF;
     --second-background: #F4F7F8;
     --third-background: #EFEFEF;
 
-    --white-dark-background: #FFFFFF;
-    --color-shadow: rgba(0, 0, 0, 0.1);
+    --fourth-background: #e4e2e2;
+    --fifth-background: #d6d4d4;
 
+    --white-dark-background: #FFFFFF;
+    
     --first-text: #3C3F44;
     --second-text: #B1B6BB;
     --third-text: #A7ACB2;
-
+    
+    --color-shadow: rgba(0, 0, 0, 0.1);
     --middle-gray-separator: rgba(177, 177, 177, 0.1);
+    --middle-gray-separator2: rgba(177, 177, 177, 0.3);
+    --middle-gray-separator3: rgba(177, 177, 177, 0.2);
 
     --background-modal: rgba(0, 0, 0, 0.9);
+
+    --dark-color: #202126 ;
 }
-
-
 
 @font-face {
     src: url('static/fonts/16068.otf');
@@ -58,112 +75,4 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow: hidden;
-}
-
-
-input[type='file'] {
-    position: absolute;
-    opacity: 0;
-    visibility: hidden;
-    width: 0;
-    height: 0;
-}
-
-.region {
-    position: relative;
-    width: 100%;
-    box-sizing: border-box;
-    // margin: 30px;
-    padding: 30px;
-
-    h2 {
-        margin: 0;
-        color: var(--first-text);
-        font-weight: normal;
-    }
-
-    hr#title-border-bottom {
-        background: var(--middle-gray-separator);
-        border: none;
-        height: 1px;
-        width: 100%;
-        margin: 15px 0 5px 0;
-    }
-}
-
-
-* {
-    box-sizing: border-box;
-}
-
-.beautiful-scrollbar {
-    &::-webkit-scrollbar {
-        width: 8px;
-    }
-
-    &::-webkit-scrollbar-corner {
-        display: none;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background: var(--basis-blue);
-        border-radius: 30px;
-    }
-
-    &::-webkit-scrollbar-track {
-        border-radius: 30px;
-        background: var(--second-background);
-    }
-
-    &.mini {
-        &::-webkit-scrollbar{
-            width: 15px;
-        }
-    
-        &::-webkit-scrollbar-thumb {
-            background-clip: padding-box;
-            border: 4px solid transparent;
-        }
-    
-        &::-webkit-scrollbar-track {
-            background: unset;
-        }
-
-        &.super-mini {
-            &::-webkit-scrollbar{
-                width: 23px;
-            }
-        
-            &::-webkit-scrollbar-thumb {
-                background-clip: padding-box;
-                border: 10px solid transparent;
-            }
-        
-            &::-webkit-scrollbar-track {
-                background: unset;
-            }
-        }
-    }
-}
-
-.extra-section{
-    position: relative;
-    margin-top: 1em;
-    padding: 15px;
-    border-radius: 20px;
-    margin-left: 2em;
-    background: var(--second-background);
-    transition: .4s;
-
-    &:before{
-        content: "";
-        position: absolute;
-        display: block;
-        left: -20px;
-        top: 0;
-        height: 100%;
-        width: 5px;
-        background: var(--first-text);
-        border-radius: 50px;
-    }
 }

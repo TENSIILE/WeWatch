@@ -4,11 +4,11 @@ const {check, validationResult} = require('express-validator')
 const jwt      = require('jsonwebtoken')
 const User     = require('../models/User')
 const UserInfo = require('../models/UserInformation')
+const helpers  = require('../utils/helpers/helpers')
 
 const config   = require('config')
-const { route } = require('./getInfo.routes')
 
-const router = Router()
+const router   = Router()
 
 router.post('/register',
     [
@@ -33,15 +33,26 @@ router.post('/register',
             const candidate = await User.findOne({ email })
 
             if (candidate) {
-                return res.status(400).json({ message:'Такой пользователь уже существует!' })
+                return res.status(400).json({ message: 'Такой пользователь уже существует!' })
             }
     
             const hashedPassword     = await bcrypt.hash(password, 12)
             const user               = new User({ email, login, password: hashedPassword })
             const additionalInfoUser = new UserInfo({ user: user._id, created: new Date().toLocaleString(), languages: ['Не указано'] })
+            
+            const token = jwt.sign(
+                { userId: user.id, salt: helpers.generateKeys(12) },
+                config.get('jwtTokenApi'),
+            )
 
             await user.save()
             await additionalInfoUser.save()
+
+            await User.findOneAndUpdate(
+                { _id: user.id },
+                { $set: { tokenApi: token } },
+                { new: false }
+            )
 
             res.status(201).json({ message: 'Пользователь создан' })
 
@@ -112,30 +123,6 @@ router.post('/login/checked_valid', async (req, res) => {
 
     } catch (e) {
         res.status(500).json({ message: e.message || 'Произошла ошибка, попробуйте снова!' })
-    }
-})
-
-router.post('/token/refresh', async (req, res) => {
-    try {
-    
-        const { userId } = req.body
-
-        const user = await User.findById(userId)
-
-        if (!user) {
-            return res.status(400).json({ message: 'Такого пользователя не существует!' })
-        }
-
-        const token = jwt.sign(
-            { userId: user._id },
-            config.get('jwtSecret'),
-            { expiresIn:'1h' }
-        )
-
-        res.json({ token, userId: user._id })
-
-    } catch (e) {
-        res.status(500).json({ message: 'Произошла ошибка, попробуйте снова!' })
     }
 })
 

@@ -17,6 +17,7 @@
   "author": "Vladislav Laptev <laptev-vlad2001@yandex.ru>",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.0",
     "bcryptjs": "^2.4.3",
     "config": "^3.3.1",
     "cors": "^2.8.5",

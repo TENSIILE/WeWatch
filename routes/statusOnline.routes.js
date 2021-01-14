@@ -3,10 +3,10 @@ const User     = require('../models/User')
 const UserInfo = require('../models/UserInformation')
 const auth     = require('../middleware/auth.middleware')
 
-const router = Router()
+const router   = Router()
 
 router.post('/status-change', auth, async (req, res) => {
-    try{
+    try {
 
         const userInfo = await UserInfo.findOne({ user: req.user.userId })
 

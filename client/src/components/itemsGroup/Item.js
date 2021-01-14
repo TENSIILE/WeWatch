@@ -1,5 +1,7 @@
 import React, { useContext } from 'react'
 import { ReactSVG } from 'react-svg'
+import classnames from 'classnames'
+
 import { Button } from '../../components/button/Button' 
 import { ButtonMini } from '../../components/buttonMini/ButtonMini'
 import { IndicatorOnline } from '../../components/indicatorOnline/IndicatorOnline'
@@ -12,21 +14,39 @@ import entrance from '../../static/icons/entrance.svg'
 
 import './item.scss'
 
-export const Item = ({ src, text, dotsActive = false, isOnButton, isButtonAccept = true, isButtonDelete, textButton, newClass = '',
-        onClick, onClickWrapper, onClickDelete, disabledButton = false, isItemRoom = false, isPasswordSetup,
-        onClickConnectToRoom, isListFriend, index, data, statusOnline }) => {
+export const Item = ({ 
+    src,
+    text,
+    dotsActive = false,
+    isOnButton,
+    isButtonAccept = true, 
+    isButtonDelete,  
+    textButton,
+    newClass = '',
+    onClick,
+    onClickWrapper,
+    onClickDelete,
+    disabledButton = false,
+    isItemRoom = false,
+    isPasswordSetup,
+    onClickConnectToRoom,
+    isListFriend,
+    index,
+    fullData, 
+    statusOnline
+}) => {
     
     const contextmenu = useContext(ContextConMenu)
     
     return (
-        <div className={`item ${newClass} ${isItemRoom ? 'item-room' : ''}`}>
+        <div className={classnames('item', [newClass], {'item-room': isItemRoom})}>
             {
                 isItemRoom ? (
                     <>
                         <img src={src} alt=''/>
                         <div className='text-area'>
                             <p>{text}</p>
-                            { isPasswordSetup ? <span>Необходим пароль</span> : null }
+                            {isPasswordSetup && <span>Необходим пароль</span>}
                         </div>
                         <ButtonMini 
                             icon={entrance} 
@@ -38,58 +58,58 @@ export const Item = ({ src, text, dotsActive = false, isOnButton, isButtonAccept
                         
                     </>
                 ) : (
-                    <div className='wrapper-item' onClick={onClickWrapper}>
+                    <div 
+                        className='wrapper-item' 
+                        onClick={onClickWrapper}
+                    >
                         <div className='avatar'>
                             <img src={src} alt=''/>
                             {
-                                 isListFriend ? <IndicatorOnline status={statusOnline}/> : null
+                                isListFriend && <IndicatorOnline status={statusOnline}/>
                             }
                         </div>
                         
                         <p>{text}</p>
                         {
-                            dotsActive ? (
+                            dotsActive && (
                                 <div className='container-dots'>
                                     <ReactSVG 
                                         src={dots_icon}
                                         className='dots'
-                                        // onClick={() =>contextmenu.show('actionOverMyFriends')}
                                         onClick={() => contextmenu.openEachCMInFor(index)}
                                     />
 
                                     <Contextmenu 
                                         view='action-list-my-friends'
-                                        // open={contextmenu.visible.actionOverMyFriends}
                                         open={contextmenu.eachContextmenu.myFriends[index]}
-                                        data={data}
+                                        fullData={fullData}
                                      />
                                 </div>
-                            ) : null
+                            )
                         }
                         {
-                            isOnButton ? 
+                            isOnButton && 
                                 <>
                                     {
-                                        isButtonAccept ? (
+                                        isButtonAccept && (
                                             <Button
                                                 text={textButton}
                                                 classNames='btn primary transparently-btn'
                                                 onClick={onClick}
                                                 disabled={disabledButton} 
                                             /> 
-                                        ) : null  
+                                        )
                                     }  
                                     {
-                                        isButtonDelete ? (
+                                        isButtonDelete && (
                                             <Button
                                                 text={<ReactSVG src={close}/>}
                                                 classNames='btn danger transparently-btn'
                                                 onClick={onClickDelete}
                                             /> 
-                                        ) : null
+                                        )
                                     }
                                 </> 
-                                : null
                         }
                     </div>
                 )

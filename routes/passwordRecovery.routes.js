@@ -1,59 +1,13 @@
 const {Router}   = require('express')
-const nodemailer = require("nodemailer")
 const User       = require('../models/User')
 const bcrypt     = require('bcryptjs')
+const auth       = require('../middleware/auth.middleware')
 
 const router = Router()
 
-const fromPerson = '"WeWatch 👻" <wewatch.inc@mail.ru>'
+const { sendMail, subjectMessage }   = require('../utils/helpers/mail')
+const { generateKeys, clearingKeys } = require('../utils/helpers/helpers')
 
-const subjectMessage = {
-    passwordRecovery: 'Восстановление пароля от аккаунта WeWatch'
-}
-
-const sendMail = async (subjectMail, email) => {
-    const transporter = nodemailer.createTransport({
-        host: "smtp.mail.ru",
-        port: 465,
-        secure: true,
-        auth: {
-            user: "wewatch.inc@mail.ru", 
-            pass: "messenger2020",
-        },
-        
-    }, {
-        from: 'Mailer WeWatch <wewatch.inc@mail.ru>'
-    })
-
-    await transporter.sendMail({
-        from: fromPerson,
-        to: email.to, 
-        subject: subjectMail,
-        text: email.text, 
-        html: email.html
-    })
-
-    return true
-}
-
-const generateKeys = len => {
-    const symbols  = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-    let password   = ""
-    for (let i = 0; i < len; i++) {
-        password += symbols.charAt(Math.floor(Math.random() * symbols.length)) 
-    }
-    return password
-}
-
-const clearingKeys = email => {
-    setTimeout(async () => {
-        await User.findOneAndUpdate(
-            { email },
-            { $set: { recoveryCode: "" } },
-            { new: false }
-        )
-    }, 300_000)
-}
 
 router.post('/getKeyByMail', async (req, res) => {
     try {
@@ -69,21 +23,22 @@ router.post('/getKeyByMail', async (req, res) => {
         const newKey = generateKeys(16)
 
         const messageHTML = `
-                <h2>Здравствуйте, ${user.login}!</h2>
-                <p>Это ваш код безопасности для восстановления пароля в учетной записи WeWatch:
-                    <br/>
-                <h3>Код: <strong>${newKey}</strong></h3>
-                    <br/>
-                Он необходим для подтверждения, что владельцем учетной записи являетесь именно вы.
-                    <br/>
-                    <br/>
-                В целях обеспечения безопасности код станет недействительным через 5 минут.
-                    <br/>
-                    <br/>
-                Благодарим за внимание,
-                    <br/>
-                    <br/>
-                Команда WeWatch</p>`
+            <h2>Здравствуйте, ${user.login}!</h2>
+            <p>Это ваш код безопасности для восстановления пароля в учетной записи WeWatch:
+                <br/>
+            <h3>Код: <strong>${newKey}</strong></h3>
+                <br/>
+            Он необходим для подтверждения, что владельцем учетной записи являетесь именно вы.
+                <br/>
+                <br/>
+            В целях обеспечения безопасности код станет недействительным через 3 минуты.
+                <br/>
+                <br/>
+            Благодарим за внимание,
+                <br/>
+                <br/>
+            Команда WeWatch</p>
+        `
 
         sendMail(subjectMessage.passwordRecovery, {
             to: email,
@@ -99,7 +54,13 @@ router.post('/getKeyByMail', async (req, res) => {
     
         res.json({ message: 'Ключ восстановления пароля был выстан на почту!' })
         
-        clearingKeys(email)
+        clearingKeys(async () => {
+            await User.findOneAndUpdate(
+                { email },
+                { $set: { recoveryCode: "" } },
+                { new: false }
+            )
+        })
 
     } catch (e) {
         res.status(500).json({ message: 'Произошла ошибка, попробуйте снова!' })
@@ -114,30 +75,90 @@ router.post('/keyVerification', async (req, res) => {
         const user = await User.findOne({ email })
 
         if (user.recoveryCode === key) {
-
-            res.json({ message:'Ключи совпали!' })
-
-        } else {
-            throw new Error('Ключи не совпадают!')
+            return res.json({ message:'Ключи совпали!' })
         }
+
+        throw new Error('Ключи не совпадают!')
 
     } catch (e) {
         res.status(500).json({ message: e.message ? e.message : 'Произошла ошибка, попробуйте снова!' })
     }
 })
 
-router.post('/AssigningNewPassword', async (req, res) => {
+router.post('/assigningNewPassword', async (req, res) => {
     try {
         
-        const { email, new_password } = req.body
+        let { email, new_password } = req.body
 
         const hashedPassword = await bcrypt.hash(new_password, 12)
 
+        if (!email) return res.status(400).json({ message: 'Вы не указали свою почту!' }) 
+
+        if (new_password.length < 8) return res.status(400).json({ message: 'Вы ввели легкий пароль, необходимо ввести пароль больше 7 символов!' })
+        
         await User.findOneAndUpdate(
             { email },
             { $set: { password: hashedPassword } },
             { new: false }
         )
+        
+        const user = await User.findById(userId)
+       
+        const messageHTML = `
+            <h2>Приветствую, ${user.login}!</h2>
+            <p>Ваш пароль был успешно изменен <strong>${new Date().toLocaleString()}</strong>.
+                <br/>
+            Благодарим за внимание,
+                <br/>
+                <br/>
+            Команда WeWatch</p>
+        `
+
+        sendMail(subjectMessage.passwordСhanged, {
+            to: user.email,
+            text: '',
+            html: messageHTML
+        })
+
+        res.json({ message: 'Пароль в учетной записи WeWatch был успешно изменен!' })
+
+    } catch (e) {
+        res.status(500).json({ message: 'Произошла ошибка, попробуйте снова!' })
+    }
+})
+
+router.post('/assigningNewPasswordFromAccount', auth, async (req, res) => {
+    try {
+        
+        let { new_password } = req.body
+
+        if (new_password.length < 8) return res.status(400).json({ message: 'Вы ввели легкий пароль, необходимо ввести пароль больше 7 символов!' })
+
+        const hashedPassword = await bcrypt.hash(new_password, 12)
+
+        await User.findOneAndUpdate(
+            { _id: req.user.userId },
+            { $set: { password: hashedPassword } },
+            { new: false }
+        )
+
+        const user = await User.findById(req.user.userId)
+       
+        const messageHTML = `
+            <h2>Приветствую, ${user.login}!</h2>
+            <p>Ваш пароль был успешно изменен <strong>${new Date().toLocaleString()}</strong>.
+                <br/>
+            Благодарим за внимание,
+                <br/>
+                <br/>
+            Команда WeWatch</p>
+        `
+
+        sendMail(subjectMessage.passwordСhanged, {
+            to: user.email,
+            text: '',
+            html: messageHTML
+        })
 
         res.json({ message: 'Пароль в учетной записи WeWatch был успешно изменен!' })
 

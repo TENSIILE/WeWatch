@@ -1,6 +1,9 @@
 import React, {useState, useContext, useCallback, useRef } from 'react'
+import { ReactSVG } from 'react-svg'
+import classnames from 'classnames'
 import { ContextAuth } from '../../../../contexts/contextAuth'
 import { ContextGetInfo } from '../../../../contexts/contextGetInfo'
+import { ContextAlert } from '../../../../contexts/alert/contextAlert'
 import { useHttp } from '../../../../hooks/http.hook'
 import { Input } from '../../../../components/input/Input'
 import { Item } from '../../../../components/itemsGroup/Item'
@@ -10,42 +13,50 @@ import { SearchZone } from '../../layouts/Sidebar/parts/controlRequestFriends/Se
 
 import { socketsClient } from '../../../../sockets/sockets'
 import { REQUEST__FRIENDS_CHECK } from '../../../../types/socket'
+import { ADDING_TO_FRIEND } from '../../../../types/settingsNames'
 
 import search from '../../../../static/icons/Search.svg'
+import friend from '../../../../static/icons/placeholders_search_engine.svg'
 import config from '../../../../config.json'
+
 import './search.scss'
 
 export const Search = () => {
-    const { infoUser, listRequestFriends,
-         rerender, setRerender } = useContext(ContextGetInfo)
-    const { userId }             = useContext(ContextAuth)
-    const { request, loading }   = useHttp()
+    const { 
+        infoUser, 
+        listRequestFriends,
+        rerender, 
+        setRerender }          = useContext(ContextGetInfo)
+    const { userId, token }    = useContext(ContextAuth)
+    const alert                = useContext(ContextAlert)
+    const { request, loading } = useHttp()
 
-    
     const [visibledButtonAddFriend, 
                    setVisibledButtonAddFriend]   = useState(true)
 
     const [findPersonInput, setFindPersonInput]  = useState('')
     const [people, setPeople]                    = useState([])
     const [findedHuman, setFindedHuman]          = useState('')
+    const [lockAddToFriend, setLockAddToFriend]  = useState(null)
 
-    const login = useRef('')
+    const login                                  = useRef('')
 
 
     const FindAllNewFriends = useCallback( async () => {
-
         if (!findPersonInput.trim()) return setPeople([])
         
-        if (findedHuman.toString() === findPersonInput.slice(1)) return
+        if (findedHuman.toString() === findPersonInput.slice(1) && findedHuman.toString() === login.current.toString()) return
 
         if (findPersonInput.includes('@')) {
            login.current = findPersonInput.slice(1)
         
            try {
-                const arrayPeople = await request(`${config.hostServer}/api/getInfo/user/basicInfo`, 'POST', { login: login.current })
+                const arrayPeople = await request(`${config.hostServer}/api/getInfo/user/basicInfo`, 'POST', { login: login.current }, { Authorization: `Bearer ${token}` })
 
                 setPeople([arrayPeople])
 
+                arrayPeople.userAdditional.settings ? setLockAddToFriend(JSON.parse(arrayPeople.userAdditional.settings)[ADDING_TO_FRIEND].nobody) : setLockAddToFriend(false)
+                
                 infoUser.user.login.toLowerCase() === login.current.toLowerCase() ? setVisibledButtonAddFriend(false) : setVisibledButtonAddFriend(true)
 
                 setFindedHuman(arrayPeople.user.login)
@@ -63,19 +74,24 @@ export const Search = () => {
     }
 
     const sendFriendRequest = async person => {
-        await request(`${config.hostServer}/api/friends/request`, 'POST', { toUser: person, fromUser: userId })
+        await request(`${config.hostServer}/api/friends/request`, 'POST', { toUser: person, fromUser: userId }, { Authorization: `Bearer ${token}` })
         socketsClient.socket.emit(REQUEST__FRIENDS_CHECK)
         setRerender(!rerender)
     }
 
     const makeFriends = async candicate_friend => {
-        await request(`${config.hostServer}/api/friends/accept`, 'POST', { toUser: candicate_friend, fromUser: userId })
+        try {
+            await request(`${config.hostServer}/api/friends/accept`, 'POST', { toUser: candicate_friend, fromUser: userId }, { Authorization: `Bearer ${token}` })
+        } catch (e) {
+            alert.show('danger', e.message, 'Ошибка!')
+        }
+        
         socketsClient.socket.emit(REQUEST__FRIENDS_CHECK)
         setRerender(!rerender)
     }
 
     const cancelTheApplication = async (candicate_friend, type = 'other') => {
-        await request(`${config.hostServer}/api/friends/request/delete`, 'POST', { userId, toUser: candicate_friend, typeRequestFriend: type })
+        await request(`${config.hostServer}/api/friends/request/delete`, 'POST', { userId, toUser: candicate_friend, typeRequestFriend: type }, { Authorization: `Bearer ${token}` })
         socketsClient.socket.emit(REQUEST__FRIENDS_CHECK)
         setRerender(!rerender)
     }
@@ -94,7 +110,7 @@ export const Search = () => {
                     onClickAccept={makeFriends}
                  />
             </Sidebar>
-             
+
             <div className='main-search region'>
                 <h2>Поиск друзей</h2>
                 <hr id='title-border-bottom'/>
@@ -110,26 +126,46 @@ export const Search = () => {
                         onClick={FindAllNewFriends}
                         onKeyDown={keyDownFindAllNewFriends}
                     />
-                    {loading ? <Loader/> : null}
+
+                    {loading && <Loader/>}
+
                     <hr id='title-border-bottom'/>
                     <div className='list-new-friends beautiful-scrollbar'>
                         {
                             people.length ? 
                                 people.map((person, index) => {  
                                     return (
-                                        <Item 
-                                            key={index}
-                                            src={person.userAdditional.avatar} 
-                                            newClass={`adding-new-friend ${people.length ? 'active' : '' }`}
-                                            text={person.userAdditional.name + ' ' + person.userAdditional.lastname}
-                                            isOnButton={visibledButtonAddFriend} 
-                                            textButton={[listRequestFriends.userFriends].checkingForExistenseOfPerson(person) ? 'У Вас в друзьях' : 'Добавить в друзья'}
-                                            onClick={() => sendFriendRequest(person.userAdditional.user)}
-                                            disabledButton={[listRequestFriends.list, listRequestFriends.listMyRequestFriend, listRequestFriends.userFriends].checkingForExistenseOfPerson(person)}
-                                        /> 
+                                        lockAddToFriend ? (
+                                            <Item 
+                                                key={index}
+                                                src={person.userAdditional.avatar} 
+                                                text='Данный пользователь запретил добавляться в друзья!'
+                                                newClass={classnames('adding-new-friend', 'text-danger')}
+                                            />
+                                        ) : (
+                                            <Item 
+                                                key={index}
+                                                src={person.userAdditional.avatar} 
+                                                newClass={classnames('adding-new-friend', {'active': people.length})}
+                                                text={person.userAdditional.name + ' ' + person.userAdditional.lastname}
+                                                isOnButton={visibledButtonAddFriend} 
+                                                textButton={[listRequestFriends.userFriends].checkingForExistenseOfPerson(person) ? 'У Вас в друзьях' : 'Добавить в друзья'}
+                                                onClick={() => sendFriendRequest(person.userAdditional.user)}
+                                                disabledButton={[listRequestFriends.list, listRequestFriends.listMyRequestFriend, listRequestFriends.userFriends].checkingForExistenseOfPerson(person)}
+                                            /> 
+                                        )
+                                        
                                     )
                                 })
-                            :  loading ? <Loader/> : <span id='empty-text'>Людей не найдено</span>
+                            :  loading ? <Loader/> : (
+                                <div className='no-friend-found'>
+                                    <ReactSVG 
+                                        src={friend} 
+                                        className='friendship-icon'
+                                    />
+                                    <span id='empty-text'>Людей не найдено</span>
+                                </div>
+                            )
                         }
                     </div>
                 </div>

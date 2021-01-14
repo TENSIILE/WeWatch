@@ -1,54 +1,38 @@
 const {Router} = require('express')
 const config   = require('config')
-const multer   = require('multer')
 const UserInfo = require('../models/UserInformation')
 const Room     = require('../models/Room')
+const Dialog   = require('../models/Dialog')
+const multer   = require('../utils/multer.config')
+const helpers  = require('../utils/helpers/helpers')
 const auth     = require('../middleware/auth.middleware')
 
 const router = Router()
 
-const replaceAll = (str, find, replace) => str.replace(new RegExp(find, 'g'), replace)
-
-const multerConfig = {
-    storage: multer.diskStorage({
-        destination: (req, file, next) => {
-            next(null, './upload/image')
-        },
-        filename: (req, file, next) => {
-            const ext = file.mimetype.split('/')[1]
-            next(null, file.originalname + '-' + Date.now() + '.' + ext)
-        },
-        fileFilter: (req, file, next) => {
-            if (!file) {
-                next(null, true)
-            }
-        }
-    })
-}
-
 const wrapperUploader = async (req, res, nameFieldToDB) => {
-    let pathImage = replaceAll(req.file.path, "/\\/", '/')
+    let pathImage = helpers.replaceAll(req.file.path, "/\\/", '/')
     pathImage     = config.get('hostServer') + '/' + pathImage
     
-    const updated = {
-        [nameFieldToDB]: pathImage
-    }
+    const updated = { [nameFieldToDB]: pathImage }
 
-    try{
+    try {
+        
         await UserInfo.findOneAndUpdate(
-            {user: req.query.userId},
+            {user: req.body.userId},
             {$set: updated},
             {new: false}
         )
-    }catch (e){
+
+        res.json({ path: pathImage })
+
+    } catch (e) {
         res.status(400).json({message: 'Не удалось загрузить картинку!'})
     }
-    // res.redirect('back')
 }
 
 
 const uploaderLogoRoom = async (req, res, nameFieldToDB) => {
-    let pathImage = replaceAll(req.file.path, "/\\/", '/')
+    let pathImage = helpers.replaceAll(req.file.path, "/\\/", '/')
     pathImage     = config.get('hostServer') + '/' + pathImage
     
     const updated = { [nameFieldToDB]: pathImage }
@@ -59,28 +43,95 @@ const uploaderLogoRoom = async (req, res, nameFieldToDB) => {
         return res.status(401).json({ message: 'Отказано в доступе!' })
     }
 
-    try{
+    try {
+
         await Room.findOneAndUpdate(
             {_id: req.query.roomId},
             {$set: updated},
             {new: false}
         )
+
         res.json({ message:'Аватарка для комнаты была успешно установлена!' })
-    }catch (e){
+
+    } catch (e) {
         res.status(400).json({ message: 'Не удалось загрузить картинку!' })
     }
 }
 
-router.post('/upload/avatar', multer(multerConfig).single('avatar-input'), async (req, res) => {
+
+const uploaderFilesInDialog = async (req, res) => {
+    // Доделать(Переделать)!!!
+    const wrap = async () => {
+        let pathImage = helpers.replaceAll(req.file.path, "/\\/", '/')
+        pathImage     = config.get('hostServer') + '/' + pathImage
+    
+        const dialog = await Dialog.findOne({ _id: req.query.dialogId })
+    
+        const findedMessage = dialog.messages.findIndex(message => message.messageId === req.query.messageId)
+
+        if (findedMessage === -1) {
+            return setTimeout(async () => await wrap(req, res), 1000)
+        }
+        
+    
+        const message = dialog.messages[findedMessage]
+
+        message.attachments = [...message.attachments, pathImage] 
+
+        console.log(message)
+        
+        const updated = { messages: [...dialog.messages, dialog.messages[findedMessage] = message]}
+    
+        try {
+            await Dialog.findOneAndUpdate(
+                {_id: req.query.dialogId},
+                {$set: updated},
+                {new: false}
+            )
+            res.json({ message:'Файл был успешно загружен!' })
+        } catch (e) {
+            res.status(400).json({ message: 'Не удалось загрузить файл!' })
+        }
+    }
+    wrap()
+}
+
+const wrapperSavePath = async (req, res) => {
+    const { path, field } = req.body
+
+    const updated = { [field]: path }
+
+    try {
+        await UserInfo.findOneAndUpdate(
+            {user: req.user.userId},
+            {$set: updated},
+            {new: false}
+        )
+        res.json({ done:true })
+    } catch (e) {
+        res.status(400).json({message: 'Не удалось загрузить картинку!'})
+    }
+}
+
+router.post('/upload/avatar', auth, multer.multer(multer.multerConfig).single('avatar'), async (req, res) => {
     wrapperUploader(req, res, 'avatar')
 })
 
-router.post('/upload/header', multer(multerConfig).single('header-input'), async (req, res) => {
+router.post('/upload/header', auth, multer.multer(multer.multerConfig).single('header'), async (req, res) => {
     wrapperUploader(req, res, 'header')
 })
 
-router.post('/upload/logo_room', auth, multer(multerConfig).single('logo-room'), async (req, res) => {
+router.post('/upload/logo_room', auth, multer.multer(multer.multerConfig).single('logo-room'), async (req, res) => {
     uploaderLogoRoom(req, res, 'logo')
+})
+
+router.post('/upload/dialogs', auth, multer.multer(multer.multerConfigDialog).single('file'), async (req, res) => {
+    uploaderFilesInDialog(req, res)
+})
+
+
+router.post('/upload/savepath', auth, async (req, res) => {
+    wrapperSavePath(req, res)
 })
 
 module.exports = router

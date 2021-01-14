@@ -13,15 +13,22 @@ import search from '../../../../../../static/icons/Search.svg'
 import '../../sidebar.scss'
 
 export const DialogsChat = () => {
-    const { infoUserDialogs, isReloading } = useContext(ContextMain)
-    const auth                             = useContext(ContextAuth)
+    const { infoUserDialogs,
+            isReloading,
+            setInfoUserDialogs } = useContext(ContextMain)
+    const auth                   = useContext(ContextAuth)
 
-    const searcher              = useSearcher(infoUserDialogs)
-
-    const [isEmpty, setIsEmpty] = useState(true)
+    const searcher               = useSearcher(infoUserDialogs)
+    const [isEmpty, setIsEmpty]  = useState(true)
     
     useEffect(() => {
-        !!infoUserDialogs.length ? setIsEmpty(false) : setIsEmpty(true)
+        setIsEmpty(!infoUserDialogs.length)
+    
+        setInfoUserDialogs(infoUserDialogs.sort((a,b) => {
+            if (!!a.messages.length && !!b.messages.length) {
+                return new Date(b.messages[b.messages.length - 1].create_at) - new Date(a.messages[a.messages.length - 1].create_at)
+            }
+        })) 
     }, [infoUserDialogs])
 
     return (
@@ -49,16 +56,17 @@ export const DialogsChat = () => {
                                 <div className='zone-my-dialogs'>
                                     <div className='list-my-dialogs'>
                                         {
-                                            !!searcher.array.length ? searcher.array.map((dialog, i) => {
+                                            !!searcher.array.length ? searcher.array.map((dialog, i) => {  
                                                 return (
                                                     <Dialog 
                                                         key={dialog._id + i} 
                                                         chatID={dialog._id}
                                                         messages={dialog.messages}
-                                                        isMe={auth.userId === dialog.messages.author}
+                                                        isMe={!!dialog.messages.length && auth.userId === dialog.messages[dialog.messages.length - 1].author}
                                                         dialogData={dialog}
                                                     />
                                                 ) 
+                                                
                                             }) : <span id='empty-text'>Диалог не найден</span>
                                         }
                                     </div>
@@ -69,7 +77,10 @@ export const DialogsChat = () => {
                     </>
                 ) : (
                     <div className='empty-data'> 
-                        <ReactSVG src={emptyDialog} className='icon-empty'/>
+                        <ReactSVG 
+                            src={emptyDialog} 
+                            className='icon-empty'
+                        />
                         <span id='empty-text'>Диалоги пусты</span> 
                     </div>
                 )

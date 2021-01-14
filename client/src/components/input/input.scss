@@ -15,7 +15,7 @@
 
     input {
         position: relative;
-        border: none;
+        border: 0 solid var(--menu-color);
         outline: none;
         background: var(--first-background);
         padding: 15px 20px;
@@ -25,6 +25,11 @@
         padding-right: 70px;
         box-sizing: border-box;
         color: var(--first-text);
+        transition: border-width .1s;
+
+        &:focus {
+            border-bottom-width: 2px;
+        }
 
         &.grey-background {
             background: var(--second-background) !important;
@@ -32,7 +37,7 @@
 
         &::placeholder {
             color: var(--third-text);
-        }
+        }  
     }
 }
 
@@ -40,7 +45,7 @@
 input.input-default {
     position: relative;
     display: flex;
-    border: none;
+    border: 0 solid var(--menu-color);
     outline: none;
     background: var(--first-background);
     padding: 15px 20px;
@@ -48,9 +53,27 @@ input.input-default {
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, .05);
     box-sizing: border-box;
     color:var(--first-text);
+    transition: border-width .1s;
 
     &.grey-background {
         background: var(--second-background);
+    }
+
+    &:focus {
+        border-bottom-width: 2px;
+    }
+
+    &.search-visible {
+        width: 100%;
+        transition: .4s;
+        opacity: 1;
+        visibility: visible;
+
+        &.unvisible {
+            width: 0;
+            opacity: 0;
+            visibility: hidden;
+        }
     }
 }
 

@@ -7,7 +7,11 @@ import search from '../../../../../../static/icons/Search.svg'
 
 import '../../sidebar.scss'
 
-export const FriendList = ({isEmpty, textEmpty = 'У Вас нет друзей', list}) => {
+export const FriendList = ({
+    isEmpty, 
+    textEmpty = 'У Вас нет друзей',
+    list
+}) => {
     const searcher = useSearcher(list)
 
     return (
@@ -43,7 +47,7 @@ export const FriendList = ({isEmpty, textEmpty = 'У Вас нет друзей'
                                                 dotsActive={true}
                                                 isListFriend={true}
                                                 index={index}
-                                                data={friend.user}
+                                                fullData={friend}
                                                 statusOnline={friend.statusOnline}
                                             />
                                         )

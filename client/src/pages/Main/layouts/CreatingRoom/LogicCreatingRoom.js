@@ -1,22 +1,23 @@
 import React, { useState, useContext, useRef } from 'react'
-// import { useHistory } from 'react-router-dom'
 import { useHttp } from '../../../../hooks/http.hook'
 import { ContextAlert }  from '../../../../contexts/alert/contextAlert'
 import { ContextCreatingRoom } from '../../../../contexts/contextCreatingRoom'
 import { ContextGetInfo } from '../../../../contexts/contextGetInfo'
 import { ContextConMenu } from '../../../../contexts/contextmenu/contextConMenu'
 import { ContextAuth } from '../../../../contexts/contextAuth'
+import { generateRandomKeys } from '../../../../utils/functions'
 
 import config from '../../../../config.json'
 
 export const LogicCreatingRoom = ({ children }) => {
-    const alert                  = useContext(ContextAlert)
-    const auth                   = useContext(ContextAuth)
-    const contextmenu            = useContext(ContextConMenu)
-    const { listRequestFriends,
-         rerender, setRerender } = useContext(ContextGetInfo)
-    const { request }            = useHttp()
-    // const history                = useHistory()
+    const alert              = useContext(ContextAlert)
+    const auth               = useContext(ContextAuth)
+    const contextmenu        = useContext(ContextConMenu)
+    const { 
+        listRequestFriends,
+        rerender,
+        setRerender }        = useContext(ContextGetInfo)
+    const { request }        = useHttp()
 
     const [valuesInputs, setValuesInputs] = useState({
         nameRoom: '', textSecurityKey: '', linkToVideo: '',
@@ -44,13 +45,12 @@ export const LogicCreatingRoom = ({ children }) => {
 
     const appendToListAllLinksToVideos = e => {
         if (e.key === 'Enter') {
-            try{
-                listAllLinksToVideos.map(linkToVideo => {
-                    if (linkToVideo.link === valuesInputs.linksToAllVideo) {
-                        throw new Error('Такое видео уже было добавлено!')
-                    } 
-                })
-            }catch(e){
+            try {
+                const finded = listAllLinksToVideos.find(({ link }) => link === valuesInputs.linksToAllVideo)
+                
+                if (finded) throw new Error('Такое видео уже было добавлено!')
+                
+            } catch(e) {
                 return alert.show('danger', e.message, 'Ошибка')
             }
 
@@ -80,15 +80,6 @@ export const LogicCreatingRoom = ({ children }) => {
         } else {
             alert.show('warning', 'Вы забыли установить пароль для вашей будущей комнаты!', 'Ошибка!')
         }
-    }
-
-    const generateRandomKeys = () => {
-        const symbols  = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-        let password   = ""
-        for (let i = 0; i < 20; i++) {
-            password += symbols.charAt(Math.floor(Math.random() * symbols.length)) 
-        }
-        return password
     }
 
     const pasteToTextSecurityKey = () => {
@@ -134,7 +125,6 @@ export const LogicCreatingRoom = ({ children }) => {
         return !!listRequestFriends ? listRequestFriends.userFriends.filter(friend => !listAddedFriends.includes(friend)) : []
     }
 
-    
     const uploadLogoRoomOnServer = async id => {
         if (!!urlLogoRoom) {
             const formData = new FormData()
@@ -167,7 +157,6 @@ export const LogicCreatingRoom = ({ children }) => {
             } 
         
             const dataRoom = {
-                owner: auth.userId,
                 title: valuesInputs.nameRoom,
                 party: allFormatListFriends,
                 securityKey:valuesInputs.textSecurityKey,
@@ -175,11 +164,13 @@ export const LogicCreatingRoom = ({ children }) => {
                 listLinkVideos:listAllLinksToVideosFormat,
             }
             
-            const data = await request(`${config.hostServer}/api/room/create`, 'POST', dataRoom)
+            const data = await request(`${config.hostServer}/api/room/create`, 'POST', dataRoom, {
+                authorization: `Bearer ${auth.token}`
+            })
+            
             await uploadLogoRoomOnServer(data.roomId)
             alert.show('success', data.message, 'Успешно!')
             setRerender(!rerender)
-            // history.push()
         } catch (e) {
             alert.show('danger', e.message, 'Ошибка!')
         }

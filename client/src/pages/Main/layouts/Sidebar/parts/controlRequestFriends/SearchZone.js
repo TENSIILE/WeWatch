@@ -1,33 +1,40 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import { ReactSVG } from 'react-svg'
+
 import { Loader } from '../../../../../../components/loader/Loader'
 import { ContextGetInfo } from '../../../../../../contexts/contextGetInfo'
 import { Item } from '../../../../../../components/itemsGroup/Item'
 
+import friendship from '../../../../../../static/icons/friend-request.svg'
 import './searchZone.scss'
 
-export const SearchZone = ({ onClickDelete, onClickAccept }) => {
+export const SearchZone = ({ 
+    onClickDelete,
+    onClickAccept
+}) => {
     const { listRequestFriends }                = useContext(ContextGetInfo)
     const [sentInvitations, setSentInvitations] = useState(false)
 
 
     useEffect(() => {
         if (!!listRequestFriends) 
-            listRequestFriends.listMyRequestFriend.length ? setSentInvitations(true) : setSentInvitations('')
+            setSentInvitations(!!listRequestFriends.listMyRequestFriend.length)
+            // listRequestFriends.listMyRequestFriend.length ? setSentInvitations(true) : setSentInvitations('')
     },[listRequestFriends])
 
     return (
         <div className='invitation-lists'>
             <div className={`sent-applications ${sentInvitations ? 'visible' : ''} separate-block beautiful-scrollbar`}>
                 {
-                    !!listRequestFriends ? (
+                    !!listRequestFriends && (
                         listRequestFriends.listMyRequestFriend.length ? (
                             <>
                                 <p className='title'>Вы отправили запросы в друзья</p>
                                 <div className='mySubscribers beautiful-scrollbar'>
                                     <TransitionGroup>
                                         {   
-                                            !!listRequestFriends ? listRequestFriends.listMyRequestFriend.map((myCandicate_friend, index) => {
+                                            !!listRequestFriends && listRequestFriends.listMyRequestFriend.map((myCandicate_friend, index) => {
                                                 return(
                                                     <CSSTransition 
                                                         key={myCandicate_friend.user} 
@@ -45,13 +52,13 @@ export const SearchZone = ({ onClickDelete, onClickAccept }) => {
                                                         />
                                                     </CSSTransition>
                                                 ) 
-                                            }) : null
+                                            })
                                         } 
                                     </TransitionGroup>
                                 </div>
                             </>
                         ) : <span id='empty-text'>Отправленных заявок в друзья нет</span>
-                    ) : null
+                    )
                 }
             </div>
             <hr id='separator'/>
@@ -64,7 +71,7 @@ export const SearchZone = ({ onClickDelete, onClickAccept }) => {
                                 <div className='subscribers beautiful-scrollbar'>
                                     <TransitionGroup>
                                         {
-                                            !!listRequestFriends ? listRequestFriends.list.map((candicate_friend, index) => {
+                                            !!listRequestFriends && listRequestFriends.list.map((candicate_friend, index) => {
                                                 return(
                                                     <CSSTransition 
                                                         key={candicate_friend.user} 
@@ -83,12 +90,20 @@ export const SearchZone = ({ onClickDelete, onClickAccept }) => {
                                                         />
                                                     </CSSTransition>
                                                 ) 
-                                            }) : null
+                                            })
                                         } 
                                     </TransitionGroup>
                                 </div>
                             </>
-                        ) : <span id='empty-text'>Заявок в друзья нет</span>
+                        ) : (
+                            <div className='list-future-friend'>
+                                <ReactSVG 
+                                    src={friendship}
+                                    className='friend-icon'
+                                />
+                                <span id='empty-text'>Заявок в друзья нет</span>
+                            </div>
+                        )
                     ) : <Loader/>
                 }
             </div>

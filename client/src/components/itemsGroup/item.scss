@@ -10,6 +10,11 @@
     padding: 10px;
     // overflow: hidden;
 
+    &.text-danger {
+        .wrapper-item p {
+            color:var(--basis-red);
+        }  
+    }
 
     .wrapper-item {
         display: flex;
@@ -135,11 +140,15 @@
         }
 
         .avatar {
+            position: relative;
             width: 45px;
             height: 45px;
+            border-radius: 50%;
+            overflow: hidden;
         }
 
         p {
+            position: relative;
             margin-left: 15px !important;
             margin-right: 15px !important;
             cursor: default !important;

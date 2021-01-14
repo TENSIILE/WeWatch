@@ -30,7 +30,7 @@
             background: var(--basis-white-transparent);
         }
 
-        p{
+        h6{
             position: absolute;
             font-family: 'Thillends';
             color:white;
@@ -39,6 +39,7 @@
             left: 50%;
             top: 50%;
             transform: translate(-60%, -60%);
+            font-size: 30px !important;
         }
     }
 
@@ -82,7 +83,7 @@
             right: 0;
             width: 10px;
             height: 10px;
-            box-shadow: 0 0 0 3px var(--menu-color);
+            box-shadow: 0 0 0 3px var(--main-menu-color);
             z-index: 2;
         }
 

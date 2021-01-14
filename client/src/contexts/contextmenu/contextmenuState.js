@@ -19,9 +19,11 @@ export const ContextMenuState = ({ children }) => {
     }, [optionsEachCM])
 
     useEffect(createEachCMInFor, [optionsEachCM])
+    
 
     const [visible, setVisible] = useState({
-        'status':false, 'addFriendToRoom':false,
+        'status': false, 'addFriendToRoom': false,
+        'attachmentDataMessage': false
     }) 
 
     const show = useCallback(name => {

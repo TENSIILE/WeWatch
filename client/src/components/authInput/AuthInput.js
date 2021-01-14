@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { ReactSVG } from 'react-svg'
 import { useHttp } from '../../hooks/http.hook'
+
 import { ContextAlert } from '../../contexts/alert/contextAlert'
 
 import nonVisible from '../../static/icons/non-visible.svg'
@@ -11,21 +12,33 @@ import config from '../../config.json'
 
 import './authInput.scss'
 
-export const AuthInput = ({label, type, placeholder, name, text, onChange, style=null, disabled, innerStyle, icon = null, onClickIcon = null}) => {
-    const [typePassword, setTypePassword] = useState('password')
-    const alert                           = useContext(ContextAlert)
-    const { request }                     = useHttp()
+export const AuthInput = ({
+    label,
+    type, 
+    placeholder,
+    name,
+    text,
+    onChange,
+    style = null,
+    disabled,
+    innerStyle,
+    icon = null,
+    onClickIcon = null 
+}) => {
+
+    const [typePassword, 
+        setTypePassword] = useState('password')
+    const alert          = useContext(ContextAlert)
+    const { request }    = useHttp()
 
     const changeTypePassword = () => {
         if (typePassword === 'password') {
             setTypePassword('text')
-        }else{
-            setTypePassword('password')
-        }
+        }else setTypePassword('password')
     }
 
     const checkedLoginValid = async () => {
-        if (text.trim().toString() !== '') {
+        if (text.trim().toString()) {
             try {
                 await request(`${config.hostServer}/api/auth/login/checked_valid`, 'POST', { login: text })
             } catch (e) {
@@ -51,7 +64,7 @@ export const AuthInput = ({label, type, placeholder, name, text, onChange, style
                             onBlur={name === 'login' ? checkedLoginValid : null}
                         />
                         {
-                            type === 'email' ? (
+                            type === 'email' && (
                                 <>
                                     <ReactSVG
                                         src={checked}
@@ -62,16 +75,16 @@ export const AuthInput = ({label, type, placeholder, name, text, onChange, style
                                         className='validate-icon bad'
                                     />
                                 </>
-                            ) : null
+                            )
                         }
                         {
-                            icon ? (
+                            icon && (
                                 <ReactSVG
                                     src={icon}
                                     onClick={onClickIcon}
                                     className='icon-input'
                                 />
-                            ) : null
+                            )
                         }
                     </>
                 ) : (

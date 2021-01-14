@@ -8,5 +8,11 @@ export const ContextMain = React.createContext({
     setRerender: () => {},
     rerender: false,
     infoUserDialogs: [],
-    isReloading: false
+    isReloading: false, 
+    setInfoUserDialogs: () => {},
+    ttlCountUnrMsg: 0,
+    setTtlCountUnrMsg: () => {},
+    inputDevices: [],
+    logout: async () => {},
+    onSendImageProfileAsync: async (nameInput, ref) => {},
 })

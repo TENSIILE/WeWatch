@@ -1,16 +1,41 @@
 .switch-btn {
     position: relative;
+    transform-origin: top center;
+    transition: .4s;
 
     &.small {
-
         label {
             width: 60px;
             height: 30px;
 
             &:before {
                 left: 25%;
+                width: 15px;
+                height: 15px;
             }
         }
+    }
+
+    &.mini {
+        label {
+            width: 53px;
+            height: 26px;
+
+            &:before {
+                left: 25%;
+                width: 13px;
+                height: 13px;
+            }
+        }
+    }
+
+
+    &.disabled {
+        filter: brightness(80%);
+        opacity: 0;
+        transform: scale(0);
+        visibility: hidden;
+        pointer-events: none;
     }
 
     input[type='checkbox'] {
@@ -25,11 +50,11 @@
         display: block;
         width: 90px;
         height: 40px;
-        background: var(--second-background);
+        background: var(--basis-black-transparent3);
+        // background: var(--second-background);
         border-radius: 50px;
         cursor: pointer;
-        transition: .4s;
-        filter: brightness(95%);
+        transition: .2s ease-in-out;
 
         &:before {
             content: '';
@@ -41,26 +66,32 @@
             width: 20px;
             height: 20px;
             border-radius: 50%;
+            background: white;
             background: var(--second-text);
-            transition: .4s;
-        }
+            transition: .2s ease-in-out;
+        } 
 
-        &:active {
-            background: var(--third-background);
+        &:hover {
+            filter: brightness(90%);
         }
     }
 }
 
-.switch-btn input[type='checkbox']:checked~label {
-    background: var(--basis-blue);
+.switch-btn input[type='checkbox']:checked ~ label {
+    background: var(--menu-color);
 }
 
-.switch-btn input[type='checkbox']:checked~label:before {
-    background: #fff;
+.switch-btn input[type='checkbox']:checked ~ label:before {
+    background: white;
     left: 80%;
 }
 
-.switch-btn.small input[type='checkbox']:checked~label:before {
-    background: #fff;
+.switch-btn.small input[type='checkbox']:checked ~ label:before {
+    background: white;
+    left: 75%;
+}
+
+.switch-btn.mini input[type='checkbox']:checked ~ label:before {
+    background: white;
     left: 75%;
 }

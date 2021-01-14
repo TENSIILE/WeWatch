@@ -1,17 +1,33 @@
 import React from 'react'
+import classnames from 'classnames'
 import { ButtonMini } from '../buttonMini/ButtonMini'
+
 import './input.scss'
 
-export const Input = ({ style, isWithButton = false, icon, onClick, placeholder, newClass = '',
-    onChange, onKeyDown, onKeyUp, value, name, maxLength, disabled = false, parentClass = '' }) => {
-        
-    return (
-        <>
+export const Input = React.forwardRef(({ 
+    style,
+    isWithButton = false,
+    icon,
+    onClick,
+    placeholder,
+    newClass = '',
+    onChange,
+    onKeyDown,
+    onKeyUp,
+    onKeyPress,
+    value, 
+    name,
+    maxLength,
+    disabled = false, 
+    parentClass = '',
+    readOnly = false,
+}, ref) => (
+    <>
         {
-           !isWithButton ? (
+            !isWithButton ? (
                 <input 
                     type='text'
-                    className={`input-default ${newClass}`}
+                    className={classnames('input-default', [newClass])}
                     style={style} 
                     placeholder={placeholder}
                     name={name}
@@ -19,12 +35,17 @@ export const Input = ({ style, isWithButton = false, icon, onClick, placeholder,
                     onChange={onChange}
                     onKeyDown={onKeyDown}
                     onKeyUp={onKeyUp}
+                    onKeyPress={onKeyPress}
                     maxLength={maxLength}
                     disabled={disabled}
-                    
+                    readOnly={readOnly}
+                    ref={ref}
                 />
-           ) : (
-                <div className={`input-block ${parentClass}`} style={style}>
+            ) : (
+                <div 
+                    className={classnames('input-block', [parentClass])} 
+                    style={style}
+                >
                     <input
                         type='text'
                         className={newClass}
@@ -34,8 +55,11 @@ export const Input = ({ style, isWithButton = false, icon, onClick, placeholder,
                         onChange={onChange}
                         onKeyDown={onKeyDown}
                         onKeyUp={onKeyUp}
+                        onKeyPress={onKeyPress}
                         maxLength={maxLength}
                         disabled={disabled}
+                        readOnly={readOnly}
+                        ref={ref}
                     />
 
                     <ButtonMini
@@ -44,9 +68,7 @@ export const Input = ({ style, isWithButton = false, icon, onClick, placeholder,
                         newClass='fly'
                     />
                 </div> 
-           )
+            )
         }
-        </>
-           
-    )
-}
+    </>  
+))

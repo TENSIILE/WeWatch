@@ -55,7 +55,7 @@ const filterObject = obj => {
         ? array : delete obj[array[0]])
 }
 
-router.post('/user/basicInfo', async (req, res) => {
+router.post('/user/basicInfo', auth, async (req, res) => {
     try{
 
         const { login } = req.body
@@ -74,7 +74,7 @@ router.post('/user/basicInfo', async (req, res) => {
     }
 })
 
-router.post('/user/byId', async (req, res) => {
+router.post('/user/byId', auth, async (req, res) => {
     try{
 
         const { id } = req.body
@@ -92,7 +92,7 @@ router.post('/user/byId', async (req, res) => {
 })
 
 
-router.post('/user/savedata', async (req, res) => {
+router.post('/user/savedata', auth, async (req, res) => {
     try {
 
         const { userId, userInfo } = req.body 
@@ -130,6 +130,22 @@ router.post('/user/savedata', async (req, res) => {
 
     } catch (e) {
         res.status(500).json({ message: 'Произошла ошибка, попробуйте снова!' })
+    }
+})
+
+router.get('/user/getTokenApi', auth, async (req, res) => {
+    try{
+
+        let user = await User.findById(req.query.userId)
+
+        if (!user.tokenApi) {
+            res.status(404).json({ message:'Вашего токена как разработчика не существует. Подождите некоторое время, чтобы мы исправили эту проблему или же сообщите нам о ней!' })
+        }
+        
+        res.json({ tokenApi: user?.tokenApi })
+
+    }catch(e){
+        res.status(500).json({message: 'Произошла ошибка, попробуйте снова!'})
     }
 })
 

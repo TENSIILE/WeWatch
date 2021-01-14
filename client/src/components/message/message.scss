@@ -23,12 +23,19 @@
             box-shadow: none;
 
             p.fullname {
+                text-align: right;
                 display: none;
+                color:var(--first-text);
+                margin-bottom: 0.5em;
             }
 
             p.text-message {
                 margin: 0;
                 color:var(--first-text);
+
+                a {
+                    color:var(--basis-blue);
+                }
             }
 
             span.datetime {
@@ -46,6 +53,12 @@
                    fill:var(--second-text);
                 }
             }
+
+            &.readed {
+                svg {
+                    fill:var(--basis-green);
+                }
+            }
         }
     }
 
@@ -53,6 +66,7 @@
         width: 45px;
         height: 45px;
         border-radius: 10px 4px 10px 10px;
+        object-fit: cover;
     }
 
     .content-message {
@@ -64,13 +78,17 @@
         box-shadow: 0 2px 5px rgba(0, 123, 255,.3);
         border-radius: 4px 20px 20px 20px;
         margin-left: 0.5em;
-        min-width: 250px;
         max-width: 550px;
 
         p.fullname {
             color:white;
             margin: 0;
-            font-size: 15px;
+            font-size: 14px;
+            margin-right: .5em;
+        }
+
+        &.highlight {
+            background: var(--basis-yellow);
         }
 
         .container-message {
@@ -107,6 +125,19 @@
             margin: 0;
             margin-top: .4em;
             font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            overflow-wrap: anywhere;
+
+            a {
+                color:white;
+            }
+
+            .emoji-mart-emoji {
+                display: flex;
+                margin: 0 .5em;
+                font-size: 8px;
+            }
         }
 
         span.datetime {

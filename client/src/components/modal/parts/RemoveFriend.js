@@ -16,10 +16,10 @@ export const RemoveFriend = () => {
     const alert        = useContext(ContextAlert)
     const auth         = useContext(ContextAuth)
     const { request }  = useHttp()
-
+    
     
     const deletePersonFromFriendsImportant = async () => {
-        const data = await request(`${config.hostServer}/api/friends/remove`, 'POST', { friendId: modal.data }, {
+        const data = await request(`${config.hostServer}/api/friends/remove`, 'POST', { friendId: modal.data.user }, {
             Authorization: `Bearer ${auth.token}`
         })
         setRerender(!rerender)

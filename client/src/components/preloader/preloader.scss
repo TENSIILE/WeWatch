@@ -24,7 +24,6 @@
 
             .block {
                 width: 0 !important;
-                // transform: rotateX(45deg);
             }
         }
     }
@@ -53,7 +52,6 @@
             path {
                 stroke-width: .2;
                 stroke-miterlimit: 10;
-                // fill: none;
                 fill:var(--first-text);
                 fill-opacity: 0;
                 stroke: var(--first-text);
@@ -118,20 +116,15 @@
         .left {
             position: absolute;
             left: 0;
-            // left: -200px;
-            // transform: skewX(-45deg);
         }
 
         .right {
             position: absolute;
             right: 0;
-            // right: -200px;
-            // transform: skewX(45deg);
         }
 
         .block {
             background: var(--first-background);
-            // width: 200%;
             width: 50%;
             top: 0px;
             height: 100vh;
@@ -158,24 +151,22 @@
             border-radius: 4px;
             padding: 10px 20px;
             background: var(--third-background);
-            animation: pulse 1.2s infinite linear;
+            animation: pulse 1.2s infinite ease-in-out;
             display: block;
             font-weight: 500;
 
             span {
                 color: var(--first-text);
             }
-
-
         }
 
         @keyframes pulse {
             0% {
-                box-shadow: 0 0 0 0 rgba(177, 177, 177, 0.2);
+                box-shadow: 0 0 0 0 rgba(177, 177, 177, 0.05);
             }
 
             70% {
-                box-shadow: 0 0 0 20px rgba(177, 177, 177, 0);
+                box-shadow: 0 0 0 25px rgba(177, 177, 177, 0);
             }
 
             100% {

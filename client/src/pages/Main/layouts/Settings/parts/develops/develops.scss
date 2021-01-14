@@ -1,0 +1,26 @@
+.input-with-copy {
+    position: relative;
+
+    .copy-icon {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+
+        div {
+            height: 18px;
+
+            svg {
+                width: 17px;
+                height: 17px;
+                fill:var(--third-text);
+                cursor: pointer;
+                transition: .4s;
+    
+                &:hover {
+                    fill:var(--first-text);
+                }
+            }
+        }
+    }
+}

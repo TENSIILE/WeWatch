@@ -1,10 +1,11 @@
 .container-messages {
+    position: relative;
     width: 100%;
     padding: 1em;
     padding-top: 0.2em;
     padding-right: 0.5em;
     padding-bottom: 0;
-    height: calc(100% - 187px);
+    height: calc(100% - 175px);
 
     .loading-new-messages {
         position: relative;
@@ -26,10 +27,30 @@
     }
 
     .wrapper-messages {
+        position: relative;
         height: 100%;
         overflow: auto;
         padding-right: 1em;
         padding-top: 0.5em;
+        scroll-behavior: initial;
+        // scroll-behavior: smooth;
+
+        .sticky-date {
+            position: sticky;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--basis-black-transparent2);
+            padding: .5em 1em;
+            border-radius: 20px;
+            color:white;
+            font-size: 12px;
+            margin-bottom: 1em;
+            z-index: 10;
+            opacity: 1;
+            cursor: default;
+            transition: .4s;
+        }
 
         .empty-message-container {
             position: absolute;
@@ -57,6 +78,56 @@
                 top: unset;
                 transform: unset;
             }
+        }
+    }
+
+    .arrow-down {
+        position: absolute;
+        bottom: 1em;
+        left: 1em;
+        background: var(--second-background);
+        border-radius: 50%;
+        min-width: 35px;
+        min-height: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: .2s;
+
+        &.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        &:hover {
+            background: var(--third-background);
+        }
+
+        svg {
+            display: flex;
+            align-items: center;
+            fill:var(--first-text);
+            width: 13px;
+            height: 13px;
+        }
+
+        .badge-count {
+            position: absolute;
+            background: var(--basis-red);
+            top: -3px;
+            right: -3px;
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            color:white;
+            text-align: center;
+            line-height: 17px;
+            font-size: 10px;
+            border: none;
+            min-width: 17px;
         }
     }
 }

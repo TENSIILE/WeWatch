@@ -9,7 +9,6 @@ import { ContextAlert } from './../../../contexts/alert/contextAlert'
 
 import config from '../../../config.json'
 
-
 export const RestorePass = () => {
     const alert       = useContext(ContextAlert)
     const { request } = useHttp()
@@ -30,7 +29,7 @@ export const RestorePass = () => {
 
     const confirmPassword = async () => {
         try {
-            const response = await request(`${config.hostServer}/api/recovery/AssigningNewPassword`, 'POST', { email: form.remember_password_email, new_password: form.new_password })
+            const response = await request(`${config.hostServer}/api/recovery/assigningNewPassword`, 'POST', { email: form.remember_password_email, new_password: form.new_password })
             alert.show('success', response.message, 'Успешно!')
             history.push('/login')
         } catch (e) {

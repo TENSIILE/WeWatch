@@ -7,7 +7,7 @@ import { ButtonMini } from '../../../../components/buttonMini/ButtonMini'
 import { ContextGetInfo } from '../../../../contexts/contextGetInfo'
 import { ContextBadge } from '../../../../contexts/contextBadge'
 import { ContextConMenu } from '../../../../contexts/contextmenu/contextConMenu'
-import { ContextIndicatorOnline } from "../../../../contexts/indicatorOnline/contextIndicatorOnline"
+import { ContextIndicatorOnline } from '../../../../contexts/indicatorOnline/contextIndicatorOnline'
 
 import Home from '../../../../static/icons/Home.svg'
 import Video from '../../../../static/icons/Play.svg'
@@ -22,7 +22,8 @@ import './mainMenu.scss'
 
 export const MainMenu = () => {
     const { infoUser }  = useContext(ContextGetInfo)
-    const { textBadge } = useContext(ContextBadge)
+    const { textBadge, 
+        textBadgeChat } = useContext(ContextBadge)
     const contextmenu   = useContext(ContextConMenu)
     const { statusIO }  = useContext(ContextIndicatorOnline)
     
@@ -50,7 +51,7 @@ export const MainMenu = () => {
     return (
         <div className='main-menu'>
             <div className='logo'>
-                <p>Ww</p>
+                <h6>Ww</h6>
             </div>
             <div className='menu'>
                 <Link to='/home'>
@@ -61,12 +62,13 @@ export const MainMenu = () => {
                 </Link>
                 <Link to='/chat'>
                     <ButtonMini icon={Chat} id='chat' onClick={setActiveButtonsOnClick} focus={focus.chat}/>
+                    <Badge text={textBadgeChat}/>
                 </Link>
                 <Link to='/search'>
                     <ButtonMini icon={Search} id='search' onClick={setActiveButtonsOnClick} focus={focus.search}/>
                     <Badge text={textBadge}/>
                 </Link>
-                <Link to='/settings'>
+                <Link to='/settings/account'>
                     <ButtonMini icon={Settings} id='settings' onClick={setActiveButtonsOnClick} focus={focus.settings}/>
                 </Link>
             </div>
@@ -80,7 +82,7 @@ export const MainMenu = () => {
                         focus={focus.profile}
                         style={{width:55, height:55}}
                     >   
-                        <IndicatorOnline status={statusIO}/> 
+                        <IndicatorOnline status={statusIO} newClass='no-transition'/> 
                         <img src={!!infoUser ? infoUser.userAdditional.avatar : user} alt=''/>
                     </ButtonMini>
                 </Link>

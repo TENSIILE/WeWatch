@@ -13,6 +13,7 @@ const schema = new Schema({
     avatar:    {type: String, default: config.get('hostServer') + '/upload/image/USER.jpeg'},
     header:    {type: String, default: config.get('hostServer') + '/upload/image/HEADER.png'},
     statusOnline: {type: String, required: true, default: 'offline'},
+    settings:  {type: String, default: ''}
 })
 
 module.exports = model('UserInformation', schema)

@@ -1,13 +1,15 @@
 import React from 'react'
 import { ReactSVG } from 'react-svg'
+import classnames from 'classnames'
 import { Loader } from '../../components/loader/Loader'
+
 import WeWatch from '../../static/icons/WeWatch.svg'
 
 import './preloader.scss'
 
-export const Preloader = ({visible = true}) => {
+export const Preloader = ({ visible = true }) => {
     return (
-        <div className={`preloader ${visible ? '' : 'hidden'}`}>
+        <div className={classnames('preloader', {'hidden': !visible})}>
             <div className='sides'>
                 <div className='substrate'></div>
                 <div className='left block'></div>

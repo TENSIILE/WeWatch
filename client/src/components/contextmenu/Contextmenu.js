@@ -1,12 +1,23 @@
 import React from 'react'
 import { CSSTransition } from 'react-transition-group'
+import classnames from 'classnames'
+
 import { MenuStatus } from './parts/MenuStatus'
 import { AddFriendToRoom } from './parts/AddFriendToRoom'
 import { ActionMyFriends } from './parts/ActionMyFriends'
+import { AttachmentDataMessage } from './parts/AttachmentDataMessage'
 
 import './contextmenu.scss'
 
-export const Contextmenu = ({ style, view = 'menu-status', name, newClass = '', open, data }) => {
+export const Contextmenu = ({ 
+    style,
+    view = 'menu-status', 
+    name,
+    newClass = '',
+    open,
+    fullData
+}) => {
+
     return (
         <CSSTransition 
             in={open} 
@@ -15,19 +26,18 @@ export const Contextmenu = ({ style, view = 'menu-status', name, newClass = '', 
             mountOnEnter unmountOnExit
         >
             <div 
-                className={`contextmenu ${newClass} ${view === 'action-list-my-friends' ? 'action-over-my-friends' : ''} ${view === 'menu-status' ? 'menu-status' : ''} ${view === 'add-friend-to-room' ? 'friend-room' : ''}`}    
+                className={classnames('contextmenu', [newClass], 
+                {'action-over-my-friends': view === 'action-list-my-friends'},
+                {'menu-status': view === 'menu-status'},
+                {'friend-room': view === 'add-friend-to-room'},
+                {'attachment-data-message': view === 'attachment-data-message'})}    
                 style={style}
                 name={name}
             >
-                {
-                    view === 'menu-status' ? <MenuStatus/> : null
-                }
-                {
-                    view === 'add-friend-to-room' ? <AddFriendToRoom/> : null
-                }
-                {
-                    view === 'action-list-my-friends' ? <ActionMyFriends data={data}/> : null
-                }
+                {view === 'menu-status' && <MenuStatus/>}
+                {view === 'add-friend-to-room' && <AddFriendToRoom/>}
+                {view === 'action-list-my-friends' && <ActionMyFriends fullDataFriend={fullData}/>}
+                {view === 'attachment-data-message' && <AttachmentDataMessage/>}
             </div>
          </CSSTransition>
     )

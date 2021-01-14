@@ -5,7 +5,7 @@ const auth     = require('../middleware/auth.middleware')
 
 const router = Router()
 
-router.post('/request', async (req, res) => {
+router.post('/request', auth, async (req, res) => {
     try {
         
         const { toUser, fromUser } = req.body
@@ -41,13 +41,19 @@ router.post('/request', async (req, res) => {
     }
 })
 
-router.post('/accept', async (req, res) => {
+router.post('/accept', auth, async (req, res) => {
     try {
         
         const { toUser, fromUser } = req.body
 
         const adoptedUser   = await User.findOne({ _id: fromUser })
         const recipientUser = await User.findOne({ _id: toUser })
+
+        const candidate = adoptedUser.friendRequestList.find(req => req === toUser)
+
+        if (!candidate) {
+            return res.status(403).json({ message: 'Невозможно добавить человека в друзья без его согласия!' })
+        }
         
         const dataAdopted   = { friends: [...new Set([...adoptedUser.friends, recipientUser._id])],
                                 friendRequestList: adoptedUser.friendRequestList.filter(friend => friend.toString() !== recipientUser._id.toString()) }
@@ -67,15 +73,14 @@ router.post('/accept', async (req, res) => {
             { new: false }
         )
 
-        res.json({ message:'Пользователь был успешно добавлен в друзья!' })
+        res.json({ message: 'Пользователь был успешно добавлен в друзья!' })
 
     } catch (e) {
-        res.status(500).json({ message:'Произошла ошибка, попробуйте снова!' })
+        res.status(500).json({ message: 'Произошла ошибка, попробуйте снова!' })
     }
-
 })
 
-router.post('/request/delete', async (req, res) => {
+router.post('/request/delete', auth, async (req, res) => {
     try{
 
         const { userId, toUser, typeRequestFriend } = req.body

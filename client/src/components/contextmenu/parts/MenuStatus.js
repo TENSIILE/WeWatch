@@ -2,18 +2,21 @@ import React, { useContext } from 'react'
 import { ContextAuth } from '../../../contexts/contextAuth'
 import { ContextIndicatorOnline } from '../../../contexts/indicatorOnline/contextIndicatorOnline'
 import { ContextConMenu } from '../../../contexts/contextmenu/contextConMenu'
+import { ContextMain } from '../../../contexts/mainPage/contextMain'
 
 import { socketsClient } from '../../../sockets/sockets'
+import { CLIENT__SET_STATUS } from '../../../types/socket'
 
 import '../contextmenu.scss'
 
 export const MenuStatus = () => {
-    const { logout, userId } = useContext(ContextAuth)
+    const { userId }      = useContext(ContextAuth)
     const { setStatusIO } = useContext(ContextIndicatorOnline)
     const contextmenu     = useContext(ContextConMenu)
+    const main            = useContext(ContextMain)
 
     const changeStatusAccount = type => {
-        socketsClient.socket.emit('CLIENT::SET-STATUS', {
+        socketsClient.socket.emit(CLIENT__SET_STATUS, {
             userId: userId,
             typeStatus:type
         })
@@ -30,7 +33,7 @@ export const MenuStatus = () => {
             </li>
             <li className='indicator offline' onClick={() => changeStatusAccount('offline')}>Оффлайн</li>
             <hr/>
-            <li className='danger' onClick={logout}>Выйти</li>
+            <li className='danger' onClick={main.logout}>Выйти</li>
         </ul>
     )
 }

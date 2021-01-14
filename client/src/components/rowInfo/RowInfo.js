@@ -2,7 +2,15 @@ import React from 'react'
 import { Input } from '../input/Input'
 import { CatalogList } from '../catalogList/CatalogList'
 
-export const RowInfo = ({label, value, isChange = false, onChange, text, setText, options}) => {
+export const RowInfo = ({ 
+    label,
+    value, 
+    isChange = false,
+    onChange,
+    text, 
+    setText, 
+    options
+}) => {
     return (
         <div className='row'>
             <div className='ceil'>{label}</div>
@@ -18,7 +26,7 @@ export const RowInfo = ({label, value, isChange = false, onChange, text, setText
                         setList={options.setLanguages}
                     />
                 ) :
-                isChange ?
+                isChange ? (
                     <div className='ceil'>
                         <Input 
                             placeholder={value} 
@@ -30,7 +38,7 @@ export const RowInfo = ({label, value, isChange = false, onChange, text, setText
                             maxLength={options.maxLengthСhangeDataProfile[label]}
                         />
                     </div>   
-                        : <div className='ceil'>{value}</div>
+                ) : <div className='ceil'>{value}</div>
             }
         </div>
     )

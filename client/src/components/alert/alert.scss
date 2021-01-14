@@ -69,6 +69,9 @@
         margin: 0;
         flex-grow: 1;
         margin-right: 2em;
+        width: 100%;
+        overflow-wrap: anywhere;
+        white-space: pre-line;
 
         strong {
             margin-right: 1em;
@@ -98,7 +101,6 @@
 
             &:active {
                 background: rgba(255, 255, 255, .1);
-                // transform: rotateZ(-90deg);
             }
         }
     }

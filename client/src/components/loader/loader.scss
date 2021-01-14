@@ -5,9 +5,9 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    border: 5px solid var(--basis-blue);
-    border-top-color: rgba(0, 123, 255, 0.2);
-    border-bottom-color: rgba(0, 123, 255, 0.2);
+    border: 5px solid var(--menu-color);
+    border-top-color: var(--menu-color-shadow);
+    border-bottom-color: var(--menu-color-shadow);
     border-radius: 50%;
     animation: rotateZ 1s infinite forwards linear;
     transition: .4s;

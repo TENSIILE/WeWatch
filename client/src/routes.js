@@ -33,12 +33,7 @@ export const useRoutes = isAuthenticated => {
                                 </LogicCreatingRoom>
                             </Home>
                         </Route>
-                        <Route path="/chat" exact>
-                            <LogicChat>
-                                <Chat/>
-                            </LogicChat>
-                        </Route>
-                        <Route path="/chat/:id">
+                        <Route path="/chat/:id?">
                             <LogicChat>
                                 <Chat/>
                             </LogicChat>
@@ -46,7 +41,7 @@ export const useRoutes = isAuthenticated => {
                         <Route path="/search">
                             <Search/>
                         </Route>
-                        <Route path="/settings">
+                        <Route path="/settings/:customization?">
                             <Settings/>
                         </Route>
                         <Route path="/profile">

@@ -14,7 +14,6 @@
 
     &.highlight {
         background: var(--third-background);
-        filter: brightness(99%);
 
         .avatar {
             .indicator-online {
@@ -115,10 +114,17 @@
 
             div {
                 svg {
-                    fill:var(--basis-green);
+                    fill:var(--second-text);
                     width: 15px;
+                    transition: .2s;
                 }
             }   
+
+            &.readed {
+                svg {
+                    fill:var(--basis-green);
+                }
+            }
         }
 
         .count-received-messages {

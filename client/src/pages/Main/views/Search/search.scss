@@ -12,7 +12,37 @@
             overflow-x: hidden;
             overflow-y: auto;
             height: calc(100% - 97px);
-            // padding: 0 1em;
+
+            .no-friend-found {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+        
+                .friendship-icon {
+                    display: flex;
+                    justify-content: center;
+        
+                    div {
+                        svg {
+                            height: 250px;
+                            pointer-events: none;
+                        }
+                    }
+                }
+        
+                #empty-text {
+                    margin-top: .5em;
+                    position: unset;
+                    left: unset;
+                    top: unset;
+                    transform: unset;
+                    font-size: 1.1em;
+                }
+            }
 
             span#empty-text{
                 position: absolute;
@@ -25,7 +55,6 @@
                 text-align: center;
                 line-height: 150%;
                 font-size: 1.6em;
-                font-weight: 100;
             }
         }
     }

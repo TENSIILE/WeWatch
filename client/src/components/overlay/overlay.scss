@@ -1,0 +1,82 @@
+.overlay-component {
+    position: absolute;
+    width: 300px;
+    height: 200px;
+    border:2px solid red;
+    z-index: 100;
+    background: white;
+
+    &.position-left-top {
+        left: 10px;
+        top: 10px;
+    }
+}
+
+.overlay-settings {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    border-radius: 10px;
+    border: 2px solid var(--menu-color);
+    
+    .screen {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        background: var(--fourth-background);
+        width: 100px;
+        height: 70px;
+        cursor: pointer;
+        transition: .2s;
+
+        &.left-top {
+            left: 5px;
+            top: 5px;
+        }
+
+        &.left-bottom {
+            left: 5px;
+            bottom: 5px;
+        }
+
+        &.right-top {
+            right: 5px;
+            top: 5px;
+        }
+
+        &.right-bottom {
+            right: 5px;
+            bottom: 5px;
+        }
+
+        &:hover {
+            background: var(--menu-color);
+        }
+
+        &:active {
+            filter: brightness(90%);
+        }
+
+        &.active {
+            background: var(--menu-color);
+
+            .screen-icon {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+
+        .screen-icon {
+            opacity: 0;
+            visibility: hidden;
+            transition: .4s;
+            svg {
+                width: 25px;
+                height: 25px;
+                fill:white;
+            }
+        }
+    }
+}

@@ -1,8 +1,19 @@
 import React from 'react'
-import './Button.scss'
 import { Link } from 'react-router-dom'
 
-export const Button = ({text, classNames, linkObj = { isLink: false }, onClick, disabled = false, style = null, id = '', emitLabel = false, htmlFor}) => (
+import './Button.scss'
+
+export const Button = ({
+    text,
+    classNames,
+    linkObj = { isLink: false },
+    onClick,
+    disabled = false,
+    style = null,
+    id = '',
+    emitLabel = false,
+    htmlFor
+}) => (
     <>
         {
             linkObj.isLink  ? (

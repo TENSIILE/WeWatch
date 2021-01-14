@@ -1,14 +1,25 @@
 import React, { useContext } from 'react'
-import { ContextModal } from '../../contexts/modal/contextModal'
 import { CSSTransition } from 'react-transition-group'
 import { ReactSVG } from 'react-svg'
+import classnames from 'classnames'
+
+import { ContextModal } from '../../contexts/modal/contextModal'
 import { Button } from '../button/Button'
-import closeSvg from '../../static/icons/close2.svg'
+
 import { DELETE_FRIEND } from '../../types/modal'
 
+import closeSvg from '../../static/icons/close2.svg'
 import './modal.scss'
 
-export const Modal = ({ title = null, size = 'middle', style, children, idMainBtn = null, action, disabledArea }) => {
+export const Modal = ({ 
+    title = null,
+    size = 'middle',
+    style,
+    children,
+    action,
+    disabledArea,
+    idMainBtn = null
+}) => {
     const modal = useContext(ContextModal)
 
     return (
@@ -19,26 +30,26 @@ export const Modal = ({ title = null, size = 'middle', style, children, idMainBt
             mountOnEnter unmountOnExit
         >
             <div className='modal' onClick={e => modal.hide(action, e)}>
-                <div className={`window ${size}`} style={style}>
+                <div className={classnames('window', [size])} style={style}>
                     <div className='head'>
                         {
-                            title !== null ? (
+                            title !== null && (
                                 <p id='title' 
-                                    className={action === DELETE_FRIEND ? 'title-center' : ''}
+                                    className={classnames({'title-center': action === DELETE_FRIEND})}
                                 >
                                     {title}
                                 </p> 
-                            ) : null
+                            )
                         }
 
                         {
-                            action !== DELETE_FRIEND ? (
+                            action !== DELETE_FRIEND && (
                                 <ReactSVG
                                     src={closeSvg}
                                     className='btn-close-modal'
                                     onClick={() => modal.hide(action)}
                                 />
-                            ) : null
+                            )
                         }
 
                     </div>
@@ -48,7 +59,7 @@ export const Modal = ({ title = null, size = 'middle', style, children, idMainBt
                         </div>
                     </div>
                     {
-                        disabledArea !== 'footer' ? (
+                        disabledArea !== 'footer' && (
                             <div className='footer'>
                                 <Button
                                     text='Подтвердить'
@@ -57,7 +68,7 @@ export const Modal = ({ title = null, size = 'middle', style, children, idMainBt
                                     htmlFor={idMainBtn}
                                 />
                             </div>
-                        ) : null
+                        )
                     }
                 </div>
             </div>

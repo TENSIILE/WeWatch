@@ -1,5 +1,6 @@
 import React from 'react'
 
 export const ContextBadge = React.createContext({
-    textBadge: null
+    textBadge: 0,
+    textBadgeChat: 0
 })

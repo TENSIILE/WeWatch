@@ -1,0 +1,37 @@
+.sound-visualization {
+    position: relative;
+    max-height: 300px;
+
+    &__list {
+        position: relative;
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        margin-top: 1em;
+        min-height: 170px;
+        max-height: 170px;
+        transform: rotateX(180deg);
+        transition: .4s;
+
+        &.hidden {
+            max-height: 0;
+            min-height: 0;
+            opacity: 0;
+            visibility: hidden;
+            margin: 0;
+        }
+
+        &-item {
+            background: var(--menu-color);
+            width: 10px;
+            border-radius: 4px;
+            height: 5px;
+            max-height: 170px;
+        }
+
+        &-item + &-item {
+            margin-left: .5em;
+        }
+    }
+}

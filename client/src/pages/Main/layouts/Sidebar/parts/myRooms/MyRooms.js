@@ -13,7 +13,7 @@ export const MyRooms = () => {
     const [isEmpty, setIsEmpty] = useState(true)
     
     useEffect(() => {
-        !!createdMyRooms.length ? setIsEmpty(false) : setIsEmpty(true)
+        setIsEmpty(!createdMyRooms.length)
     }, [createdMyRooms])
 
     const searcher = useSearcher(createdMyRooms)

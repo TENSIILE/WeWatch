@@ -9,6 +9,10 @@
     border-radius: 50%;
     transition: .4s;
 
+    &.no-transition {
+        transition: none;
+    }
+
     &::before {
         content: '';
         position: absolute;
@@ -25,34 +29,19 @@
         z-index: 10;
     }
 
-    @keyframes pulse2 {
-        0%{
-            transform: translate(-50%,-50%) scale(1);
-            opacity: 0;
-        }
-        70%{
-            transform: translate(-50%,-50%) scale(1);
-            opacity: .6;
-        }
-        100%{
-            transform: translate(-50%,-50%) scale(6);
-            opacity: 0;
-        }
-    }
-
     &.offline {
         background: #bbb;
     }
 
     &.online {
-        background: var(--basis-green);
+        background: #6ae97f;
     }
 
     &.sleep {
-        background: var(--basis-yellow);
+        background: #fad669;
     }
 
     &.not-disturb {
-        background: var(--basis-red);
+        background: #ec5160;
     }
 }

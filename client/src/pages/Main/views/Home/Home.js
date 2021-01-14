@@ -60,10 +60,10 @@ export const Home = ({ children }) => {
                     }
                 </div>
             </div>
-            <Sidebar newClass='sidebar-my-friends'>
+            <Sidebar newClass='sidebar-my-friends transition'>
                 <FriendList 
                     isEmpty={!haveFriends} 
-                    list={!!listRequestFriends ? listRequestFriends.userFriends : null}
+                    list={!!listRequestFriends && listRequestFriends.userFriends}
                 />
             </Sidebar>
         </>

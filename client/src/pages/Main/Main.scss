@@ -2,8 +2,14 @@
     display: flex;
     height: 100vh;
     overflow: hidden;
-    background: var(--menu-color);
+    background: var(--main-menu-color);
 
+    &.font-bold {
+        h1, h2, h3, h4, h5, span, li, a, small, p, button, div {
+            font-weight: 600 !important;
+        }
+    }
+    
     .main-content{
         display: flex;
         background: var(--white-dark-background);
@@ -11,6 +17,10 @@
         border-radius: 40px 0 0 40px;
         overflow: hidden;
         height: 100vh;
+
+        &.row-reverse {
+            flex-direction: row-reverse;
+        }
     }
 
     .tooltip{

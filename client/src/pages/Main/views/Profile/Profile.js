@@ -1,16 +1,18 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useRef } from 'react'
 import { ReactSVG } from 'react-svg'
+import classnames from 'classnames'
 import { useHttp } from '../../../../hooks/http.hook'
 import { RowInfo } from '../../../../components/rowInfo/RowInfo'
 import { ButtonMini } from '../../../../components/buttonMini/ButtonMini'
 import { Sidebar } from '../../layouts/Sidebar/Sidebar'
 import { Button } from '../../../../components/button/Button'
 import { Loader } from '../../../../components/loader/Loader'
-import { Modal } from '../../../../components/modal/Modal'
+import { Table } from '../../../../components/table/Table'
+import { Image } from '../../../../components/image/Image'
 import { ContextAuth } from '../../../../contexts/contextAuth'
 import { ContextGetInfo } from '../../../../contexts/contextGetInfo'
 import { ContextAlert } from '../../../../contexts/alert/contextAlert'
-import { ContextModal } from '../../../../contexts/modal/contextModal'
+import { ContextMain } from '../../../../contexts/mainPage/contextMain'
 import { MyRooms } from '../../layouts/Sidebar/parts/myRooms/MyRooms'
 
 import user from '../../../../static/img/user.jpg'
@@ -23,27 +25,15 @@ import pen from '../../../../static/icons/pen.svg'
 import config from '../../../../config.json'
 import './profile.scss'
 
-
-
 export const Profile = () => {
-    const { infoUser, rerender,
-         setRerender } = useContext(ContextGetInfo)
+    const { infoUser } = useContext(ContextGetInfo)
 
     const auth         = useContext(ContextAuth)
     const alert        = useContext(ContextAlert)
-    const modal        = useContext(ContextModal)
+    const main         = useContext(ContextMain)
     const { request }  = useHttp()
 
-    const [srcUrlImage, setSrcUrlImage]     = useState(false)
-    const [idBtnSetImage, setIdBtnSetImage] = useState('')
-    const [languages, setLanguages]         = useState([])
-    
-    useEffect(() => {
-        if (!!infoUser && infoUser.userAdditional.languages.toString() !== 'Не указано') {
-            setLanguages(infoUser.userAdditional.languages)
-        }
-    }, [infoUser])
-    
+    const [languages, setLanguages] = useState([])
 
     const [changeProfile, setChangeProfile]         = useState(false)
     const [changeDataProfile, setChangeDataProfile] = useState({
@@ -51,19 +41,20 @@ export const Profile = () => {
         'Языки:':"", 'Страна:':"", 'Город:':""
     })
 
+    const refAvatar = useRef(null)
+    const refHeader = useRef(null)
+
     const maxLengthСhangeDataProfile = {
         'Имя:':20, 'Фамилия:':25, 'Статус:':250, 'Ник:':20,
         'Языки:':20, 'Страна:':25, 'Город:':25
     }
 
-
     const saveDataProfile = async () => {
         try {
-            
             trimDataProfile()
 
             const readyData = { ...changeDataProfile, 'languages': [...languages] } 
-            await request(`${config.hostServer}/api/getInfo/user/savedata`, 'POST', { userId:auth.userId, userInfo:readyData })
+            await request(`${config.hostServer}/api/getInfo/user/savedata`, 'POST', { userId:auth.userId, userInfo:readyData }, {Authorization: `Bearer ${auth.token}`})
 
             cancelDataProfile()
             
@@ -75,13 +66,12 @@ export const Profile = () => {
     const cancelDataProfile = () => {
         setChangeProfile(false)
         clearDataProfile()
-        setRerender(!rerender)
     }
 
     const clearDataProfile = () => {
         let clearingDataInputs
         for(const data in changeDataProfile)
-            clearingDataInputs = { ...clearingDataInputs, [data]:changeDataProfile[data] = "" }     
+            clearingDataInputs = { ...clearingDataInputs, [data]:  changeDataProfile[data] = "" }     
 
         setChangeDataProfile(clearingDataInputs)
     }
@@ -95,79 +85,41 @@ export const Profile = () => {
        return setChangeDataProfile({ ...changeDataProfile, [e.target.name]: e.target.value })
     }     
 
-    const onClickBtnSetImage = (nameInput, e) => {
-        try {
-            const file = e.target.files[0]
-            const url  = URL.createObjectURL(file)
-            
-            setSrcUrlImage(url)
-            modal.show('installImageProfile')
-
-            if (nameInput === 'avatar') {
-                setIdBtnSetImage('submit-save-avatar')
-
-            } else if (nameInput === 'header') {
-                setIdBtnSetImage('submit-save-header')
-            }  
-
-        } catch (e) {}
-    }
-
-    const ref = React.useRef(null)
-
-    // const sendImg = async () => {
-    //     const formData = new FormData()
-    //     formData.append('avatar-input', ref.current.files[0])
-
-    //     const options = {
-    //         method:'POST',
-    //         body: formData,
-    //     }
-    //     await fetch(`${config.hostServer}/upload/avatar?userId=${auth.userId}`, options)
-    // }
+    useEffect(() => {
+        if (!!infoUser && infoUser.userAdditional.languages.toString() !== 'Не указано') {
+            setLanguages(infoUser.userAdditional.languages)
+        }
+    }, [infoUser])
 
     return (
         <>
-            <Modal 
-                size='large' 
-                title='Установить изображение' 
-                idMainBtn={idBtnSetImage}
-                action='installImageProfile'
-            >
-                <img src={!!srcUrlImage ? srcUrlImage : header} alt=''/>
-            </Modal>
-
             <Sidebar>
                 <MyRooms/>
             </Sidebar>
             
-            <div className='user-account beautiful-scrollbar'>
+            <div className='user-account beautiful-scrollbar mini'>
                 <div className='user-header'>
-                    <img src={!!infoUser ? infoUser.userAdditional.header : header} alt=''/>
-                    
-                    <form action={`${config.hostServer}/upload/header?userId=${auth.userId}`} method='POST' encType='multipart/form-data'>
-
+                    <Image src={!!infoUser ? infoUser.userAdditional.header : header} id='header'/>
                         <ButtonMini 
                             icon={pictures}
                             newClass='fly'
                             style={{top:15, width:40, height:40, right:15}}
                             emitLabel={true}
                             htmlFor='file-header'
-                        >
-                            <input type='file' id='file-header' name='header-input' onChange={e => onClickBtnSetImage('header', e)} accept="image/jpeg,image/png"/>
+                        >   
+                            <input 
+                                type='file'
+                                id='file-header' 
+                                onChange={() => main.onSendImageProfileAsync('header', refHeader)} 
+                                accept="image/jpeg,image/png,image/gif"
+                                ref={refHeader}
+                            />
                         </ButtonMini>
-                        
-                        <input type='submit' id='submit-save-header' className='input-hidden' value='Save'/>
-                    </form>
-
                 </div>
                 <div className='wrapper-user-info'>
                     <div className='user-photo-and-data'>
                         <div className='avatar'>
-                            <img src={!!infoUser ? infoUser.userAdditional.avatar : user} alt=''/>
-
-                            <form action={`${config.hostServer}/upload/avatar?userId=${auth.userId}`} method='POST' encType='multipart/form-data' className='input-hidden'>
-
+                            <Image src={!!infoUser ? infoUser.userAdditional.avatar : user} id='avatar'/>
                                 <ButtonMini
                                     icon={photoSvg}
                                     newClass='fly circle'
@@ -175,42 +127,47 @@ export const Profile = () => {
                                     htmlFor='file'
                                     style={{width:40, height:40, margin:0}}
                                 >
-                                    <input type='file' id='file' ref={ref} name='avatar-input' onChange={e => onClickBtnSetImage('avatar', e)} accept="image/jpeg,image/png"/>
+                                    <input 
+                                        type='file' 
+                                        id='file' 
+                                        onChange={() => main.onSendImageProfileAsync('avatar', refAvatar)} 
+                                        accept="image/jpeg,image/png,image/gif"
+                                        ref={refAvatar}
+                                    />
                                 </ButtonMini>
-                                
-                                <input type='submit' id='submit-save-avatar' className='input-hidden' value='Сохранить' />
-                            </form>
                         </div>
                         <div className='user-fullname'>
                             <div className='username'>
                                 {
-                                    !! infoUser ? (
+                                    !!infoUser && (
                                         <>
-                                        {
-                                            !changeProfile ? 
-                                                <ReactSVG
-                                                    src={pen}
-                                                    className='penEdit'
-                                                    onClick={() => setChangeProfile(true)}
-                                                /> : null
-                                        }
+                                            {
+                                                !changeProfile && (
+                                                    <ReactSVG
+                                                        src={pen}
+                                                        className='penEdit'
+                                                        onClick={() => setChangeProfile(true)}
+                                                    />
+                                                )
+                                            }
                                             <p>{infoUser.userAdditional.name + ' ' + infoUser.userAdditional.lastname}</p>
                                         </>
-                                    ) : null
+                                    )
                                 }
                             </div>
                             <p 
                                 id='status-text' 
-                                className={changeDataProfile['Статус:'] && changeProfile ? 'edit-status' : null}
+                                className={classnames({'edit-status': changeDataProfile['Статус:'] && changeProfile})}
                             >   
                                 {
                                     changeDataProfile['Статус:'] ?
-                                    changeDataProfile['Статус:'] : !!infoUser ? infoUser.userAdditional.status : null
+                                    changeDataProfile['Статус:'] : !!infoUser && infoUser.userAdditional.status
                                 }
                             </p>
                         </div>
                     </div>
-                    <div className='table-information'>
+
+                    <Table>
                         {
                             !!infoUser ? 
                             changeProfile ? (
@@ -248,11 +205,12 @@ export const Profile = () => {
                                 </>
                             ) : <Loader/>
                         }
-                    </div>
+                    </Table>
+
                     <div className='user-control'>
                         {
-                            changeProfile ?
-                                <div style={{display:'flex'}}>
+                            changeProfile && (
+                                <div className='d-flex'>
                                     <Button
                                         text='Сохранить данные'
                                         classNames='btn primary half-opacity'
@@ -266,14 +224,18 @@ export const Profile = () => {
                                         onClick={cancelDataProfile}
                                     /> 
                                 </div>
-                            : null
+                            )
                         }
-                        <Button
-                            text='Выйти'
-                            classNames='btn danger half-opacity'
-                            id='btn-exit'
-                            onClick={auth.logout}
-                        />
+                        {
+                            !changeProfile && (
+                                <Button
+                                    text='Выйти'
+                                    classNames='btn danger half-opacity'
+                                    id='btn-exit'
+                                    onClick={main.logout}
+                                />
+                            )
+                        }
                     </div>
                 </div>
             </div>

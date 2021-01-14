@@ -1,10 +1,12 @@
 import React, { useEffect, useContext } from 'react'
-import './verificationPass.scss'
+import classnames from 'classnames'
 import { ContextInput } from './../../contexts/contextInput'
 
-export const VerificationPass = ({password}) => {
-    const {classVerification, setClassVerification, 
-        statusTextPass, setStatusTextPass} = useContext(ContextInput)
+import './verificationPass.scss'
+
+export const VerificationPass = ({ password }) => {
+    const { classVerification, setClassVerification, 
+        statusTextPass, setStatusTextPass } = useContext(ContextInput)
     
     useEffect(() => {
 
@@ -16,22 +18,21 @@ export const VerificationPass = ({password}) => {
                 setClassVerification('full-progress')
                 setStatusTextPass('Сильный')
                 
-            }else{
+            } else {
                 setClassVerification('middle-progress')
                 setStatusTextPass('Нормальный')
             }
 
-        }else{
+        } else {
             setClassVerification('')
             setStatusTextPass('Слабый')
         }
-
        
-    },[password])
+    }, [password])
 
     return (
        <div className='verification-password'>
-            <div className={`verification-line ${classVerification}`}/>
+            <div className={classnames('verification-line', [classVerification])}/>
             <span className='verification-label'>{statusTextPass}</span>
        </div> 
     )

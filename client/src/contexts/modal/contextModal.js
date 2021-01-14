@@ -5,7 +5,7 @@ export const ContextModal = React.createContext({
     show: name => {},
     hide: name => {},
     changeTitle: (name, new_title) => {},
-    changeStyle: (name, new_style) => {},
+    changeStyle: (name, new_classnames) => {},
     title: '',
     style: '',
     installInputData: new_data => {},

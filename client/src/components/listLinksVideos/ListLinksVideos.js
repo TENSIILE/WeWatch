@@ -1,14 +1,24 @@
 import React from 'react'
 import { Button } from '../button/Button'
 import { Input } from '../input/Input'
+import classnames from 'classnames'
 
 import './listLinks.scss'
 
-export const ListLinksVideos = ({valueInput, nameInput, setValueInput, onClickDelete, listLinksVideos, onKeyDown, style, open}) => {
+export const ListLinksVideos = ({
+    valueInput,
+    nameInput,
+    setValueInput,
+    onClickDelete,
+    listLinksVideos,
+    onKeyDown,
+    style,
+    open
+}) => {
 
     return (
         <div className='container-extra-section' style={style}>
-            <div className={`list-ready-links extra-section ${open ? 'hidden' : ''}`}>
+            <div className={classnames('list-ready-links extra-section', {'hidden': open})}>
                 <Input 
                     placeholder='Введите ссылку на видео...'
                     style={{width:'100%'}}

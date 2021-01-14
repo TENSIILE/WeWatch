@@ -5,9 +5,19 @@ import { Input } from '../input/Input'
 
 import plus from '../../static/icons/plus.svg'
 import checked from '../../static/icons/checked.svg'
+
 import './setupPassword.scss'
 
-export const SetupPassword = ({ onClickAccept, successEdit = false, onClickGenerateKey, valueInput, nameInput, onChangeInput, style, disabled }) => {
+export const SetupPassword = ({ 
+    onClickAccept,
+    successEdit = false,
+    onClickGenerateKey,
+    valueInput, 
+    nameInput,
+    onChangeInput,
+    style,
+    disabled
+}) => {
     return (
         <div className='container-extra-section' style={style}>
             <div className='room-password-setting-block extra-section'>

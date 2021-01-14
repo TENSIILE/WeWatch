@@ -1,10 +1,10 @@
-const express  = require('express')
+const express       = require('express')
 const {app, server} = require('./sockets')
-const mongoose = require('mongoose')
-const cors     = require('cors')
-const config   = require('config')
+const mongoose      = require('mongoose')
+const cors          = require('cors')
+const config        = require('config')
 
-const PORT     = config.get('PORT')
+const PORT          = config.get('PORT')
 
 app.use(express.json({ extended: true }))
 app.use(cors())
@@ -25,9 +25,13 @@ app.use('/api/recovery', require('./routes/passwordRecovery.routes'))
 app.use('/api/room', require('./routes/room.routes'))
 app.use('/api/status', require('./routes/statusOnline.routes'))
 app.use('/api/dialogs', require('./routes/dialogs.routes'))
+app.use('/api/settings', require('./routes/settings.routes'))
+app.use('/api/securityAccount', require('./routes/securityAccount.routes'))
 
-app.use('/upload/image', express.static(__dirname + '/upload/image'))
+app.use('/upload', express.static(__dirname + '/upload'))
 app.use(require('./routes/upload.routes'))
+
+require('./development')
 
 async function start() {
     try {

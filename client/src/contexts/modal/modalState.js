@@ -6,19 +6,22 @@ export const ModalState = ({ children }) => {
     const [visible, setVisible] = useState({
         'deleteFriend': false, 
         'installImageProfile': false,
-        'connectToRoom': false
+        'connectToRoom': false,
+        'viewProfile': false
     })
 
     const [title, setTitle] = useState({
         'deleteFriend': '',
         'installImageProfile': '',
-        'connectToRoom': false
+        'connectToRoom': false,
+        'viewProfile': ''  
     })
 
     const [style, setStyle] = useState({
         'deleteFriend': '',
         'installImageProfile': '',
-        'connectToRoom': false
+        'connectToRoom': false,
+        'viewProfile': ''
     })
 
     const [data, setData] = useState(null)

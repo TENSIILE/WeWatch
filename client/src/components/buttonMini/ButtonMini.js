@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { ReactSVG } from 'react-svg'
+import classnames from 'classnames'
 
 import './buttonmini.scss'
 
-export const ButtonMini = React.forwardRef(({ icon, id = '', linkObj={}, onClick, onClickRightButton,
-               newClass = "", focus, style, children, emitLabel = false, htmlFor, successEdit }, ref) => {
+export const ButtonMini = React.forwardRef(({ 
+    icon, 
+    id = '',
+    linkObj = {},
+    onClick,
+    onClickRightButton,
+    newClass = "",
+    focus,
+    style,
+    children,
+    emitLabel = false,
+    htmlFor,
+    successEdit
+}, ref) => {
 
     const [active, setActive] = useState('')
 
@@ -20,13 +33,13 @@ export const ButtonMini = React.forwardRef(({ icon, id = '', linkObj={}, onClick
 
                     <Link 
                         to={linkObj.path}
-                        className={`btn-switch-menu ${newClass} ${active}`}
+                        className={classnames('btn-switch-menu', [newClass], [active])}
                         onClick={onClick}
                         onContextMenu={onClickRightButton}
                         id={id}
                         style={style}
                     >
-                       { icon ? <ReactSVG src={icon}/> : null }
+                       {icon && <ReactSVG src={icon}/>}
                        {children}
                     </Link>
 
@@ -35,27 +48,27 @@ export const ButtonMini = React.forwardRef(({ icon, id = '', linkObj={}, onClick
                     !emitLabel ? (
 
                         <button
-                            className={`btn-switch-menu ${newClass} ${active} ${successEdit ? 'success-light' : ''}`}
+                            className={classnames('btn-switch-menu', [newClass], [active], {'success-light': successEdit})}
                             onClick={onClick}
                             onContextMenu={onClickRightButton}
                             id={id}
                             style={style}
                             ref={ref}
                         >
-                            { icon ? <ReactSVG src={icon}/> : null }
+                            {icon && <ReactSVG src={icon}/>}
                             {children}
                         </button>
 
                     ) : (
                         <label
-                            className={`btn-switch-menu ${newClass} ${active}`}
+                            className={classnames('btn-switch-menu', [newClass], [active])}
                             onClick={onClick}
                             onContextMenu={onClickRightButton}
                             id={id}
                             style={style}
                             htmlFor={htmlFor}
                         >
-                            { icon ? <ReactSVG src={icon}/> : null }
+                            {icon && <ReactSVG src={icon}/>}
                             {children}
                         </label>
                     )

@@ -39,7 +39,16 @@
     flex-direction: column;
     padding: 10px;
     box-sizing: border-box;
-    transition: .4s;
+    transition: width .4s, min-width .4s;
+
+    &:not(.sidebar-my-friends).minimalize-sidebar {
+        min-width: 400px;
+        width: 40%;
+    }
+    
+    &.transition {
+        transition: .4s;
+    }
 
     &.rollUp {
         width: 0;

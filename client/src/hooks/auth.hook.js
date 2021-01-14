@@ -1,15 +1,13 @@
-import { useState, useCallback, useEffect, useContext } from 'react'
-import { ContextIndicatorOnline } from '../contexts/indicatorOnline/contextIndicatorOnline'
+import { useState, useCallback, useEffect } from 'react'
 import { socketsClient } from '../sockets/sockets'
 import { getUserId } from '../utils/functions'
 
+import { CLIENT__SET_STATUS } from '../types/socket'
 import config from '../config.json'
 
 export const useAuth = () => {
     const [token, setToken]   = useState(null)
     const [userId, setUserId] = useState(null)
-
-    const { setStatusIO } = useContext(ContextIndicatorOnline)
 
     const storageName = config.nameDataLocalStorage
 
@@ -28,14 +26,13 @@ export const useAuth = () => {
     const logout = useCallback(async () => {
         const uID = await getUserId()
         
-        socketsClient.socket.emit('CLIENT::SET-STATUS', {
+        socketsClient.socket.emit(CLIENT__SET_STATUS, {
             userId: uID,
             typeStatus:'offline'
         })
-
-        socketsClient.disconnect()
-        setStatusIO('offline')
         
+        socketsClient.disconnect()
+
         setToken(null)
         setUserId(null)
         localStorage.removeItem(storageName)
@@ -44,14 +41,14 @@ export const useAuth = () => {
     }, [storageName])
 
 
-    useCallback(useEffect(() => {
+    useEffect(() => {
         const data = JSON.parse(localStorage.getItem(storageName))
 
         if (data && data.token) {
             login(data.token, data.userId)
         }
 
-    }, [login,storageName]), [])
+    }, [login, storageName])
 
     return { token, login, logout, userId }
 }

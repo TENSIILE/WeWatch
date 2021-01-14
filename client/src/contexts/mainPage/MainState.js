@@ -1,22 +1,36 @@
 import React, { useContext, useState, useEffect, useRef } from 'react'
+import { useHistory } from 'react-router-dom'
 import { useHttp } from '../../hooks/http.hook'
 import { ContextAuth } from '../contextAuth'
 import { ContextConMenu } from '../contextmenu/contextConMenu'
 import { ContextMain } from './contextMain'
 import { ContextIndicatorOnline } from '../indicatorOnline/contextIndicatorOnline'
+import { ContextSettings } from '../settingsPage/contextSettings'
 
 import { getUserId } from '../../utils/functions'
+import { SystemHotkey } from '../../utils/SystemHotKey'
 import { socketsClient } from '../../sockets/sockets'
-import { CLIENT__SET_STATUS, CLIENT__GET_STATUS, CLIENT__CHECK_FRIEND, 
-    CLIENT__GET_CHECKED_FRIEND, REQUEST__FIND_OUT_INQUIRIES_FROM_FRIENDS } from '../../types/socket'
+import { 
+    CLIENT__SET_STATUS,
+    CLIENT__GET_STATUS,
+    CLIENT__CHECK_FRIEND, 
+    CLIENT__GET_CHECKED_FRIEND,
+    REQUEST__FIND_OUT_INQUIRIES_FROM_FRIENDS,
+    DIALOG__GET_MESSAGE,
+    DIALOG__CONNECTION,
+} from '../../types/socket'
+import { PASS_USER } from '../../types/settingsSwitchBtn'
 
 import config from '../../config.json'
 
 export const MainState = ({ children }) => {
-    const auth         = useContext(ContextAuth)
-    const { request }  = useHttp()
-    const contextmenu  = useContext(ContextConMenu)
+    const auth            = useContext(ContextAuth)
+    const { request }     = useHttp()
+    const contextmenu     = useContext(ContextConMenu)
     const { setStatusIO } = useContext(ContextIndicatorOnline)
+    const settings        = useContext(ContextSettings)
+
+    const history         = useHistory()
 
     const [infoUser, setInfoUser]  = useState(null)
     const [rerender, setRerender]  = useState(false)
@@ -24,15 +38,89 @@ export const MainState = ({ children }) => {
     const [listRequestFriends, 
             setListRequestFriends] = useState(null)
 
-    const [finishLoading, setFinishLoading]   = useState(false)
-    const [createdMyRooms, setCreatedMyRooms] = useState([])
+    const [finishLoading, setFinishLoading]     = useState(false)
+    const [createdMyRooms, setCreatedMyRooms]   = useState([])
 
     const [infoUserDialogs, setInfoUserDialogs] = useState([])
     const userDialogArray                       = useRef([])
+
     const [isReloading, setIsReloading]         = useState(false)
+    const [ttlCountUnrMsg, setTtlCountUnrMsg]   = useState(0)
+
+    const [inputDevices, setInputDevices] = useState([])
 
     const countErrors = useRef(0)
 
+    const updateFriendsData = async () => {
+        const requestFriends = await request(`${config.hostServer}/api/friends/listRequestFriends`, 'GET', null, {
+            Authorization: `Bearer ${auth.token}`
+        })
+
+        setListRequestFriends(requestFriends)
+    }
+
+    const updateDialogsAndMessages = async () => {
+        const listDialogs = await request(`${config.hostServer}/api/dialogs/getAllDialogs`, 'GET', null, {
+            Authorization: `Bearer ${auth.token}`
+        })
+
+        listDialogs.map(async dialog => {
+            if (auth.userId === dialog.author) {
+                const dataInfoUsersDialogsAuthor = await request(`${config.hostServer}/api/getInfo/user/byId`, 'POST', {id: dialog.partner}, {Authorization: `Bearer ${auth.token}`})
+                userDialogArray.current.push({...dialog, ...dataInfoUsersDialogsAuthor})
+
+                setInfoUserDialogs([...userDialogArray.current])
+            } else {
+                const dataInfoUsersDialogsPartner = await request(`${config.hostServer}/api/getInfo/user/byId`, 'POST', {id: dialog.author}, {Authorization: `Bearer ${auth.token}`})
+                userDialogArray.current.push({...dialog, ...dataInfoUsersDialogsPartner})
+
+                setInfoUserDialogs([...userDialogArray.current])
+            }
+        })
+        userDialogArray.current = []
+    }
+
+    const onGetInputDevice = async () => {
+        if (auth.userId) {
+            const response = await request(`${config.hostServer}/api/securityAccount/input_devices/get`, 'GET', null, {
+                Authorization: `Bearer ${auth.token}`
+            })
+            setInputDevices(response)
+        }
+    }
+
+    const logout = async () => {
+        settings.changeSwitchBtn(PASS_USER, false)
+        await settings.onSaveSettings()
+
+        auth.logout()
+    }
+
+    const onSendImageProfileAsync = async (nameInput, ref) => {
+        if (ref.current.files[0]) {
+
+            const formData = new FormData()
+            formData.append(nameInput, ref.current.files[0])
+            formData.append('userId', auth.userId)
+    
+            const options = {
+                method:'POST',
+                body: formData,
+                headers: {
+                    Authorization: `Bearer ${auth.token}`
+                }
+            }
+
+            await fetch(`${config.hostServer}/upload/${nameInput}`, options)
+            setRerender(!rerender)
+        }
+    }
+
+    useEffect(() => {
+        infoUserDialogs.map(dialog => {
+            socketsClient.socket.emit(DIALOG__CONNECTION, {dialogId: dialog._id})
+        })
+    }, [infoUserDialogs])
 
     useEffect(() => {
         const wrap = async () => {
@@ -51,23 +139,7 @@ export const MainState = ({ children }) => {
                     Authorization: `Bearer ${auth.token}`
                 })
 
-                const listDialogs = await request(`${config.hostServer}/api/dialogs/getAllDialogs`, 'GET', null, {
-                    Authorization: `Bearer ${auth.token}`
-                })
-
-                listDialogs.map(async dialog => {
-                    if (auth.userId === dialog.author) {
-                        const dataInfoUsersDialogsAuthor = await request(`${config.hostServer}/api/getInfo/user/byId`, 'POST', {id: dialog.partner})
-                        userDialogArray.current.push({...dialog, ...dataInfoUsersDialogsAuthor})
-
-                        setInfoUserDialogs([...userDialogArray.current])
-                    } else {
-                        const dataInfoUsersDialogsPartner = await request(`${config.hostServer}/api/getInfo/user/byId`, 'POST', {id: dialog.author})
-                        userDialogArray.current.push({...dialog, ...dataInfoUsersDialogsPartner})
-
-                        setInfoUserDialogs([...userDialogArray.current])
-                    }
-                })
+                await updateDialogsAndMessages()
 
                 contextmenu.setOptionsEachCM(requestFriends.userFriends.length)
 
@@ -75,10 +147,7 @@ export const MainState = ({ children }) => {
                 setListRequestFriends(requestFriends)
                 setCreatedMyRooms(createdMyRoomsServer)
 
-                setTimeout(() => {
-                    setFinishLoading(true)
-                }, 3000)
-            
+                setTimeout(() => setFinishLoading(true), 3000)
 
                 countErrors.current = 0
                 userDialogArray.current = []
@@ -89,8 +158,7 @@ export const MainState = ({ children }) => {
                 if (countErrors.current >= 5) return
 
                 if (e.message === 'Пользователь не авторизован!') {
-                    const data = await request(`${config.hostServer}/api/auth/token/refresh`, 'POST', { userId: auth.userId, oldToken: auth.token })
-                    auth.login(data.token, data.userId)
+                    await logout()
                 }
                 
                 countErrors.current++
@@ -99,9 +167,9 @@ export const MainState = ({ children }) => {
             }
         }
         wrap()
-    }, [request, auth.userId, rerender])
+    }, [request, auth, rerender])
 
-
+    
     useEffect(() => {
         const wrap = async () => {
             socketsClient.connect()
@@ -120,25 +188,23 @@ export const MainState = ({ children }) => {
             })
 
             socketsClient.socket.on(CLIENT__GET_CHECKED_FRIEND, async ({ isMyFriend }) => { 
-                if (isMyFriend) {
-
-                    const requestFriends = await request(`${config.hostServer}/api/friends/listRequestFriends`, 'GET', null, {
-                        Authorization: `Bearer ${auth.token}`
-                    })
-    
-                    setListRequestFriends(requestFriends)
-                }
+                if (isMyFriend) await updateFriendsData()
             })
 
             socketsClient.socket.on(REQUEST__FIND_OUT_INQUIRIES_FROM_FRIENDS, async () => {
-                const requestFriends = await request(`${config.hostServer}/api/friends/listRequestFriends`, 'GET', null, {
-                    Authorization: `Bearer ${auth.token}`
-                })
-
-                setListRequestFriends(requestFriends)
+                await updateFriendsData()
             })
+
+            socketsClient.socket.on(DIALOG__GET_MESSAGE, async objMessage => {
+                console.log('Ура, новое сообщение', objMessage)
+                await updateDialogsAndMessages()
+            })
+
+            await onGetInputDevice()
         }
         wrap()
+
+        new SystemHotkey(history)
 
         return () => {
             socketsClient.socket.off(CLIENT__GET_STATUS)
@@ -149,7 +215,9 @@ export const MainState = ({ children }) => {
     }, [])
 
     return (
-        <ContextMain.Provider value={{infoUser, listRequestFriends, finishLoading, createdMyRooms, rerender, setRerender, infoUserDialogs, isReloading }}>
+        <ContextMain.Provider value={{infoUser, listRequestFriends, finishLoading, createdMyRooms,
+        rerender, setRerender, infoUserDialogs, isReloading, setInfoUserDialogs,
+        ttlCountUnrMsg, setTtlCountUnrMsg, inputDevices, logout, onSendImageProfileAsync }}>
             {children}
         </ContextMain.Provider>
     )
