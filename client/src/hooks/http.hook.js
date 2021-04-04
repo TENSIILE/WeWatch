@@ -1,38 +1,39 @@
 import { useState, useCallback } from 'react'
 
 export const useHttp = () => {
-    const [loading, setLoading] = useState(false)
-    const [error, setError]     = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
 
-    const request = useCallback( async (url, method = 'GET', body = null, headers = {}) => {
-        setLoading(true)
-        try {
-
-            if (body) {
-                body                    = JSON.stringify(body)
-                headers['Content-Type'] = 'application/json'
-            }
-
-            const response = await fetch(url, { method, body, headers })
-            const data     = await response.json()
-            
-            if (!response.ok) {
-                setError(data.errors)
-                throw new Error(data.message || 'Произошла ошибка!')
-            }
-
-            setLoading(false)
-
-            setError(data.errors)
-
-            return data
-
-        } catch (e) {
-            setError(e)
-            setLoading(false)
-            throw e
+  const request = useCallback(
+    async (url, method = 'GET', body = null, headers = {}) => {
+      setLoading(true)
+      try {
+        if (body) {
+          body = JSON.stringify(body)
+          headers['Content-Type'] = 'application/json'
         }
-    }, [])
 
-    return { loading, request, error }
+        const response = await fetch(url, { method, body, headers })
+        const data = await response.json()
+
+        if (!response.ok) {
+          setError(data.errors)
+          throw new Error(data.message || 'Произошла ошибка!')
+        }
+
+        setLoading(false)
+
+        setError(data.errors)
+
+        return data
+      } catch (e) {
+        setError(e)
+        setLoading(false)
+        throw e
+      }
+    },
+    []
+  )
+
+  return { loading, request, error }
 }

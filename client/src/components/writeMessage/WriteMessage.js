@@ -21,60 +21,59 @@ import 'emoji-mart/css/emoji-mart.css'
 import './writeMessage.scss'
 
 export const WriteMessage = () => {
-    const logicChat   = useContext(ContextChat)
-    const contextmenu = useContext(ContextConMenu)
-    
-    return (
-        <div className="im-chat-input">
-            <div className="im-chat-wrapper">
-                <SliderHorizontal 
-                    newClass='attachmented-files'
-                    isVisible={!!logicChat.isEmptyUploader}
-                >
-                    {
-                        logicChat.combinedFiles && logicChat.combinedFiles.map((file, i) => {
-                            return (
-                                <AttachedFile
-                                    key={file.toString() + i}
-                                    img={URL.createObjectURL(file)}
-                                    title={file.name}
-                                    size={determiningFileSize(file.size)}
-                                    type={file.type}
-                                />
-                            )
-                        })
-                    }
-                </SliderHorizontal> 
-                <div className="management-my-message">
-                    <div className='input-attachments'>
-                        <ReactSVG 
-                            src={attachments} 
-                            className='react-svg attachments-files'
-                            onClick={() => contextmenu.show('attachmentDataMessage')}
-                        />
-                        <Contextmenu 
-                            view={'attachment-data-message'} 
-                            open={contextmenu.visible.attachmentDataMessage}
-                        />
-                    </div>
-                    <Input 
-                        isWithButton={true}
-                        icon={icoSend} 
-                        newClass='grey-background text-message'
-                        parentClass='btn-mess-send'
-                        placeholder='Напишите сообщение...'
-                        value={logicChat.textInput}
-                        onChange={logicChat.onInputMessage}
-                        onKeyDown={logicChat.onSendMessage}
-                        onClick={e => logicChat.onSendMessage(e, false)}
-                    />
-                    <ReactSVG
-                        src={smile} 
-                        className='react-svg smile'
-                        onClick={logicChat.toggleVisiblePicker}
-                    />
+  const logicChat = useContext(ContextChat)
+  const contextmenu = useContext(ContextConMenu)
 
-                    {/* <div className={classnames('picker', {'visible': logicChat.visiblePicker})}>
+  return (
+    <div className='im-chat-input'>
+      <div className='im-chat-wrapper'>
+        <SliderHorizontal
+          newClass='attachmented-files'
+          isVisible={!!logicChat.isEmptyUploader}
+        >
+          {logicChat.combinedFiles &&
+            logicChat.combinedFiles.map((file, i) => {
+              return (
+                <AttachedFile
+                  key={file.toString() + i}
+                  img={URL.createObjectURL(file)}
+                  title={file.name}
+                  size={determiningFileSize(file.size)}
+                  type={file.type}
+                />
+              )
+            })}
+        </SliderHorizontal>
+        <div className='management-my-message'>
+          <div className='input-attachments'>
+            <ReactSVG
+              src={attachments}
+              className='react-svg attachments-files'
+              onClick={() => contextmenu.show('attachmentDataMessage')}
+            />
+            <Contextmenu
+              view={'attachment-data-message'}
+              open={contextmenu.visible.attachmentDataMessage}
+            />
+          </div>
+          <Input
+            isWithButton={true}
+            icon={icoSend}
+            newClass='grey-background text-message'
+            parentClass='btn-mess-send'
+            placeholder='Напишите сообщение...'
+            value={logicChat.textInput}
+            onChange={logicChat.onInputMessage}
+            onKeyDown={logicChat.onSendMessage}
+            onClick={e => logicChat.onSendMessage(e, false)}
+          />
+          <ReactSVG
+            src={smile}
+            className='react-svg smile'
+            onClick={logicChat.toggleVisiblePicker}
+          />
+
+          {/* <div className={classnames('picker', {'visible': logicChat.visiblePicker})}>
                         <Picker
                             set='twitter'
                             onSelect={logicChat.onSelectEmoji}
@@ -82,13 +81,15 @@ export const WriteMessage = () => {
                             showSkinTones={false}
                         />
                     </div> */}
-                </div>
-                <p 
-                    className={classnames('notification', {'visible': logicChat.isShowChatAct})}
-                >
-                    {logicChat.usernameChatAct}
-                </p>
-            </div>
         </div>
-    )
+        <p
+          className={classnames('notification', {
+            visible: logicChat.isShowChatAct,
+          })}
+        >
+          {logicChat.usernameChatAct}
+        </p>
+      </div>
+    </div>
+  )
 }

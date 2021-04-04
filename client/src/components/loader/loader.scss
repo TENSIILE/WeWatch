@@ -1,25 +1,24 @@
 .loader {
-    position: absolute;
-    width: 45px;
-    height: 45px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    border: 5px solid var(--menu-color);
-    border-top-color: var(--menu-color-shadow);
-    border-bottom-color: var(--menu-color-shadow);
-    border-radius: 50%;
-    animation: rotateZ 1s infinite forwards linear;
-    transition: .4s;
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 5px solid var(--menu-color);
+  border-top-color: var(--menu-color-shadow);
+  border-bottom-color: var(--menu-color-shadow);
+  border-radius: 50%;
+  animation: rotateZ 1s infinite forwards linear;
+  transition: 0.4s;
 }
 
 @keyframes rotateZ {
+  0% {
+    transform: translate(-50%, -50%) rotateZ(0deg);
+  }
 
-    0% {
-        transform: translate(-50%, -50%) rotateZ(0deg);
-    }
-
-    100% {
-        transform: translate(-50%, -50%) rotateZ(360deg);
-    }
+  100% {
+    transform: translate(-50%, -50%) rotateZ(360deg);
+  }
 }

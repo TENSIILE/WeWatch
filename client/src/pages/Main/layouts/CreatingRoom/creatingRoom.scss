@@ -1,144 +1,142 @@
-.creating-room{
-    padding: 0 !important;
+.creating-room {
+  padding: 0 !important;
 
-    .heading{
-        height: 45px;
-    }
+  .heading {
+    height: 45px;
+  }
 
-    .body-room-customization{
-        position: relative;
-        overflow-x: hidden;
-        overflow-y: auto;
-        margin-top: 1em;
-        padding: 0 1.5em 0 5px;
-        height: 87vh;
-    }
+  .body-room-customization {
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-top: 1em;
+    padding: 0 1.5em 0 5px;
+    height: 87vh;
+  }
 
-    .container-extra-section{
-        overflow: hidden;
-        transition: .4s;
-    }
+  .container-extra-section {
+    overflow: hidden;
+    transition: 0.4s;
+  }
 
-    h3{
-        font-weight: 500;
-        color:var(--first-text);
-    }
+  h3 {
+    font-weight: 500;
+    color: var(--first-text);
+  }
 
-    .setup-logo-room{
-        position: relative;
-        // margin-top: 2em;
+  .setup-logo-room {
+    position: relative;
 
-        .image-uploading{
-            position: relative;
-            display: block;
-            width: 100%;
-            overflow: hidden;
-            margin-top: 1em;
-            transition: .4s;
+    .image-uploading {
+      position: relative;
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      margin-top: 1em;
+      transition: 0.4s;
 
-            div{
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                cursor: pointer;
+      div {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
 
-                div{
-                    position: absolute;
-                    width: 150px;
-                    height: 150px;
-                    background: rgba(255,255,255,.05);
-                    left: 50%;
-                    top:50%;
-                    transform: translate(-50%,-50%) scale(0);
-                    border-radius: 50%;
-                    overflow: hidden;
-                    opacity: 0;
-                    visibility: hidden;
-                    transition: .4s;
+        div {
+          position: absolute;
+          width: 150px;
+          height: 150px;
+          background: rgba(255, 255, 255, 0.05);
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%) scale(0);
+          border-radius: 50%;
+          overflow: hidden;
+          opacity: 0;
+          visibility: hidden;
+          transition: 0.4s;
 
-                    svg{
-                        position: absolute;
-                        width: 60px;
-                        height: 60px;
-                        left: 50%;
-                        top:50%;
-                        transform: translate(-50%,-50%);
-                        fill:grey;
-                        transition: .4s;
-                    }
-                }
-            }
-
-            &:hover{
-                div{
-                    div{
-                        transform: translate(-50%,-50%) scale(1);
-                        opacity: 1;
-                        visibility: visible;
-                    }
-                }
-                &:before{
-                    opacity: 1;
-                    visibility: visible;
-                }
-            }
-            
-            &:active{
-                svg{
-                    fill:white;
-                }
-            }
-
-            &:before{
-                content: "";
-                position: absolute;
-                display: block;
-                left: 0;
-                top:0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,.9);
-                border-radius: 20px;
-                visibility: hidden;
-                opacity: 0;
-                transition: .2s;
-            }
+          svg {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            fill: grey;
+            transition: 0.4s;
+          }
         }
+      }
 
-        img{
-            width: 100%;
-            height: 100%;
-            background: var(--second-background);
-            object-fit: cover;
-            transition: .4s;
-            border-radius: 20px;
+      &:hover {
+        div {
+          div {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            visibility: visible;
+          }
         }
-    }
-
-    .link-to-video{
-        position: relative;
-        // margin-top: 2em;
-
-        .preview{
-            margin-top: 1em;
-            width: 300px;
-            height: 150px;
-            border-radius: 20px;
-
-            img{
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                border: none;
-                border-radius: 20px;
-                outline: none;
-            }
+        &:before {
+          opacity: 1;
+          visibility: visible;
         }
+      }
+
+      &:active {
+        svg {
+          fill: white;
+        }
+      }
+
+      &:before {
+        content: '';
+        position: absolute;
+        display: block;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        border-radius: 20px;
+        visibility: hidden;
+        opacity: 0;
+        transition: 0.2s;
+      }
     }
 
-    .container-list-ready-links-to-video{
-        position: relative;
-        margin-top: 2em;
-        margin-bottom: 1em;  
+    img {
+      width: 100%;
+      height: 100%;
+      background: var(--second-background);
+      object-fit: cover;
+      transition: 0.4s;
+      border-radius: 20px;
     }
+  }
+
+  .link-to-video {
+    position: relative;
+
+    .preview {
+      margin-top: 1em;
+      width: 300px;
+      height: 150px;
+      border-radius: 20px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border: none;
+        border-radius: 20px;
+        outline: none;
+      }
+    }
+  }
+
+  .container-list-ready-links-to-video {
+    position: relative;
+    margin-top: 2em;
+    margin-bottom: 1em;
+  }
 }

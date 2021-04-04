@@ -1,0 +1,17 @@
+.container-room {
+  position: relative;
+  width: 100%;
+
+  .empty-without-video {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    span {
+      margin-top: 1em;
+      color: var(--second-text);
+    }
+  }
+}

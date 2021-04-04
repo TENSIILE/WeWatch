@@ -1,63 +1,63 @@
 import { useRef, useEffect } from 'react'
 
 export const useHeight = (trigger, options = {}) => {
-    const ref    = useRef()
-    const height = useRef()
+  const ref = useRef()
+  const height = useRef()
 
-    const hide = (init = true) => {
-        if (!ref.current) return
+  const hide = (init = true) => {
+    if (!ref.current) return
 
-        if (init) {
-            ref.current.style.height         = '0px'
-            return ref.current.style.display = 'none'
-        }
-
-        ref.current.style.height = height.current + 'px' 
-
-        setTimeout(() => {
-            ref.current.style.height = '0px'
-            ref.current.style.margin = '0'
-        }, 100)
+    if (init) {
+      ref.current.style.height = '0px'
+      return (ref.current.style.display = 'none')
     }
 
-    const show = () => {
-        if (ref.current.style.display === 'none') {
-            if (!options.isNotFlex) {
-                ref.current.style.display = 'flex'
-            } else ref.current.style.display = null
+    ref.current.style.height = height.current + 'px'
 
-            ref.current.style.margin = null
-            
-            setTimeout(() => {
-                if (ref.current) ref.current.style.height = height.current + 'px' 
-            }, 50)
+    setTimeout(() => {
+      ref.current.style.height = '0px'
+      ref.current.style.margin = '0'
+    }, 100)
+  }
 
-            return setTimeout(() => {
-                if (ref.current) ref.current.style.height = null
-            }, 300)
-        }
+  const show = () => {
+    if (ref.current.style.display === 'none') {
+      if (!options.isNotFlex) {
+        ref.current.style.display = 'flex'
+      } else ref.current.style.display = null
 
-        ref.current.style.margin = null 
-        
-        setTimeout(() => {
-            if (ref.current) ref.current.style.height = height.current + 'px' 
-        }, 200)
+      ref.current.style.margin = null
 
-        setTimeout(() => {
-            if (ref.current) ref.current.style.height = null
-        }, 500)
+      setTimeout(() => {
+        if (ref.current) ref.current.style.height = height.current + 'px'
+      }, 50)
+
+      return setTimeout(() => {
+        if (ref.current) ref.current.style.height = null
+      }, 300)
     }
 
-    useEffect(() => {
-        if (ref.current) {
-            height.current = ref.current.getBoundingClientRect().height
-            !trigger && hide()
-        }
-    }, [ref])
+    ref.current.style.margin = null
 
-    useEffect(() => {
-        ref.current && trigger ? show() : hide(false)
-    }, [trigger])
+    setTimeout(() => {
+      if (ref.current) ref.current.style.height = height.current + 'px'
+    }, 200)
 
-    return { ref }
+    setTimeout(() => {
+      if (ref.current) ref.current.style.height = null
+    }, 500)
+  }
+
+  useEffect(() => {
+    if (ref.current) {
+      height.current = ref.current.getBoundingClientRect().height
+      !trigger && hide()
+    }
+  }, [ref])
+
+  useEffect(() => {
+    ref.current && trigger ? show() : hide(false)
+  }, [trigger, show])
+
+  return { ref }
 }

@@ -1,38 +1,84 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { ReactSVG } from 'react-svg'
+import { useHttp } from '../../../../../../hooks/http.hook'
+import { useSearcher } from '../../../../../../hooks/searcher.hook'
 import { Input } from '../../../../../../components/input/Input'
 import { Item } from '../../../../../../components/itemsGroup/Item'
+import { getUserToken } from '../../../../../../utils/functions'
 
-import user from '../../../../../../static/img/user.jpg'
+import box from '../../../../../../static/icons/open-box.svg'
 import search from '../../../../../../static/icons/Search.svg'
-
+import config from '../../../../../../config.json'
 import '../../sidebar.scss'
 
-export const RecentlyInRoom = ({isEmpty, textEmpty = 'Нет надавних посещаемых комнат'}) => {
-    return (
-        <>
-            {
-                !isEmpty ? 
-                (
-                    <>
-                        <div className='input-form'>
-                            <Input 
-                                isWithButton={true}
-                                icon={search}
-                                style={{margin: '15px 10px 0 10px', width:'100%'}}
-                                placeholder='Найти комнату...'
-                            />
-                        </div>
+export const RecentlyInRoom = ({ textEmpty = 'Нет посетимых комнат' }) => {
+  const { request } = useHttp()
 
-                        <div className='zone'>
-                            <p className='title-list'>Недавно посещаемые комнаты</p>
-                            <div className='list-visited-room'>
-                                <Item src={'https://sun9-67.userapi.com/c858236/v858236620/1d22d1/ZVnklmlf97Y.jpg'} text='Флудилка сталкеров, флеймеров? четких пацанов' isItemRoom={true} isPasswordSetup={true}/>
-                                <Item src={user} text='Название' isItemRoom={true}/>
-                            </div>
-                        </div>
-                    </>
-                ) : <span id='empty-text'>{textEmpty}</span> 
-            }
+  const [listRooms, setListRooms] = useState([])
+
+  const searcher = useSearcher(listRooms)
+
+  useEffect(() => {
+    const wrap = async () => {
+      const rooms = await request(
+        `${config.hostServer}/api/room/getRoomsJoined`,
+        'GET',
+        null,
+        {
+          Authorization: `Bearer ${await getUserToken()}`,
+        }
+      )
+
+      setListRooms(rooms)
+    }
+    wrap()
+  }, [])
+
+  return (
+    <>
+      {listRooms.length ? (
+        <>
+          <div className='input-form'>
+            <Input
+              isWithButton={true}
+              icon={search}
+              style={{ margin: '15px 10px 0 10px', width: '100%' }}
+              placeholder='Найти комнату...'
+              value={searcher.input}
+              onChange={e => searcher.setInput(e.target.value)}
+              onKeyUp={searcher.search}
+              onClick={searcher.search}
+            />
+          </div>
+
+          <div className='zone'>
+            <p className='title-list'>Список комнат</p>
+            <div className='list-visited-room'>
+              {!!searcher.array.length ? (
+                searcher.array.map(room => (
+                  <Item
+                    key={room._id}
+                    src={room.logo}
+                    text={room.title}
+                    isItemRoom={true}
+                    isPasswordSetup={!!room.securityKey}
+                  />
+                ))
+              ) : (
+                <div className='room-empty'>
+                  <ReactSVG src={box} className='room-empty__icon' />
+                  <span>Данной комнаты не существует!</span>
+                </div>
+              )}
+            </div>
+          </div>
         </>
-    ) 
+      ) : (
+        <div className='room-empty'>
+          <ReactSVG src={box} className='room-empty__icon' />
+          <span>{textEmpty}</span>
+        </div>
+      )}
+    </>
+  )
 }

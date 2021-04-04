@@ -1,0 +1,45 @@
+.button-toggle {
+  $self: button-toggle;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  background: var(--second-background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.4s;
+
+  & + & {
+    margin-left: 0.5em;
+  }
+
+  &__container {
+    display: flex;
+    margin-top: 1em !important;
+  }
+
+  &__icon {
+    div {
+      svg {
+        width: 25px;
+        height: 25px;
+        fill: var(--second-text);
+        transition: 0.4s;
+      }
+    }
+  }
+
+  &.button-toggle--active {
+    background: var(--menu-color);
+    box-shadow: 0 0 20px var(--menu-color-shadow),
+      0 0 0 2px var(--menu-color-shadow);
+
+    .#{$self}__icon {
+      svg {
+        fill: white;
+      }
+    }
+  }
+}

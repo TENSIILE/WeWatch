@@ -1,146 +1,148 @@
 .link-dialog {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .dialog {
-    position: relative;
-    border-radius: 20px;
-    padding: .8em;
-    display: flex;
-    cursor: pointer;
-    margin-bottom: .5em;
-    width: calc(100% - 3px);
-    transition: .2s;
+  position: relative;
+  border-radius: 20px;
+  padding: 0.8em;
+  display: flex;
+  cursor: pointer;
+  margin-bottom: 0.5em;
+  width: calc(100% - 3px);
+  transition: 0.2s;
 
-    &.highlight {
-        background: var(--third-background);
-
-        .avatar {
-            .indicator-online {
-                box-shadow: 0 0 0 3px var(--third-background) !important;
-            }
-        }
-    }
-
-    &:hover {
-        background: var(--third-background);
-        
-        .avatar {
-            .indicator-online {
-                box-shadow: 0 0 0 3px var(--third-background) !important;
-            }
-        }
-    }
+  &.highlight {
+    background: var(--third-background);
 
     .avatar {
-        position: relative;
+      .indicator-online {
+        box-shadow: 0 0 0 3px var(--third-background) !important;
+      }
+    }
+  }
 
-        img {
-            width: 45px;
-            height: 45px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
+  &:hover {
+    background: var(--third-background);
 
-        .indicator-online {
-            box-shadow: 0 0 0 3px var(--second-background) !important;
-            width: 8px;
-            height: 8px;
-        }
+    .avatar {
+      .indicator-online {
+        box-shadow: 0 0 0 3px var(--third-background) !important;
+      }
+    }
+  }
+
+  .avatar {
+    position: relative;
+
+    img {
+      width: 45px;
+      height: 45px;
+      object-fit: cover;
+      border-radius: 10px;
     }
 
-    * {
-        margin: 0;
+    .indicator-online {
+      box-shadow: 0 0 0 3px var(--second-background) !important;
+      width: 8px;
+      height: 8px;
+    }
+  }
+
+  * {
+    margin: 0;
+  }
+
+  .center-text {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1em;
+    width: 160px;
+
+    h3 {
+      font-weight: 400;
+      line-height: 16px;
+      margin-bottom: 0.3em;
+      color: var(--first-text);
+      font-size: 17px;
     }
 
-    .center-text {
-        display: flex;
-        flex-direction: column;
-        margin-left: 1em;
-        width: 160px;
+    .last-message {
+      display: flex;
+      align-items: center;
+      margin-top: 0.4em;
 
-        h3 {
-            font-weight: 400; 
-            line-height: 16px;
-            margin-bottom: 0.3em;
-            color:var(--first-text);
-            font-size: 17px;
-        }
+      img {
+        width: 20px;
+        height: 20px;
+        min-width: 20px;
+        min-height: 20px;
+        border-radius: 4px;
+        object-fit: cover;
+        margin-right: 0.5em;
+      }
 
-        .last-message {
-            display: flex;
-            align-items: center;
-            margin-top: 0.4em;
+      p.miniature-message {
+        color: var(--second-text);
+        font-size: 14px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: 170px;
+      }
 
-            img {
-                width: 20px;
-                height: 20px;
-                border-radius: 4px;
-                object-fit: cover;
-                margin-right: .5em;
-            }
+      span.empty-dialog {
+        color: var(--basis-green);
+        font-size: 12px;
+        margin-top: -0.5em;
+      }
+    }
+  }
 
-            p.miniature-message {
-                color:var(--second-text);
-                font-size: 14px;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-                overflow: hidden;
-                width: 170px;
-            }
+  .date-and-isReading {
+    position: relative;
+    margin-left: auto;
+    margin-right: 0.5em;
 
-            span.empty-dialog {
-                color:var(--basis-green);
-                font-size: 12px;
-                margin-top: -.5em;
-            }
-        }
+    p.last-date {
+      color: var(--second-text);
+      font-size: 14px;
     }
 
-    .date-and-isReading {
-        position: relative;
-        margin-left: auto;
-        margin-right: .5em;
+    .checkedIsReading {
+      position: absolute;
+      bottom: 0px;
+      right: 5px;
 
-        p.last-date {
-            color: var(--second-text);
-            font-size: 14px;
+      div {
+        svg {
+          fill: var(--second-text);
+          width: 15px;
+          transition: 0.2s;
         }
+      }
 
-        .checkedIsReading {
-            position: absolute;
-            bottom: 0px;
-            right: 5px;
-
-            div {
-                svg {
-                    fill:var(--second-text);
-                    width: 15px;
-                    transition: .2s;
-                }
-            }   
-
-            &.readed {
-                svg {
-                    fill:var(--basis-green);
-                }
-            }
+      &.readed {
+        svg {
+          fill: var(--basis-green);
         }
-
-        .count-received-messages {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            border-radius: 20px;
-            text-align: center;
-            color:white;
-            background: var(--basis-green);
-            margin-top: .8em;
-            font-size: 12px;
-            padding: 0.1em;
-            width: 40px;
-            transform-origin: center center;
-            transition: .4s;
-        }
+      }
     }
+
+    .count-received-messages {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      border-radius: 20px;
+      text-align: center;
+      color: white;
+      background: var(--basis-green);
+      margin-top: 0.8em;
+      font-size: 12px;
+      padding: 0.1em;
+      width: 40px;
+      transform-origin: center center;
+      transition: 0.4s;
+    }
+  }
 }

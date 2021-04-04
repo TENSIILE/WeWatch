@@ -1,52 +1,52 @@
 .checkbox {
+  position: relative;
+  width: 100%;
+
+  input.checkbox {
     position: relative;
-    width: 100%;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--menu-color);
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    transition: 0.4s;
 
-    input.checkbox {
-        position: relative;
-        appearance: none;
-        width: 20px;
-        height: 20px;
-        border: 2px solid var(--menu-color);
-        border-radius: 4px;
-        outline: none;
-        cursor: pointer;
-        transition: .4s;
-
-        &:before {
-            content: "";
-            position: absolute;
-            display: block;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 10px;
-            height: 10px;
-            background: var(--menu-color);
-            border-radius: 2px;
-            transition: .4s;
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        &:checked::before {
-            opacity: 1;
-            visibility: visible;
-        }
+    &:before {
+      content: '';
+      position: absolute;
+      display: block;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 10px;
+      background: var(--menu-color);
+      border-radius: 2px;
+      transition: 0.4s;
+      opacity: 0;
+      visibility: hidden;
     }
 
+    &:checked::before {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  label {
+    color: var(--second-text);
+    white-space: pre-line;
+    margin-left: 10px;
+    position: absolute;
+    top: 2px;
+    cursor: pointer;
+  }
+
+  &.darken-text {
     label {
-        color: var(--second-text);
-        white-space: pre-line;
-        margin-left: 10px;
-        position: absolute;
-        top: 2px;
-        cursor: pointer;
+      color: var(--first-text) !important;
     }
-
-    &.darken-text{
-        label{
-            color:var(--first-text) !important;
-        }
-    }
+  }
 }

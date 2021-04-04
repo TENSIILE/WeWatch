@@ -1,8 +1,8 @@
 {
-   "PORT": 5000,
-   "hostServer": "http://localhost:5000",
-   "hostClient": "http://localhost:3000",
-   "mongoURL":"mongodb+srv://Vladislav:1q3z2a34err@wewatch.g8t1v.azure.mongodb.net/app?retryWrites=true&w=majority",
-   "jwtSecret": "1234567890",
-   "jwtTokenApi": "I|@yY|0yB@oNz3E1aylrf9{wnac0c76n%6p}$KgAQ7oAt7Cj8P0DpmgxMOekut8e"
+  "PORT": 5000,
+  "hostServer": "http://localhost:5000",
+  "hostClient": "http://localhost:3000",
+  "mongoURL": "mongodb+srv://Vladislav:1q3z2a34err@wewatch.g8t1v.azure.mongodb.net/app?retryWrites=true&w=majority",
+  "jwtSecret": "1234567890",
+  "jwtTokenApi": "I|@yY|0yB@oNz3E1aylrf9{wnac0c76n%6p}$KgAQ7oAt7Cj8P0DpmgxMOekut8e"
 }

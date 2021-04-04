@@ -2,60 +2,83 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { ContextConMenu } from './contextConMenu'
 
 export const ContextMenuState = ({ children }) => {
-    const [eachContextmenu, setEachContextmenu] = useState({myFriends: {}})
+  const [eachContextmenu, setEachContextmenu] = useState({ myFriends: {} })
 
-    const [optionsEachCM, setOptionsEachCM] = useState(0)
+  const [optionsEachCM, setOptionsEachCM] = useState(0)
 
-    const openEachCMInFor = index => setEachContextmenu({myFriends:{...eachContextmenu.myFriends, [index]:true}})
+  const openEachCMInFor = index =>
+    setEachContextmenu({
+      myFriends: { ...eachContextmenu.myFriends, [index]: true },
+    })
 
-    const createEachCMInFor = useCallback(() => {
-        const newObject = {myFriends: {}}
-        
-        for (let i = 0; i < optionsEachCM; i++) {
-            newObject.myFriends[i] = false
-        }
-        
-        setEachContextmenu(newObject)
-    }, [optionsEachCM])
+  const createEachCMInFor = useCallback(() => {
+    const newObject = { myFriends: {} }
 
-    useEffect(createEachCMInFor, [optionsEachCM])
-    
+    for (let i = 0; i < optionsEachCM; i++) {
+      newObject.myFriends[i] = false
+    }
 
-    const [visible, setVisible] = useState({
-        'status': false, 'addFriendToRoom': false,
-        'attachmentDataMessage': false
-    }) 
+    setEachContextmenu(newObject)
+  }, [optionsEachCM])
 
-    const show = useCallback(name => {
-        setVisible({...visible, [name]: true})
-    }, [visible])
+  useEffect(createEachCMInFor, [optionsEachCM])
 
-    const hide = useCallback(name => {
-        setVisible({...visible, [name]: false})
-    }, [visible])
+  const [visible, setVisible] = useState({
+    status: false,
+    addFriendToRoom: false,
+    attachmentDataMessage: false,
+  })
 
-    const hideAll = useCallback(() => {
-        const newObj = {}
-        Object.keys(visible).map(state => newObj[state] = false)
-        setVisible(newObj)
+  const show = useCallback(
+    name => {
+      setVisible({ ...visible, [name]: true })
+    },
+    [visible]
+  )
 
-        createEachCMInFor()
+  const hide = useCallback(
+    name => {
+      setVisible({ ...visible, [name]: false })
+    },
+    [visible]
+  )
 
-    }, [visible, createEachCMInFor])
+  const hideAll = useCallback(() => {
+    const newObj = {}
+    Object.keys(visible).map(state => (newObj[state] = false))
+    setVisible(newObj)
 
-    const delegateHiddenContextmenu = useCallback(e => {
-        const component = e.target.closest('.contextmenu')
-        
-        if ((!component && Object.values(visible).includes(true)) || (!component && Object.values(eachContextmenu.myFriends).includes(true))) {
-            hideAll() 
-        }
-    }, [visible, hideAll, eachContextmenu])
+    createEachCMInFor()
+  }, [visible, createEachCMInFor])
 
-    return (
-        <ContextConMenu.Provider value={{show, hide, hideAll, visible,
-            delegateHiddenContextmenu, setOptionsEachCM, eachContextmenu, openEachCMInFor
-        }}>
-            {children}
-        </ContextConMenu.Provider>
-    )
+  const delegateHiddenContextmenu = useCallback(
+    e => {
+      const component = e.target.closest('.contextmenu')
+
+      if (
+        (!component && Object.values(visible).includes(true)) ||
+        (!component && Object.values(eachContextmenu.myFriends).includes(true))
+      ) {
+        hideAll()
+      }
+    },
+    [visible, hideAll, eachContextmenu]
+  )
+
+  return (
+    <ContextConMenu.Provider
+      value={{
+        show,
+        hide,
+        hideAll,
+        visible,
+        delegateHiddenContextmenu,
+        setOptionsEachCM,
+        eachContextmenu,
+        openEachCMInFor,
+      }}
+    >
+      {children}
+    </ContextConMenu.Provider>
+  )
 }

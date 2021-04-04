@@ -1,133 +1,136 @@
 .container-messages {
+  position: relative;
+  width: 100%;
+  padding: 1em;
+  padding-top: 0.2em;
+  padding-right: 0.5em;
+  padding-bottom: 0;
+  height: calc(100% - 180px);
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  .loading-new-messages {
     position: relative;
     width: 100%;
-    padding: 1em;
-    padding-top: 0.2em;
-    padding-right: 0.5em;
-    padding-bottom: 0;
-    height: calc(100% - 175px);
+    margin-bottom: 5px;
+    height: 20px;
+    transition: 0.4s;
 
-    .loading-new-messages {
-        position: relative;
-        width: 100%;
-        margin-bottom: 5px;
-        height: 20px;
-        transition: .4s;
+    svg {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      margin: auto;
+      width: 20px;
+      height: 20px;
+      fill: var(--third-text);
+    }
+  }
 
-        svg {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            margin: auto;
-            width: 20px;
-            height: 20px;
-            fill:var(--third-text);
-        }
+  .wrapper-messages {
+    position: relative;
+    height: 100%;
+    overflow: auto;
+    padding-right: 1em;
+    padding-top: 0.5em;
+    scroll-behavior: initial;
+
+    .sticky-date {
+      position: sticky;
+      top: 0;
+      left: 50%;
+      transform: translateX(-49%);
+      background: var(--second-background);
+      border-bottom: 1px solid var(--third-background);
+      filter: brightness(98%);
+      color: var(--first-text);
+      padding: 0.5em 1em;
+      border-radius: 10px;
+      font-size: 12px;
+      margin-bottom: 1em;
+      z-index: 10;
+      opacity: 1;
+      cursor: default;
+      transition: 0.4s;
     }
 
-    .wrapper-messages {
-        position: relative;
-        height: 100%;
-        overflow: auto;
-        padding-right: 1em;
-        padding-top: 0.5em;
-        scroll-behavior: initial;
-        // scroll-behavior: smooth;
+    .empty-message-container {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
 
-        .sticky-date {
-            position: sticky;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--basis-black-transparent2);
-            padding: .5em 1em;
-            border-radius: 20px;
-            color:white;
-            font-size: 12px;
-            margin-bottom: 1em;
-            z-index: 10;
-            opacity: 1;
-            cursor: default;
-            transition: .4s;
-        }
-
-        .empty-message-container {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%,-50%);
-
-            .empty-message {
-                display: flex;
-                justify-content: center;
-                margin-bottom: 1em;
-
-                div {
-                    svg {
-                        width: 80px;
-                        height: 80px;
-                        fill:var(--third-text);
-                    }
-                }
-            }
-
-            .empty-text {
-                position: unset;
-                left: unset;
-                top: unset;
-                transform: unset;
-            }
-        }
-    }
-
-    .arrow-down {
-        position: absolute;
-        bottom: 1em;
-        left: 1em;
-        background: var(--second-background);
-        border-radius: 50%;
-        min-width: 35px;
-        min-height: 35px;
+      .empty-message {
         display: flex;
         justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        opacity: 0;
-        visibility: hidden;
-        transition: .2s;
+        margin-bottom: 1em;
 
-        &.show {
-            opacity: 1;
-            visibility: visible;
+        div {
+          svg {
+            width: 80px;
+            height: 80px;
+            fill: var(--third-text);
+          }
         }
+      }
 
-        &:hover {
-            background: var(--third-background);
-        }
-
-        svg {
-            display: flex;
-            align-items: center;
-            fill:var(--first-text);
-            width: 13px;
-            height: 13px;
-        }
-
-        .badge-count {
-            position: absolute;
-            background: var(--basis-red);
-            top: -3px;
-            right: -3px;
-            width: 17px;
-            height: 17px;
-            border-radius: 50%;
-            color:white;
-            text-align: center;
-            line-height: 17px;
-            font-size: 10px;
-            border: none;
-            min-width: 17px;
-        }
+      .empty-text {
+        position: unset;
+        left: unset;
+        top: unset;
+        transform: unset;
+      }
     }
+  }
+
+  .arrow-down {
+    position: absolute;
+    bottom: 1em;
+    left: 1em;
+    background: var(--second-background);
+    border-radius: 50%;
+    min-width: 35px;
+    min-height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.2s;
+
+    &.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    &:hover {
+      background: var(--third-background);
+    }
+
+    svg {
+      display: flex;
+      align-items: center;
+      fill: var(--first-text);
+      width: 13px;
+      height: 13px;
+    }
+
+    .badge-count {
+      position: absolute;
+      background: var(--basis-red);
+      top: -3px;
+      right: -3px;
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      color: white;
+      text-align: center;
+      line-height: 17px;
+      font-size: 10px;
+      border: none;
+      min-width: 17px;
+    }
+  }
 }

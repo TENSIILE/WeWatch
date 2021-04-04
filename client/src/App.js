@@ -10,33 +10,37 @@ import { IndicatorOnlineState } from './contexts/indicatorOnline/indicatorOnline
 import { SettingsState } from './contexts/settingsPage/settingsState'
 
 const App = () => {
-    const { token, login, logout, userId } = useAuth()
-    const isAuthenticated = !!token
-    const routes          = useRoutes(isAuthenticated)
+  const { token, login, logout, userId } = useAuth()
+  const isAuthenticated = !!token
+  const routes = useRoutes(isAuthenticated)
 
-    document.oncontextmenu = () => false
+  document.oncontextmenu = () => false
 
-    return (
-        <ContextMenuState>
-            <AlertState>
-                <ModalState>
-                    <ContextAuth.Provider value={{
-                        token, login, logout, userId, isAuthenticated
-                    }}>
-                        <IndicatorOnlineState>
-                            <BrowserRouter> 
-                                <SettingsState>
-                                    <div className="container">
-                                        {routes}   
-                                    </div>
-                                </SettingsState>
-                            </BrowserRouter>
-                        </IndicatorOnlineState>
-                    </ContextAuth.Provider>
-                </ModalState>
-            </AlertState>
-        </ContextMenuState>
-    )
+  return (
+    <ContextMenuState>
+      <AlertState>
+        <ModalState>
+          <ContextAuth.Provider
+            value={{
+              token,
+              login,
+              logout,
+              userId,
+              isAuthenticated,
+            }}
+          >
+            <IndicatorOnlineState>
+              <BrowserRouter>
+                <SettingsState>
+                  <div className='container'>{routes}</div>
+                </SettingsState>
+              </BrowserRouter>
+            </IndicatorOnlineState>
+          </ContextAuth.Provider>
+        </ModalState>
+      </AlertState>
+    </ContextMenuState>
+  )
 }
 
-export default App 
+export default App

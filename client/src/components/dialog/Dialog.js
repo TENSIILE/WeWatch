@@ -16,121 +16,131 @@ import { loader } from '../../utils/functions'
 
 import checked from '../../static/icons/checked.svg'
 
-
 import './dialog.scss'
 
-export const Dialog = ({ 
-    chatID,
-    messages,
-    isMe,
-    dialogData
-}) => {
-    const logicChat                                     = useContext(ContextChat)
-    const { infoUser }                                  = useContext(ContextGetInfo)
-    // const { ttlCountUnrMsg, setTtlCountUnrMsg }         = useContext(ContextMain)
+export const Dialog = ({ chatID, messages, isMe, dialogData }) => {
+  const logicChat = useContext(ContextChat)
+  const { infoUser } = useContext(ContextGetInfo)
+  // const { ttlCountUnrMsg, setTtlCountUnrMsg }         = useContext(ContextMain)
 
-    const [dataUserDialogs, setDataUserDialogs]         = useState(null)
+  const [dataUserDialogs, setDataUserDialogs] = useState(null)
 
-    const [lastMessage, setLastMessage]                 = useState(messages[messages.length - 1])
-    const [avatarUser, setAvatarUser]                   = useState(null)
-    const [highlightDialog, setHighlightDialog]         = useState(false)   
-    const [countUnreadMessages, setCountUnreadMessages] = useState(null) 
+  const [lastMessage, setLastMessage] = useState(messages[messages.length - 1])
+  const [avatarUser, setAvatarUser] = useState(null)
+  const [highlightDialog, setHighlightDialog] = useState(false)
+  const [countUnreadMessages, setCountUnreadMessages] = useState(null)
 
-    // const racker                                        = new Racker()
+  // const racker                                        = new Racker()
 
-    useEffect(() => {
-        setDataUserDialogs(dialogData)
-    }, [dialogData])
-    
+  useEffect(() => {
+    setDataUserDialogs(dialogData)
+  }, [dialogData])
 
-    useEffect(() => {
-        if (chatID === logicChat.urlParams.id) {
-            setHighlightDialog(true)
-        } else {
-            setHighlightDialog(false)
-        }
-    }, [logicChat.urlParams])
+  useEffect(() => {
+    if (chatID === logicChat.urlParams.id) {
+      setHighlightDialog(true)
+    } else {
+      setHighlightDialog(false)
+    }
+  }, [logicChat.urlParams])
 
-    useEffect(() => {
-        const wrap = async () => {
-            await loader(messages, wrap, 500)
+  useEffect(() => {
+    const wrap = async () => {
+      await loader(messages, wrap, 500)
 
-            // const textDecoded = await racker.decode(lastMessage.text)
-            // setLastMessage({...lastMessage, text: textDecoded })
-            setLastMessage(messages[messages.length - 1])
+      // const textDecoded = await racker.decode(lastMessage.text)
+      // setLastMessage({...lastMessage, text: textDecoded })
+      setLastMessage(messages[messages.length - 1])
 
-            let counter = 0
-            for (let i = messages.length - 1; i >= 0; i--) {
-                if (messages[i].author !== infoUser.user._id && !messages[i].isReaded) {
-                    counter++
-                } else break
-            }
-    
-            if (counter > 0) {
-                setCountUnreadMessages(counter)
-                logicChat.setCountUnreadMsg(counter)
+      let counter = 0
+      for (let i = messages.length - 1; i >= 0; i--) {
+        if (messages[i].author !== infoUser.user._id && !messages[i].isReaded) {
+          counter++
+        } else break
+      }
 
-                // let total = ttlCountUnrMsg
-                // total++
-                
-                // setTtlCountUnrMsg(total)
-            }
-        }
-        wrap()
+      if (counter > 0) {
+        setCountUnreadMessages(counter)
+        logicChat.setCountUnreadMsg(counter)
 
-    }, [messages])
+        // let total = ttlCountUnrMsg
+        // total++
 
-    useEffect(() => {
-        setAvatarUser(infoUser.userAdditional.avatar)
-    }, [isMe])
+        // setTtlCountUnrMsg(total)
+      }
+    }
+    wrap()
+  }, [messages])
 
-    return (
-        <Link to={`/chat/${chatID}`} className='link-dialog'>
-            {
-                !!dataUserDialogs && (
-                    <div className={classnames('dialog', {'highlight': highlightDialog})}> 
-                        <div className="avatar">
-                            <img src={dataUserDialogs.userAdditional.avatar} alt=""/>
-                            <IndicatorOnline status={dataUserDialogs.userAdditional.statusOnline}/>
-                        </div>
-                
-                        <div className="center-text">
-                            <h3>{dataUserDialogs.userAdditional.name + ' ' + dataUserDialogs.userAdditional.lastname}</h3>
-                            <div className="last-message">
-                                {!!messages.length ? (
-                                    <>
-                                        {isMe && <img src={avatarUser} alt=""/>}
-                                        <p className='miniature-message'>{reactStringReplace(lastMessage.text, /:(.+?):/g, (match, i) => (
-                                            <Emoji 
-                                                key={match.toString() + i} 
-                                                emoji={match}
-                                                set='twitter' 
-                                                size={20}
-                                            />
-                                        ))}</p>
-                                    </>
-                                ) : <span className='empty-dialog'>Начни общаться!</span>}
-                            </div>
-                        </div>
-                        
-                        {!!messages.length && (
-                            <div className="date-and-isReading">
-                                <p className='last-date'>{getMessageTime(new Date(lastMessage.create_at))}</p>
-                                {
-                                    !isMe ? ( 
-                                        !!countUnreadMessages && <div className="count-received-messages">{String(countUnreadMessages).padStart(2,0)}</div>
-                                    ) : (
-                                        <ReactSVG 
-                                            src={checked}
-                                            className={classnames('checkedIsReading', {'readed': lastMessage.isReaded})}
-                                        />
-                                    )
-                                }
-                            </div>
-                        )}
-                    </div>
+  useEffect(() => {
+    setAvatarUser(infoUser.userAdditional.avatar)
+  }, [isMe])
+
+  return (
+    <Link to={`/chat/${chatID}`} className='link-dialog'>
+      {!!dataUserDialogs && (
+        <div className={classnames('dialog', { highlight: highlightDialog })}>
+          <div className='avatar'>
+            <img src={dataUserDialogs.userAdditional.avatar} alt='' />
+            <IndicatorOnline
+              status={dataUserDialogs.userAdditional.statusOnline}
+            />
+          </div>
+
+          <div className='center-text'>
+            <h3>
+              {dataUserDialogs.userAdditional.name +
+                ' ' +
+                dataUserDialogs.userAdditional.lastname}
+            </h3>
+            <div className='last-message'>
+              {!!messages.length ? (
+                <>
+                  {isMe && <img src={avatarUser} alt='' />}
+                  <p className='miniature-message'>
+                    {reactStringReplace(
+                      lastMessage.text,
+                      /:(.+?):/g,
+                      (match, i) => (
+                        <Emoji
+                          key={match.toString() + i}
+                          emoji={match}
+                          set='twitter'
+                          size={20}
+                        />
+                      )
+                    )}
+                  </p>
+                </>
+              ) : (
+                <span className='empty-dialog'>Начни общаться!</span>
+              )}
+            </div>
+          </div>
+
+          {!!messages.length && (
+            <div className='date-and-isReading'>
+              <p className='last-date'>
+                {getMessageTime(new Date(lastMessage.create_at))}
+              </p>
+              {!isMe ? (
+                !!countUnreadMessages && (
+                  <div className='count-received-messages'>
+                    {String(countUnreadMessages).padStart(2, 0)}
+                  </div>
                 )
-            }
-        </Link>
-    )
+              ) : (
+                <ReactSVG
+                  src={checked}
+                  className={classnames('checkedIsReading', {
+                    readed: lastMessage.isReaded,
+                  })}
+                />
+              )}
+            </div>
+          )}
+        </div>
+      )}
+    </Link>
+  )
 }

@@ -14,80 +14,116 @@ import Video from '../../../../static/icons/Play.svg'
 import Chat from '../../../../static/icons/Edit-tools.svg'
 import Search from '../../../../static/icons/Search.svg'
 import Settings from '../../../../static/icons/Settings.svg'
-
 import user from '../../../../static/img/user.jpg'
-
 import './mainMenu.scss'
 
-
 export const MainMenu = () => {
-    const { infoUser }  = useContext(ContextGetInfo)
-    const { textBadge, 
-        textBadgeChat } = useContext(ContextBadge)
-    const contextmenu   = useContext(ContextConMenu)
-    const { statusIO }  = useContext(ContextIndicatorOnline)
-    
-    const [focus, setFocus] = useState({ home: true })
-    const defaultFocus      = { home: false, video:false, chat:false, search:false, settings:false, profile:false }
+  const { infoUser } = useContext(ContextGetInfo)
+  const { textBadge, textBadgeChat } = useContext(ContextBadge)
+  const contextmenu = useContext(ContextConMenu)
+  const { statusIO } = useContext(ContextIndicatorOnline)
 
-    const location = useLocation()
+  const [focus, setFocus] = useState({ home: true })
+  const defaultFocus = {
+    home: false,
+    room: false,
+    chat: false,
+    search: false,
+    settings: false,
+    profile: false,
+  }
 
-    const page = location.pathname.substring(1, location.pathname.length).split('/')[0]
-    
-    useCallback(useEffect(() => {
-        setFocus({
-            ...defaultFocus,
-            [page]: true}) 
-    }, [page]), [defaultFocus]) 
-    
+  const location = useLocation()
 
-    const setActiveButtonsOnClick = event => {
-        setFocus({
-            ...defaultFocus,
-            [event.target.closest("button").id]: true}
-        ) 
-    }
+  const page = location.pathname
+    .substring(1, location.pathname.length)
+    .split('/')[0]
 
-    return (
-        <div className='main-menu'>
-            <div className='logo'>
-                <h6>Ww</h6>
-            </div>
-            <div className='menu'>
-                <Link to='/home'>
-                    <ButtonMini icon={Home} id='home' onClick={setActiveButtonsOnClick} focus={focus.home}/>
-                </Link>
-                <Link to='/video'>
-                    <ButtonMini icon={Video} id='video' onClick={setActiveButtonsOnClick} focus={focus.video}/>
-                </Link>
-                <Link to='/chat'>
-                    <ButtonMini icon={Chat} id='chat' onClick={setActiveButtonsOnClick} focus={focus.chat}/>
-                    <Badge text={textBadgeChat}/>
-                </Link>
-                <Link to='/search'>
-                    <ButtonMini icon={Search} id='search' onClick={setActiveButtonsOnClick} focus={focus.search}/>
-                    <Badge text={textBadge}/>
-                </Link>
-                <Link to='/settings/account'>
-                    <ButtonMini icon={Settings} id='settings' onClick={setActiveButtonsOnClick} focus={focus.settings}/>
-                </Link>
-            </div>
-            <div className='profile'>
-                <Link to='/profile'>
-                    <ButtonMini 
-                        icon=""
-                        id='profile'
-                        onClick={setActiveButtonsOnClick}
-                        onClickRightButton={() => contextmenu.show('status')}
-                        focus={focus.profile}
-                        style={{width:55, height:55}}
-                    >   
-                        <IndicatorOnline status={statusIO} newClass='no-transition'/> 
-                        <img src={!!infoUser ? infoUser.userAdditional.avatar : user} alt=''/>
-                    </ButtonMini>
-                </Link>
-                <Contextmenu open={contextmenu.visible.status}/>
-            </div>
-        </div>
-    )
+  useCallback(
+    useEffect(() => {
+      setFocus({
+        ...defaultFocus,
+        [page]: true,
+      })
+    }, [page]),
+    [defaultFocus]
+  )
+
+  const setActiveButtonsOnClick = event => {
+    setFocus({
+      ...defaultFocus,
+      [event.target.closest('button').id]: true,
+    })
+  }
+
+  return (
+    <div className='main-menu'>
+      <div className='logo'>
+        <h6>Ww</h6>
+      </div>
+      <div className='menu'>
+        <Link to='/home'>
+          <ButtonMini
+            icon={Home}
+            id='home'
+            onClick={setActiveButtonsOnClick}
+            focus={focus.home}
+          />
+        </Link>
+        <Link to='/room'>
+          <ButtonMini
+            icon={Video}
+            id='room'
+            onClick={setActiveButtonsOnClick}
+            focus={focus.room}
+          />
+        </Link>
+        <Link to='/chat'>
+          <ButtonMini
+            icon={Chat}
+            id='chat'
+            onClick={setActiveButtonsOnClick}
+            focus={focus.chat}
+          />
+          <Badge text={textBadgeChat} />
+        </Link>
+        <Link to='/search'>
+          <ButtonMini
+            icon={Search}
+            id='search'
+            onClick={setActiveButtonsOnClick}
+            focus={focus.search}
+          />
+          <Badge text={textBadge} />
+        </Link>
+        <Link to='/settings/account'>
+          <ButtonMini
+            icon={Settings}
+            id='settings'
+            onClick={setActiveButtonsOnClick}
+            focus={focus.settings}
+          />
+        </Link>
+      </div>
+      <div className='profile'>
+        <Link to='/profile'>
+          <ButtonMini
+            icon=''
+            id='profile'
+            onClick={setActiveButtonsOnClick}
+            onClickRightButton={() => contextmenu.show('status')}
+            focus={focus.profile}
+            style={{ width: 55, height: 55 }}
+          >
+            <IndicatorOnline status={statusIO} newClass='no-transition' />
+            <img
+              src={!!infoUser ? infoUser.userAdditional.avatar : user}
+              alt=''
+            />
+          </ButtonMini>
+        </Link>
+        <Contextmenu open={contextmenu.visible.status} />
+      </div>
+    </div>
+  )
 }

@@ -1,31 +1,31 @@
 .security-section {
-    position: relative;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--white-dark-background);
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: relative;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--white-dark-background);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    $self: security-section;
+  $self: security-section;
 
-    &__form {
-        .#{$self}__title {
-            text-align: center;
-            font-size: 10em;
-            font-family: 'Thillends';
-            color:var(--first-text);
-            margin-top: 0;
-            margin-bottom: 0.3em;
-        }
-        .#{$self}__description {
-            text-align: center;
-            color:var(--first-text);
-            margin-bottom: 2em;
-            font-weight: normal;
-        }
-    } 
+  &__form {
+    .#{$self}__title {
+      text-align: center;
+      font-size: 10em;
+      font-family: 'Thillends';
+      color: var(--first-text);
+      margin-top: 0;
+      margin-bottom: 0.3em;
+    }
+    .#{$self}__description {
+      text-align: center;
+      color: var(--first-text);
+      margin-bottom: 2em;
+      font-weight: normal;
+    }
+  }
 }

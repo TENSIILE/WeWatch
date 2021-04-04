@@ -14,68 +14,70 @@ import trash from '../../static/icons/trash.svg'
 import user from '../../static/img/user.jpg'
 import './inviteFriend.scss'
 
-export const InviteFriend = ({ 
-    style,
-    listFriend
-}) => {
-    const contextmenu       = useContext(ContextConMenu)
-    const logicCreatingRoom = useContext(ContextCreatingRoom)
-    
-    const ref = React.createRef()
-    
-    const [offsetMenu, setOffsetMenu] = useState('')
+export const InviteFriend = ({ style, listFriend }) => {
+  const contextmenu = useContext(ContextConMenu)
+  const logicCreatingRoom = useContext(ContextCreatingRoom)
 
-    useEffect(() => {
-        setOffsetMenu(ref.current.offsetLeft)
-    }, [ref])
+  const ref = React.createRef()
 
-    return (
-        <div 
-            className='container-list-friends-added-to-room' 
-            style={style}
-        >
-            <h3>Пригласить друзей</h3>
-            <div className='list-added-to-room'>
-                <TransitionGroup className='my-friends-invited-to-room'>
-                    {
-                        !!listFriend && listFriend.map(friend => {
-                            return (
-                                <CSSTransition 
-                                    key={friend._id} 
-                                    classNames='invited-friend'
-                                    timeout={800}
-                                >
-                                    <div 
-                                        className='container-avatar-user tooltip tooltip-simple'
-                                        title-tooltip={friend.name + ' ' + friend.lastname} 
-                                        onClick={() => logicCreatingRoom.kickOutFromRoom(friend)}
-                                    >
-                                        <img src={friend.avatar || user} alt=''/>
-                                        <ReactSVG src={trash}/>
-                                    </div>
-                                </CSSTransition>
-                            )
-                        })
-                    }
-                </TransitionGroup>
+  const [offsetMenu, setOffsetMenu] = useState('')
 
-                <ButtonMini 
-                    icon={plus} 
-                    newClass='fly circle'
-                    style={{position:'relative', border:'none', top:0, width:45, height:45, margin:'.5em', cursor:'default'}}
-                    onClickRightButton={() => contextmenu.show('addFriendToRoom')}
-                    onClick={() => contextmenu.show('addFriendToRoom')}
-                    ref={ref}
+  useEffect(() => {
+    setOffsetMenu(ref.current.offsetLeft)
+  }, [ref])
+
+  return (
+    <div className='container-list-friends-added-to-room' style={style}>
+      <h3>Пригласить друзей</h3>
+      <div className='list-added-to-room'>
+        <TransitionGroup className='my-friends-invited-to-room'>
+          {!!listFriend &&
+            listFriend.map(friend => {
+              return (
+                <CSSTransition
+                  key={friend._id}
+                  classNames='invited-friend'
+                  timeout={800}
                 >
-                    <Contextmenu 
-                        view='add-friend-to-room' 
-                        style={{left: '50%', top:'50%', position:'absolute'}}
-                        newClass={classnames({'reverse-right-side': offsetMenu - 20 > 200})}
-                        open={contextmenu.visible.addFriendToRoom}
-                    />
-                </ButtonMini>
-               
-            </div>
-        </div>
-    )
+                  <div
+                    className='container-avatar-user tooltip tooltip-simple'
+                    title-tooltip={friend.name + ' ' + friend.lastname}
+                    onClick={() => logicCreatingRoom.kickOutFromRoom(friend)}
+                  >
+                    <img src={friend.avatar || user} alt='' />
+                    <ReactSVG src={trash} />
+                  </div>
+                </CSSTransition>
+              )
+            })}
+        </TransitionGroup>
+
+        <ButtonMini
+          icon={plus}
+          newClass='fly circle'
+          style={{
+            position: 'relative',
+            border: 'none',
+            top: 0,
+            width: 45,
+            height: 45,
+            margin: '.5em',
+            cursor: 'default',
+          }}
+          onClickRightButton={() => contextmenu.show('addFriendToRoom')}
+          onClick={() => contextmenu.show('addFriendToRoom')}
+          ref={ref}
+        >
+          <Contextmenu
+            view='add-friend-to-room'
+            style={{ left: '50%', top: '50%', position: 'absolute' }}
+            newClass={classnames({
+              'reverse-right-side': offsetMenu - 20 > 200,
+            })}
+            open={contextmenu.visible.addFriendToRoom}
+          />
+        </ButtonMini>
+      </div>
+    </div>
+  )
 }

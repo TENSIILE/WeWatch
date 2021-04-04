@@ -1,89 +1,88 @@
 .settings-list {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow: auto;
+  margin-top: 1.5em;
+  list-style: none;
+
+  svg {
+    path {
+      fill: unset;
+    }
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    outline: none;
     width: 100%;
-    overflow: auto;
-    margin-top: 1.5em;
-    list-style: none;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 1em;
 
-    svg {
+    &:not(:disabled).highlight {
+      background: var(--menu-color);
+
+      svg {
+        fill: white;
+
         path {
-            fill:unset;
+          fill: white;
         }
+      }
+
+      li {
+        color: white;
+      }
     }
 
-    button {
-        display: flex;
-        align-items: center;
-        background: none;
-        border:none;
-        outline: none;
-        width: 100%;
-        cursor: pointer;
-        border-radius: 10px;
-        padding: 1em;
+    .settings-list__icon {
+      div {
+        svg {
+          width: 25px;
+          height: 25px;
+          fill: var(--first-text);
 
-        &:not(:disabled).highlight {
-            background: var(--menu-color);
-
-            svg {
-                fill:white;
-
-                path {
-                    fill:white;
-                }
-            }
-
-            li {
-                color:white;
-            }
+          path {
+            fill: var(--first-text);
+          }
         }
-        
-        .settings-list__icon {
-            div {
-                svg {
-                    width: 25px;
-                    height: 25px;
-                    fill:var(--first-text);
-
-                    path {
-                        fill: var(--first-text);
-                    }
-                }
-            }
-        }
-
-        li {
-            text-align: left;
-            color:var(--first-text);
-            font-weight: 500; 
-            margin-left: 1em;
-            font-size: 15px;
-        }
-
-        &:disabled {
-            cursor: default;
-            opacity: 0.5;
-            filter: brightness(90%);
-            background: unset;
-        }
-
-
-        &:not(.highlight):not(:disabled):hover {
-            background: var(--third-background);
-        }
-
-        & + button {
-            margin-top: .5em;
-        }
-
-        &.unique {
-            background: var(--basis-yellow-transparent);
-            color:var(--basis-yellow);
-        }
-
-        &:last-child {
-            margin-bottom: .5em;
-        } 
+      }
     }
+
+    li {
+      text-align: left;
+      color: var(--first-text);
+      font-weight: 500;
+      margin-left: 1em;
+      font-size: 15px;
+    }
+
+    &:disabled {
+      cursor: default;
+      opacity: 0.5;
+      filter: brightness(90%);
+      background: unset;
+    }
+
+    &:not(.highlight):not(:disabled):hover {
+      background: var(--third-background);
+    }
+
+    & + button {
+      margin-top: 0.5em;
+    }
+
+    &.unique {
+      background: var(--basis-yellow-transparent);
+      color: var(--basis-yellow);
+    }
+
+    &:last-child {
+      margin-bottom: 0.5em;
+    }
+  }
 }

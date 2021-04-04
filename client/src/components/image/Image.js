@@ -6,50 +6,50 @@ import { parseParams } from '../../utils/functions'
 import config from '../../config.json'
 
 export const Image = ({ src, id, newClass }) => {
-    const { userId, token }       = useContext(ContextAuth)
-    const [imageSrc, setImageSrc] = useState(src)
-    const ref                     = useRef(null)
-    const { request }             = useHttp()
+  const { userId, token } = useContext(ContextAuth)
 
-    useEffect(() => {
-        setImageSrc(src)
-    }, [src])
+  const [imageSrc, setImageSrc] = useState(src)
+  const ref = useRef(null)
+  const { request } = useHttp()
 
-    useEffect(() => {
-        const wrap = async () => {
-            const response = await fetch(`${src}?image=${id}`, {method: 'GET'})
+  useEffect(() => {
+    setImageSrc(src)
+  }, [src])
 
-            if (response.status === 404) {
-                const params = parseParams(response.url)
+  useEffect(() => {
+    const wrap = async () => {
+      const response = await fetch(`${src}?image=${id}`, { method: 'GET' })
 
-                let path
+      if (response.status === 404) {
+        const params = parseParams(response.url)
 
-                switch (params.image) {
-                    case 'header':
-                        path = `${config.hostServer}/upload/image/HEADER.png`
-                        break
-                    case 'avatar':
-                        path = `${config.hostServer}/upload/image/USER.jpeg`
-                        break
-                    default:
-                        break
-                }
-                
-                setImageSrc(path)
-                await request(`${config.hostServer}/upload/savepath`, 'POST', { path, field: params.image }, {
-                    Authorization: `Bearer ${token}`
-                })
-            }
+        let path
+
+        switch (params.image) {
+          case 'header':
+            path = `${config.hostServer}/upload/image/HEADER.png`
+            break
+          case 'avatar':
+            path = `${config.hostServer}/upload/image/USER.jpeg`
+            break
+          default:
+            break
         }
-        wrap()
-    }, [src, ref, userId, id, request])
 
-    return (
-        <img 
-            src={imageSrc} 
-            ref={ref}
-            className={newClass}
-            alt=""
-        />
-    )
+        setImageSrc(path)
+
+        await request(
+          `${config.hostServer}/upload/savepath`,
+          'POST',
+          { path, field: params.image },
+          {
+            Authorization: `Bearer ${token}`,
+          }
+        )
+      }
+    }
+    wrap()
+  }, [src, ref, userId, id, request, token])
+
+  return <img src={imageSrc} ref={ref} className={newClass} alt='' />
 }

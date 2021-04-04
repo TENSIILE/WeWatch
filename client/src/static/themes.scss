@@ -1,101 +1,101 @@
 .dark-theme {
-    --main-menu-color: #202126;
+  --main-menu-color: #202126;
 
-    --menu-color: #202126;
-    --menu-color-shadow:#2B2C32;
+  --menu-color: #202126;
+  --menu-color-shadow: #2b2c32;
 
-    --first-background: #202126;
-    --second-background: #26272C;
-    --third-background: #2B2C32;
+  --first-background: #202126;
+  --second-background: #26272c;
+  --third-background: #2b2c32;
 
-    --fourth-background: #26272C;
-    --fifth-background: #222429;
+  --fourth-background: #26272c;
+  --fifth-background: #222429;
 
-    --white-dark-background: #2B2C32;
+  --white-dark-background: #2b2c32;
 
-    --first-text: #F4F5F7;
-    --second-text: #A7ACB2;
-    --third-text: #6D7073;
+  --first-text: #f4f5f7;
+  --second-text: #a7acb2;
+  --third-text: #6d7073;
 
-    --middle-gray-separator: rgba(177, 177, 177, 0.05);
-    --middle-gray-separator3: rgba(177, 177, 177, 0.05);
+  --middle-gray-separator: rgba(177, 177, 177, 0.05);
+  --middle-gray-separator3: rgba(177, 177, 177, 0.05);
 
-    .beautiful-scrollbar {
-        &::-webkit-scrollbar-thumb { 
-            background: var(--menu-color);
-        }
+  .beautiful-scrollbar {
+    &::-webkit-scrollbar-thumb {
+      background: var(--menu-color);
     }
+  }
+
+  .main-menu button.btn-switch-menu svg {
+    fill: var(--third-text);
+  }
+
+  &:not(.dark-theme-locked) button.btn-switch-menu svg {
+    fill: white;
+  }
+
+  &.confrontation-dart-theme-with-menu {
+    --main-menu-color: #202126 !important;
 
     .main-menu button.btn-switch-menu svg {
-        fill: var(--third-text);
+      fill: var(--third-text);
     }
+  }
 
-    &:not(.dark-theme-locked) button.btn-switch-menu svg {
-        fill:white;
-    }
+  &.dark-theme-locked {
+    --main-menu-color: #202126 !important;
+    --menu-color: #202126 !important;
+    --menu-color-shadow: #1a1b1f !important;
+  }
 
-    &.confrontation-dart-theme-with-menu {
-        --main-menu-color: #202126 !important;
-
-        .main-menu button.btn-switch-menu svg {
-            fill: var(--third-text);
-        }
-    }
-    
-    &.dark-theme-locked {
-        --main-menu-color:#202126 !important;
-        --menu-color: #202126 !important;
-        --menu-color-shadow:#1a1b1f !important;
-    }
-
-    button.btn.primary.half-opacity {
-        background: rgba(0, 123, 255, 0.05);
-    }
+  button.btn.primary.half-opacity {
+    background: rgba(0, 123, 255, 0.05);
+  }
 }
 
 .red-theme {
-    --main-menu-color: #DC3545 !important;
-    --menu-color: #DC3545 !important;
-    --menu-color-shadow:#dc35467e !important;
+  --main-menu-color: #dc3545 !important;
+  --menu-color: #dc3545 !important;
+  --menu-color-shadow: #dc35467e !important;
 }
 
 .green-theme {
-    --main-menu-color: #53D769 !important;
-    --menu-color: #53D769 !important;
-    --menu-color-shadow:#53d7697c !important;
+  --main-menu-color: #53d769 !important;
+  --menu-color: #53d769 !important;
+  --menu-color-shadow: #53d7697c !important;
 }
 
 .blue-theme {
-    --main-menu-color: #007BFF !important;
-    --menu-color: #007BFF !important;
-    --menu-color-shadow: #007bff86 !important;
+  --main-menu-color: #007bff !important;
+  --menu-color: #007bff !important;
+  --menu-color-shadow: #007bff86 !important;
 }
 
 .yellow-theme {
-    --main-menu-color: #deb438  !important;
-    --menu-color: #deb438 !important;
-    --menu-color-shadow: #fccd3f7a !important;
+  --main-menu-color: #deb438 !important;
+  --menu-color: #deb438 !important;
+  --menu-color-shadow: #fccd3f7a !important;
 }
 
 .orange-theme {
-    --main-menu-color: #f37500 !important;
-    --menu-color: #f37500 !important;
-    --menu-color-shadow: #f3750075 !important;
+  --main-menu-color: #f37500 !important;
+  --menu-color: #f37500 !important;
+  --menu-color-shadow: #f3750075 !important;
 }
 
 .sky-theme {
-    --main-menu-color: #17A2B8 !important;
-    --menu-color: #17A2B8 !important;
-    --menu-color-shadow: #17a3b87c !important;
+  --main-menu-color: #17a2b8 !important;
+  --menu-color: #17a2b8 !important;
+  --menu-color-shadow: #17a3b87c !important;
 }
 
 .purple-theme {
-    --main-menu-color: #9b59b6 !important;
-    --menu-color: #9b59b6 !important;
-    --menu-color-shadow: #9c59b681 !important;
+  --main-menu-color: #9b59b6 !important;
+  --menu-color: #9b59b6 !important;
+  --menu-color-shadow: #9c59b681 !important;
 }
 
 .night-shift {
-    transition: filter .4s;
-    filter: sepia(0.2);
+  transition: filter 0.4s;
+  filter: sepia(0.2);
 }
