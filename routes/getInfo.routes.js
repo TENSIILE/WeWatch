@@ -133,12 +133,10 @@ router.get('/user/getTokenApi', auth, async (req, res) => {
     let user = await User.findById(req.query.userId)
 
     if (!user.tokenApi) {
-      res
-        .status(404)
-        .json({
-          message:
-            'Вашего токена как разработчика не существует. Подождите некоторое время, чтобы мы исправили эту проблему или же сообщите нам о ней!',
-        })
+      res.status(404).json({
+        message:
+          'Вашего токена как разработчика не существует. Подождите некоторое время, чтобы мы исправили эту проблему или же сообщите нам о ней!',
+      })
     }
 
     res.json({ tokenApi: user?.tokenApi })
