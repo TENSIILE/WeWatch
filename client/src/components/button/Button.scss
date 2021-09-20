@@ -1,0 +1,168 @@
+.btn {
+  color: var(--second-text);
+  background: var(--third-background);
+  border: 1px solid var(--first-text);
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: 0.4s;
+  height: 43px;
+  min-height: 43px;
+  border-radius: 10px;
+  margin-right: 10px;
+  padding: 0 30px;
+  width: 100%;
+  font-size: 13px;
+  display: block;
+
+  div {
+    div {
+      svg {
+        height: 11px;
+        width: 11px;
+        fill: var(--first-text);
+        transition: 0.4s;
+      }
+    }
+  }
+
+  &:link {
+    text-decoration: none;
+    text-align: center;
+    line-height: 43px;
+  }
+
+  &:disabled {
+    filter: brightness(0.9) saturate(0) !important;
+    opacity: 0.5 !important;
+    cursor: default !important;
+  }
+
+  &:last-child {
+    margin: 0;
+  }
+
+  &:active {
+    filter: brightness(90%);
+  }
+
+  &.simple {
+    color: var(--basis-blue);
+
+    background: var(--first-background);
+    border: 1px solid var(--fourth-background);
+    filter: brightness(1);
+
+    &:hover {
+      border-color: var(--basis-blue);
+    }
+
+    &:active {
+      background: var(--second-background);
+    }
+  }
+
+  &.wrapper_transparently-btn {
+    font-size: 13px !important;
+    transition: 0.2s !important;
+    border-radius: 4px !important;
+    padding: 5px 10px !important;
+    box-shadow: 0 1px 1px var(--color-shadow) !important;
+    text-decoration: none !important;
+    background: var(--first-background);
+    height: unset;
+    min-height: unset;
+  }
+
+  &.primary {
+    color: white;
+    background: var(--basis-blue);
+    padding: 0 30px;
+    width: min-content;
+
+    &:not(:disabled):hover {
+      background: #2f93ff;
+    }
+
+    &:active {
+      background: var(--basis-blue);
+    }
+
+    &.half-opacity {
+      background: rgba(0, 123, 255, 0.2);
+      color: var(--basis-blue);
+
+      &:not(:disabled):hover {
+        color: white;
+        background: var(--basis-blue);
+      }
+    }
+
+    &.transparently-btn {
+      color: var(--basis-blue);
+      @extend .wrapper_transparently-btn;
+
+      &:active {
+        background: var(--basis-blue) !important;
+        color: white !important;
+      }
+
+      &:not(:disabled):hover {
+        background: var(--basis-blue-transparent);
+      }
+    }
+  }
+
+  &.danger {
+    color: white;
+    background: var(--basis-red);
+    padding: 0 30px;
+    width: min-content;
+
+    &:not(:disabled):hover {
+      background: rgb(214, 76, 89);
+    }
+
+    &:active {
+      background: var(--basis-red);
+    }
+
+    &.half-opacity {
+      background: var(--basis-red-transparent);
+      color: var(--basis-red);
+
+      &:hover {
+        color: white !important;
+        background: var(--basis-red) !important;
+      }
+    }
+
+    &.transparently-btn {
+      color: var(--basis-red);
+      @extend .wrapper_transparently-btn;
+
+      svg {
+        fill: var(--basis-red);
+      }
+
+      &:not(:disabled):hover {
+        color: var(--basis-red);
+        background: var(--basis-red-transparent);
+      }
+
+      &:active {
+        background: var(--basis-red) !important;
+        color: white !important;
+
+        svg {
+          fill: white;
+        }
+      }
+    }
+  }
+}
+
+label.btn {
+  line-height: 43px;
+  text-align: center;
+}

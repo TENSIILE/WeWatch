@@ -1,0 +1,19 @@
+.settings-area {
+  &.m-width-400 {
+    min-width: 400px;
+  }
+
+  .settings-icon-page {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    div {
+      svg {
+        width: 400px;
+        height: 400px;
+      }
+    }
+  }
+}

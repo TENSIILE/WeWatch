@@ -1,0 +1,123 @@
+@import '../../static/bootstrap.scss';
+
+.im-chat-input {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1em 1.5em;
+  padding-top: 1.5em;
+  background: var(--white-dark-background);
+  border-top: 1px solid var(--second-background);
+  box-shadow: 0 -5px 30px rgba(0, 0, 0, 0.03);
+
+  .im-chat-wrapper {
+    position: relative;
+  }
+
+  hr {
+    border: none;
+    border-bottom: 1px solid var(--middle-gray-separator2);
+    margin: 1.5em 0;
+  }
+
+  .management-my-message {
+    position: relative;
+
+    .picker {
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.4s;
+
+      &.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    .emoji-mart {
+      position: absolute;
+      bottom: 40px;
+      z-index: 1000;
+      right: 85px;
+
+      .emoji-mart-scroll {
+        @extend .beautiful-scrollbar;
+        margin-right: 0.4em;
+        margin-bottom: 0.2em;
+        margin-top: 0.4em;
+      }
+
+      input#emoji-mart-search-2 {
+        margin-bottom: 0.5em !important;
+      }
+
+      button {
+        outline: none;
+        cursor: pointer;
+
+        span {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .react-svg {
+      &.attachments-files {
+        position: absolute;
+        z-index: 10;
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+      }
+
+      &.smile {
+        position: absolute;
+        z-index: 10;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 80px;
+      }
+
+      div {
+        height: 20px;
+
+        svg {
+          width: 21px;
+          height: 21px;
+          fill: var(--third-text);
+          cursor: pointer;
+          transition: 0.2s;
+
+          &:hover {
+            fill: var(--first-text);
+          }
+        }
+      }
+    }
+  }
+
+  input.text-message {
+    width: 100%;
+    padding-left: 3em;
+    padding-right: 8em;
+  }
+
+  p.notification {
+    color: var(--second-text);
+    margin: 9px;
+    margin-top: 1em;
+    font-size: 12px;
+    margin-bottom: 0;
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    transition: 0.4s;
+
+    &.visible {
+      opacity: 1;
+      visibility: visible;
+      height: 15px;
+    }
+  }
+}

@@ -1,0 +1,144 @@
+.invitation-lists {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px;
+  flex-grow: 1;
+  height: 100% !important;
+
+  .sent-applications {
+    flex-grow: 0 !important;
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+
+    div.item {
+      &:first-child {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+    }
+
+    .mySubscribers {
+      padding: 5px;
+      padding-top: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    &.visible {
+      flex-grow: 1 !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      height: 100% !important;
+
+      ~ #separator {
+        height: 1px;
+        opacity: 1;
+        visibility: visible;
+        margin: 0.5em 0;
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  .friend-requests {
+    height: 100%;
+
+    .list-future-friend {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100%;
+
+      div {
+        height: min-content;
+        width: min-content;
+      }
+      svg {
+        width: 70px;
+        height: 70px;
+        fill: var(--second-text);
+      }
+
+      #empty-text {
+        position: unset;
+        left: unset;
+        top: unset;
+        transform: unset;
+      }
+    }
+  }
+
+  #separator {
+    position: relative;
+    width: 100%;
+    border: none;
+    height: 0;
+    opacity: 0;
+    visibility: hidden;
+    background: var(--middle-gray-separator);
+    transition: 0.4s;
+    margin: 0;
+    filter: brightness(95%);
+  }
+
+  .separate-block {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-grow: 1;
+    transition: 0.4s ease-in-out;
+    overflow: hidden;
+
+    .title {
+      position: relative;
+      margin: 0;
+      color: var(--first-text);
+      margin: 5px;
+      padding: 15px 0;
+      padding-top: 0;
+      border-bottom: 1px solid var(--middle-gray-separator);
+    }
+  }
+
+  .subscribers {
+    padding: 5px;
+    padding-top: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+
+    div.item {
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+.candidate_friend-enter {
+  height: 0 !important;
+  padding: 0 !important;
+  opacity: 0 !important;
+  visibility: visible !important;
+  transition: 0.4s !important;
+}
+
+.candidate_friend-enter-active {
+  transition: 0.4s !important;
+  height: 55px !important;
+  padding: 10px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.candidate_friend-exit-active {
+  transition: 0.4s;
+  height: 0px !important;
+  padding: 0px !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}

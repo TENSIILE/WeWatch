@@ -1,0 +1,37 @@
+.container-chat {
+  position: relative;
+  width: 100%;
+  min-width: 500px;
+
+  .no-dialogue-selected {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .dialog-chat {
+      display: flex;
+      justify-content: center;
+
+      div {
+        svg {
+          width: 250px;
+          height: 250px;
+          fill: var(--third-text);
+          pointer-events: none;
+        }
+      }
+    }
+
+    .empty-text {
+      margin-top: 1em;
+      position: unset;
+      left: unset;
+      top: unset;
+      transform: unset;
+    }
+  }
+}

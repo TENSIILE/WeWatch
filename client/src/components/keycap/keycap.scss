@@ -1,0 +1,36 @@
+.keycap {
+  position: relative;
+  top: 0;
+  background: var(--third-background);
+  color: var(--first-text);
+  border-radius: 4px;
+  box-shadow: 0 3px 0 var(--basis-black-transparent2);
+  border: 1px solid var(--basis-black-transparent2);
+  font-weight: bold;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0.1em 0.3em;
+  text-transform: uppercase;
+  transition: 0.2s;
+
+  & + & {
+    margin-left: 1em;
+  }
+
+  &:active {
+    top: 5px;
+    box-shadow: 0 0px 0 transparent;
+  }
+}
+
+.keycap-container {
+  display: flex;
+
+  &.horizontal {
+    flex-direction: row;
+  }
+
+  &.vertical {
+    flex-direction: column;
+  }
+}

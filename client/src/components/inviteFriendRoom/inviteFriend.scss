@@ -1,0 +1,122 @@
+.container-list-friends-added-to-room {
+  h3 {
+    margin-top: 0;
+  }
+
+  .list-added-to-room {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0.5em;
+    border-radius: 20px;
+    background: var(--second-background);
+
+    .my-friends-invited-to-room {
+      display: flex;
+    }
+
+    .container-avatar-user {
+      position: relative;
+      margin: 0.5em;
+      width: 45px;
+      height: 45px;
+      cursor: pointer;
+      transition: 0.4s;
+      transform-origin: center center;
+
+      &:hover {
+        svg {
+          width: 25px;
+          opacity: 1;
+          visibility: visible;
+          fill: white;
+          height: 25px;
+          z-index: 3;
+        }
+
+        &::before {
+          opacity: 1;
+          visibility: visible;
+          transform: scale(1);
+        }
+      }
+
+      &:active {
+        &::before {
+          background: var(--basis-red-dark);
+        }
+      }
+
+      div {
+        height: 0;
+        display: contents;
+        margin: 0 auto;
+
+        div {
+          svg {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            visibility: hidden;
+            opacity: 0;
+            width: 0;
+            height: 17px;
+            margin-left: 0;
+            transition: opacity 0.3s, visibility 0.3s, width 0.4s, fill 0.4s;
+            fill: var(--first-text);
+          }
+        }
+      }
+
+      img {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: var(--basis-red);
+        z-index: 2;
+        border-radius: 50%;
+        opacity: 0;
+        visibility: hidden;
+        transform: scale(0);
+        transition: 0.2s;
+      }
+    }
+  }
+}
+
+.invited-friend-enter {
+  width: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  transform: scale(0);
+}
+
+.invited-friend-enter-active {
+  transition: width 0.2s, margin-left 0.4s, margin-right 0.4s, transform 0.4s;
+  width: 45px !important;
+  margin-left: 0.5em !important;
+  margin-right: 0.5em !important;
+  transform: scale(1);
+}
+
+.invited-friend-exit-active {
+  transition: width 0.2s, margin-left 0.4s, margin-right 0.4s, transform 0.4s;
+  width: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  transform: scale(0);
+}

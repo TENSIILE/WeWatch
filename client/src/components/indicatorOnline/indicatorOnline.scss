@@ -1,0 +1,47 @@
+.indicator-online {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 7px;
+  height: 7px;
+  box-shadow: 0 0 0 3px var(--white-dark-background);
+  background: #bbb;
+  border-radius: 50%;
+  transition: 0.4s;
+
+  &.no-transition {
+    transition: none;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transform-origin: center center;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    border-radius: 50%;
+    opacity: 0;
+    transition: 1s;
+    z-index: 10;
+  }
+
+  &.offline {
+    background: #bbb;
+  }
+
+  &.online {
+    background: #6ae97f;
+  }
+
+  &.sleep {
+    background: #fad669;
+  }
+
+  &.not-disturb {
+    background: #ec5160;
+  }
+}

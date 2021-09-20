@@ -1,0 +1,108 @@
+.authInput {
+  position: relative;
+  margin: 1.5em 0;
+  width: 100%;
+
+  label {
+    position: absolute;
+    color: var(--second-text);
+    left: 25px;
+    top: -15px;
+    background: var(--first-background);
+    border-radius: 10px;
+    padding: 3px 10px;
+    font-size: 12px;
+    z-index: 2;
+  }
+
+  input {
+    border: none;
+    outline: none;
+    padding: 15px 30px;
+    background-color: var(--third-background);
+    border-radius: 10px;
+    width: 100%;
+    color: var(--first-text);
+
+    &:disabled {
+      filter: brightness(0.9) !important;
+      opacity: 0.5 !important;
+      cursor: default !important;
+
+      ~ .icon-input {
+        z-index: -1;
+      }
+    }
+
+    &:not([value='']):valid ~ .validate-icon.good {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    &[value=''] ~ .validate-icon.good {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    &:invalid ~ .validate-icon.bad {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  .icon-input {
+    width: 30px;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    fill: var(--third-text);
+    cursor: pointer;
+    transition: 0.4s;
+    padding: 5px;
+    border-radius: 50%;
+    opacity: 0.5;
+    z-index: 1;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.1);
+      opacity: 1;
+    }
+
+    div {
+      line-height: 0;
+    }
+  }
+
+  .validate-icon {
+    width: 15px;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.4s;
+
+    div {
+      svg {
+        width: 17px;
+        height: 15px;
+      }
+    }
+
+    &.good {
+      svg {
+        fill: var(--basis-green);
+      }
+    }
+
+    &.bad {
+      svg {
+        fill: var(--basis-red);
+        width: 15px;
+        height: 13px;
+      }
+    }
+  }
+}

@@ -1,5 +1,68 @@
-:root{
+@import './static/themes.scss';
+@import './static/bootstrap.scss';
 
+:root {
+  --basis-blue: #007bff;
+  --basis-blue-dark: #0062cc;
+  --basis-blue-transparent: rgba(0, 98, 204, 0.1);
+  --basis-red: #dc3545;
+  --basis-red-dark: #a53540;
+  --basis-red-transparent: rgba(220, 53, 70, 0.1);
+  --basis-green: #53d769;
+  --basis-green-dark: #28a745;
+  --basis-green-transparent: rgba(40, 167, 69, 0.1);
+  --basis-sky: #17a2b8;
+  --basis-yellow: #ffc107;
+  --basis-yellow-dark: #d8a200;
+  --basis-yellow-transparent: rgba(255, 193, 7, 0.1);
+
+  --basis-white-transparent: rgba(255, 255, 255, 0.05);
+  --basis-white-transparent2: rgba(255, 255, 255, 0.1);
+
+  --basis-black-transparent: rgba(0, 0, 0, 0.02);
+  --basis-black-transparent2: rgba(0, 0, 0, 0.5);
+  --basis-black-transparent3: rgba(0, 0, 0, 0.1);
+
+  --main-menu-color: #007bff;
+
+  --menu-color: #007bff;
+  --menu-color-shadow: #007bff86;
+
+  --first-background: #ffffff;
+  --second-background: #f4f7f8;
+  --third-background: #efefef;
+
+  --fourth-background: #e4e2e2;
+  --fifth-background: #d6d4d4;
+
+  --white-dark-background: #ffffff;
+
+  --first-text: #3c3f44;
+  --second-text: #b1b6bb;
+  --third-text: #a7acb2;
+
+  --color-shadow: rgba(0, 0, 0, 0.1);
+  --middle-gray-separator: rgba(177, 177, 177, 0.1);
+  --middle-gray-separator2: rgba(177, 177, 177, 0.3);
+  --middle-gray-separator3: rgba(177, 177, 177, 0.2);
+
+  --background-modal: rgba(0, 0, 0, 0.9);
+
+  --dark-color: #202126;
+}
+
+@font-face {
+  src: url('static/fonts/16068.otf');
+  font-family: 'Zing';
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  src: url('static/fonts/Thillends.otf');
+  font-family: 'Thillends';
+  font-weight: bold;
+  font-style: italic;
 }
 
 body {
@@ -9,29 +72,5 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-
-.wrapper_authentication{
-  display: flex;
-  height: 100vh;
   overflow: hidden;
-
-  .leftSide{
-    min-width: 600px;
-    background: #fff;
-    height: 100%;
-  }
-
-  .rightSide{
-    width: 100%;
-    min-width: 500px;
-    height: 100%;
-
-    img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
 }
