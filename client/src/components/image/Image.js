@@ -2,7 +2,6 @@ import React, { useState, useRef, useContext, useEffect } from 'react'
 import { useHttp } from '../../hooks/http.hook'
 import { ContextAuth } from '../../contexts/contextAuth'
 import { parseParams } from '../../utils/functions'
-
 import config from '../../config.json'
 
 export const Image = ({ src, id, newClass }) => {

@@ -3,10 +3,8 @@ import { ReactSVG } from 'react-svg'
 import classnames from 'classnames'
 import { ContextAlert } from '../../contexts/alert/contextAlert'
 import { Input } from '../input/Input'
-
 import trash from '../../static/icons/trash.svg'
 import info from '../../static/icons/info.svg'
-
 import './catalogList.scss'
 
 export const CatalogList = ({

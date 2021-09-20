@@ -37,6 +37,7 @@ const getValueFromLocalStorage = (key, initialState) => {
   !localStorage.getItem(key) && wrap()
 
   return localStorage.getItem(key) === null ||
+    localStorage.getItem(key) === 'null' ||
     localStorage.getItem(key) === 'undefined' ||
     localStorage.getItem(key) === undefined
     ? initialState

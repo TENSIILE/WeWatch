@@ -6,9 +6,7 @@ import { ContextSettings } from '../../contexts/settingsPage/contextSettings'
 import { ContextAlert } from '../../contexts/alert/contextAlert'
 import { ContextAuth } from '../../contexts/contextAuth'
 import { getUserId } from '../../utils/functions'
-
 import { PASS_USER } from '../../types/settingsSwitchBtn'
-
 import config from '../../config.json'
 import './securitySection.scss'
 

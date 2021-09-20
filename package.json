@@ -7,7 +7,8 @@
     "start": "node app.js",
     "server": "nodemon app.js",
     "client": "npm run start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\" "
+    "peer": "peerjs --port 5001",
+    "dev": "concurrently \"npm run server\" \"npm run peer\" \"npm run client\" "
   },
   "keywords": [
     "React",
@@ -17,21 +18,22 @@
   "author": "Vladislav Laptev <laptev-vlad2001@yandex.ru>",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.0",
-    "bcryptjs": "^2.4.3",
-    "config": "^3.3.1",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "express-validator": "^6.6.0",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.21",
-    "multer": "^1.4.2",
-    "nodemailer": "^6.4.11",
-    "socket.io": "^2.3.0",
-    "uuid": "^8.3.0"
+    "axios": "0.21.0",
+    "bcryptjs": "2.4.3",
+    "config": "3.3.1",
+    "cors": "2.8.5",
+    "express": "4.17.1",
+    "express-validator": "6.6.0",
+    "jsonwebtoken": "8.5.1",
+    "mongoose": "5.9.21",
+    "multer": "1.4.2",
+    "nodemailer": "6.4.11",
+    "peer": "0.6.1",
+    "socket.io": "2.3.0",
+    "uuid": "8.3.0"
   },
   "devDependencies": {
-    "concurrently": "^5.2.0",
-    "nodemon": "^2.0.4"
+    "concurrently": "5.2.0",
+    "nodemon": "2.0.4"
   }
 }

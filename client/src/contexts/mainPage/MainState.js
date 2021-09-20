@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useHttp } from '../../hooks/http.hook'
+import { useRoom } from '../../hooks/connectRoom.hook'
 import { ContextAuth } from '../contextAuth'
 import { ContextConMenu } from '../contextmenu/contextConMenu'
 import { ContextMain } from './contextMain'
@@ -25,12 +26,13 @@ import config from '../../config.json'
 
 export const MainState = ({ children }) => {
   const auth = useContext(ContextAuth)
-  const { request } = useHttp()
   const contextmenu = useContext(ContextConMenu)
   const { setStatusIO } = useContext(ContextIndicatorOnline)
   const settings = useContext(ContextSettings)
 
   const history = useHistory()
+  const roomHook = useRoom()
+  const { request } = useHttp()
 
   const [infoUser, setInfoUser] = useState(null)
   const [rerender, setRerender] = useState(false)
@@ -47,6 +49,8 @@ export const MainState = ({ children }) => {
   const [ttlCountUnrMsg, setTtlCountUnrMsg] = useState(0)
 
   const [inputDevices, setInputDevices] = useState([])
+
+  const [roomsJoined, setRoomsJoined] = useState([])
 
   const countErrors = useRef(0)
 
@@ -121,9 +125,12 @@ export const MainState = ({ children }) => {
 
   const logout = async () => {
     settings.changeSwitchBtn(PASS_USER, false)
-    await settings.onSaveSettings()
+    try {
+      await settings.onSaveSettings()
+    } catch (error) {}
 
     auth.logout()
+    localStorage.clear()
   }
 
   const onSendImageProfileAsync = async (nameInput, ref) => {
@@ -182,6 +189,17 @@ export const MainState = ({ children }) => {
             Authorization: `Bearer ${auth.token}`,
           }
         )
+
+        const roomsJoined = await request(
+          `${config.hostServer}/api/room/getRoomsJoined`,
+          'GET',
+          null,
+          {
+            Authorization: `Bearer ${auth.token}`,
+          }
+        )
+
+        setRoomsJoined(roomsJoined)
 
         await updateDialogsAndMessages()
 
@@ -279,6 +297,8 @@ export const MainState = ({ children }) => {
         inputDevices,
         logout,
         onSendImageProfileAsync,
+        roomsJoined,
+        roomHook,
       }}
     >
       {children}

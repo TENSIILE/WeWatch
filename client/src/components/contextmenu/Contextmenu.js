@@ -5,6 +5,7 @@ import { MenuStatus } from './parts/MenuStatus'
 import { AddFriendToRoom } from './parts/AddFriendToRoom'
 import { ActionMyFriends } from './parts/ActionMyFriends'
 import { AttachmentDataMessage } from './parts/AttachmentDataMessage'
+import { SettingsRoom } from './parts/SettingsRoom'
 import './contextmenu.scss'
 
 export const Contextmenu = ({
@@ -30,7 +31,8 @@ export const Contextmenu = ({
           { 'action-over-my-friends': view === 'action-list-my-friends' },
           { 'menu-status': view === 'menu-status' },
           { 'friend-room': view === 'add-friend-to-room' },
-          { 'attachment-data-message': view === 'attachment-data-message' }
+          { 'attachment-data-message': view === 'attachment-data-message' },
+          { 'settings-room': view === 'settings-room' }
         )}
         style={style}
         name={name}
@@ -41,6 +43,7 @@ export const Contextmenu = ({
           <ActionMyFriends fullDataFriend={fullData} />
         )}
         {view === 'attachment-data-message' && <AttachmentDataMessage />}
+        {view === 'settings-room' && <SettingsRoom />}
       </div>
     </CSSTransition>
   )

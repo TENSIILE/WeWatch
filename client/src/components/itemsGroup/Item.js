@@ -1,17 +1,14 @@
 import React, { useContext } from 'react'
 import { ReactSVG } from 'react-svg'
 import classnames from 'classnames'
-
 import { Button } from '../../components/button/Button'
 import { ButtonMini } from '../../components/buttonMini/ButtonMini'
 import { IndicatorOnline } from '../../components/indicatorOnline/IndicatorOnline'
 import { Contextmenu } from '../../components/contextmenu/Contextmenu'
 import { ContextConMenu } from '../../contexts/contextmenu/contextConMenu'
-
 import close from '../../static/icons/close2.svg'
 import dots_icon from '../../static/icons/three-dots-horizontal.svg'
 import entrance from '../../static/icons/entrance.svg'
-
 import './item.scss'
 
 export const Item = ({

@@ -1,26 +1,46 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import classnames from 'classnames'
 import { ReactSVG } from 'react-svg'
+import { useHttp } from '../../../../../../hooks/http.hook'
+import { Contextmenu } from '../../../../../../components/contextmenu/Contextmenu'
 import { SwitchBtn } from '../../../../../../components/switch/Switch'
 import { Item } from '../../../../../../components/itemsGroup/Item'
 import { ButtonToggle } from '../../../../../../components/buttonToggle/ButtonToggle'
 import { ContextChat } from '../../../../../../contexts/contextChat'
+import { ContextMain } from '../../../../../../contexts/mainPage/contextMain'
+import { ContextAuth } from '../../../../../../contexts/contextAuth'
+import { ContextConMenu } from '../../../../../../contexts/contextmenu/contextConMenu'
 
 import microphone from '../../../../../../static/icons/microphone.svg'
 import webcamera from '../../../../../../static/icons/video-camera.svg'
 import { webcam, display } from '../../../../../../static/icons/settings'
-
 import plus from '../../../../../../static/icons/plus.svg'
 import dots from '../../../../../../static/icons/three-dots-horizontal.svg'
 import arrow from '../../../../../../static/icons/arrow-left.svg'
-
 import slider from '../../../../../../static/img/img_slider.png'
-import user from '../../../../../../static/img/user.jpg'
-
+import config from '../../../../../../config.json'
 import './controllingRoom.scss'
 
 export const ControllingRoom = ({ isRoom = false }) => {
   const { visibleSidebar, setVisibleSidebar } = useContext(ContextChat)
+  const { roomHook } = useContext(ContextMain)
+  const { token } = useContext(ContextAuth)
+  const contextmenu = useContext(ContextConMenu)
+
+  const [party, setParty] = useState([])
+  const { request } = useHttp()
+
+  useEffect(() => {
+    const people = roomHook.partyRoom.map(async human => {
+      return await request(
+        `${config.hostServer}/api/getInfo/user/byId`,
+        'POST',
+        { id: human },
+        { Authorization: `Bearer ${token}` }
+      )
+    })
+    Promise.all(people).then(res => setParty(res))
+  }, [roomHook.partyRoom])
 
   return (
     <div className={`container-controling`}>
@@ -36,10 +56,18 @@ export const ControllingRoom = ({ isRoom = false }) => {
         </div>
         <header>
           <div className='title'>
-            <h2>Видео просмотр комнаты</h2>
-            <span id='indicator-work-room' />
+            <h2>{roomHook.infoRoom.title}</h2>
           </div>
-          <ReactSVG src={dots} className='icon-settings-room' />
+          <ReactSVG
+            src={dots}
+            className='icon-settings-room'
+            onClick={() => contextmenu.show('settingsRoom')}
+          />
+          <Contextmenu
+            open={contextmenu.visible.settingsRoom}
+            view='settings-room'
+            newClass='right'
+          />
         </header>
 
         {!isRoom && (
@@ -69,7 +97,7 @@ export const ControllingRoom = ({ isRoom = false }) => {
 
         <div className='participants'>
           <header>
-            <h3>Участники(8)</h3>
+            <h3>Участники({roomHook.partyRoom.length})</h3>
             <ReactSVG src={plus} className='add-new-participant' />
           </header>
         </div>
@@ -77,20 +105,20 @@ export const ControllingRoom = ({ isRoom = false }) => {
 
       <div className='list-participants beautiful-scrollbar mini'>
         <div className='wrapper-list-patricipant'>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18].map(
-            i => {
-              return (
-                <Item
-                  key={i}
-                  src={user}
-                  text={'Имя фамилия'}
-                  dotsActive={true}
-                  statusOnline={'offline'}
-                  isListFriend={true}
-                />
-              )
-            }
-          )}
+          {party.map((user, i) => {
+            return (
+              <Item
+                key={i}
+                src={user.userAdditional.avatar}
+                text={
+                  user.userAdditional.name + ' ' + user.userAdditional.lastname
+                }
+                dotsActive={true}
+                statusOnline={user.userAdditional.statusOnline}
+                isListFriend={true}
+              />
+            )
+          })}
         </div>
       </div>
     </div>

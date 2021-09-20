@@ -7,7 +7,6 @@ import { AlertState } from './contexts/alert/alertState'
 import { ContextMenuState } from './contexts/contextmenu/contextmenuState'
 import { ModalState } from './contexts/modal/modalState'
 import { IndicatorOnlineState } from './contexts/indicatorOnline/indicatorOnlineState'
-import { SettingsState } from './contexts/settingsPage/settingsState'
 
 const App = () => {
   const { token, login, logout, userId } = useAuth()
@@ -31,9 +30,7 @@ const App = () => {
           >
             <IndicatorOnlineState>
               <BrowserRouter>
-                <SettingsState>
-                  <div className='container'>{routes}</div>
-                </SettingsState>
+                <div className='container'>{routes}</div>
               </BrowserRouter>
             </IndicatorOnlineState>
           </ContextAuth.Provider>

@@ -1,6 +1,5 @@
 import React, { useContext, useCallback, useRef } from 'react'
 import classnames from 'classnames'
-
 import { useHttp } from '../../../hooks/http.hook'
 import { ContextAuth } from '../../../contexts/contextAuth'
 import { useHistory } from 'react-router-dom'
@@ -8,13 +7,10 @@ import { ContextConMenu } from '../../../contexts/contextmenu/contextConMenu'
 import { ContextModal } from '../../../contexts/modal/contextModal'
 import { ContextMain } from '../../../contexts/mainPage/contextMain'
 import { Loader } from '../../loader/Loader'
-
 import { ViewProfile } from '../../modal/parts/ViewProfile'
 import { RemoveFriend } from '../../modal/parts/RemoveFriend'
-
 import { RussianName } from '../../../utils/deslensionOfWords'
 import { DELETE_FRIEND, VIEW_PROFILE } from '../../../types/modal'
-
 import config from '../../../config.json'
 
 export const ActionMyFriends = ({ fullDataFriend }) => {

@@ -7,12 +7,9 @@ import { Checkbox } from '../../../../components/checkbox/Checkbox'
 import { SetupPassword } from '../../../../components/setupPassword/setupPassword'
 import { InviteFriend } from '../../../../components/inviteFriendRoom/InviteFriendRoom'
 import { ListLinksVideos } from '../../../../components/listLinksVideos/ListLinksVideos'
-
 import { ContextCreatingRoom } from '../../../../contexts/contextCreatingRoom'
-
 import comeback from '../../../../static/icons/comeback.svg'
 import photo from '../../../../static/icons/photocamera-line.svg'
-
 import './creatingRoom.scss'
 
 export const CreatingRoom = () => {

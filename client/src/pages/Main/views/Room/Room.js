@@ -3,7 +3,6 @@ import classnames from 'classnames'
 import { ReactSVG } from 'react-svg'
 import { Sidebar } from '../../layouts/Sidebar/Sidebar'
 import { ControllingRoom } from '../../layouts/Sidebar/parts/controllingRoom/ControllingRoom'
-
 import groupCall from '../../../../static/icons/GroupVideoCall.svg'
 import './room.scss'
 

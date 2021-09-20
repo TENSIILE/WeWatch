@@ -22,7 +22,6 @@ export const SoundVisualization = ({ isWork }) => {
 
     return array
   }
-  //eslint-disable-next-line
 
   const loop = () => {
     timeout = setTimeout(() => {

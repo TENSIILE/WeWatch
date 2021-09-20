@@ -27,6 +27,7 @@ export const ContextMenuState = ({ children }) => {
     status: false,
     addFriendToRoom: false,
     attachmentDataMessage: false,
+    settingsRoom: false,
   })
 
   const show = useCallback(

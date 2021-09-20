@@ -6,9 +6,7 @@ import { Input } from '../../input/Input'
 import { Button } from '../../button/Button'
 import { ContextAlert } from '../../../contexts/alert/contextAlert'
 import { ContextModal } from '../../../contexts/modal/contextModal'
-
 import { CONNECT_TO_ROOM } from '../../../types/modal'
-
 import config from '../../../config.json'
 import './parts.scss'
 

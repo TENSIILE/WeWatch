@@ -13,14 +13,14 @@ export const ModalState = ({ children }) => {
   const [title, setTitle] = useState({
     deleteFriend: '',
     installImageProfile: '',
-    connectToRoom: false,
+    connectToRoom: '',
     viewProfile: '',
   })
 
   const [style, setStyle] = useState({
     deleteFriend: '',
     installImageProfile: '',
-    connectToRoom: false,
+    connectToRoom: '',
     viewProfile: '',
   })
 

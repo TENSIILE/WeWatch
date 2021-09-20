@@ -5,6 +5,7 @@ const io = require('socket.io')(server)
 const User = require('./models/User')
 const UserInfo = require('./models/UserInformation')
 const Dialog = require('./models/Dialog')
+const Room = require('./models/Room')
 
 const {
   CLIENT__SET_STATUS,
@@ -19,6 +20,12 @@ const {
   DIALOG__MESSAGE_READ,
   DIALOG__TYPING,
   DIALOG__TYPING_STOP,
+  ROOM__CONNECTION,
+  ROOM__DISCONNECTION,
+  ROOM__USER_LEAVED,
+  ROOM__USER_JOINED,
+  ROOM_GET_INFO_ROOM,
+  ROOM_GIVE_INFO_ROOM,
 } = require('./types/socket')
 
 io.on('connection', client => {
@@ -34,10 +41,8 @@ io.on('connection', client => {
   })
 
   client.broadcast.on(CLIENT__SET_STATUS, async ({ userId, typeStatus }) => {
-    const user = await User.findById(userId)
-
     await UserInfo.findOneAndUpdate(
-      { user: user._id },
+      { user: userId },
       { $set: { statusOnline: typeStatus } },
       { new: false }
     )
@@ -89,22 +94,21 @@ io.on('connection', client => {
       }
     }
 
-    // io.sockets.to(dialogId).emit(DIALOG__MESSAGE_READ)
+    io.sockets.to(dialogId).emit(DIALOG__MESSAGE_READ)
   })
 
   client.on(DIALOG__SEND_MESSAGE, async ({ dialogId, objMessage }) => {
-    // const dialog = await Dialog.findById(dialogId)
-
     if (!dialogId) return
 
+    const dialog = await Dialog.findById(dialogId)
+
     await Dialog.findByIdAndUpdate(
-      { _id: dialogId },
+      { _id: dialog._id },
       { $push: { messages: objMessage } },
       { new: false }
     ).catch(err => console.log('ОШИБКА!', err))
 
     io.sockets.to(dialogId).emit(DIALOG__GET_MESSAGE, objMessage)
-    // client.to(dialogId).emit(DIALOG__GET_MESSAGE, objMessage)
   })
 
   client.on(DIALOG__TYPING, ({ username, dialogId }) => {
@@ -113,6 +117,46 @@ io.on('connection', client => {
 
   client.on(DIALOG__TYPING_STOP, ({ dialogId }) => {
     client.to(dialogId).emit(DIALOG__TYPING_STOP)
+  })
+
+  client.on(ROOM__CONNECTION, async ({ roomId, userId }) => {
+    client.join(roomId)
+
+    const room = await Room.findById(roomId)
+
+    const party = [...room.partyOnline, userId]
+
+    await Room.findByIdAndUpdate(
+      { _id: roomId },
+      { $set: { partyOnline: party } },
+      { new: false }
+    )
+
+    io.sockets.to(roomId).emit(ROOM__USER_JOINED, { userId, party })
+  })
+
+  client.on(ROOM__DISCONNECTION, async ({ roomId, userId }) => {
+    client.leave(roomId)
+
+    const room = await Room.findById(roomId)
+
+    const party = [...room.partyOnline].filter(
+      user => user.toString() !== userId.toString()
+    )
+
+    await Room.findByIdAndUpdate(
+      { _id: roomId },
+      { $set: { partyOnline: party } },
+      { new: false }
+    )
+
+    io.sockets.to(roomId).emit(ROOM__USER_LEAVED, { userId, party })
+  })
+
+  client.on(ROOM_GET_INFO_ROOM, async ({ roomId }) => {
+    const room = await Room.findById(roomId)
+
+    io.sockets.to(roomId).emit(ROOM_GIVE_INFO_ROOM, { room })
   })
 })
 

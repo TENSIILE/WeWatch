@@ -5,7 +5,6 @@ import { ContextGetInfo } from '../../../contexts/contextGetInfo'
 import { ContextAlert } from '../../../contexts/alert/contextAlert'
 import { ContextAuth } from '../../../contexts/contextAuth'
 import { useHttp } from '../../../hooks/http.hook'
-
 import { DELETE_FRIEND } from '../../../types/modal'
 import config from '../../../config.json'
 

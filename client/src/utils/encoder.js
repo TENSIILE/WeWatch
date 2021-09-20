@@ -1,6 +1,5 @@
 import base64 from 'base-64'
 import UTF8 from 'utf-8'
-
 import { randomRange } from '../utils/functions'
 
 export class Racker {

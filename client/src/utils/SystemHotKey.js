@@ -1,3 +1,5 @@
+import { ACCOUNT } from '../types/settingsItems'
+
 class ActionHotKey {
   constructor(history) {
     ActionHotKey.history = history
@@ -20,7 +22,7 @@ class ActionHotKey {
   }
 
   static jumpToSettings() {
-    this.history.push('/settings')
+    this.history.push(`/settings/${ACCOUNT}`)
   }
 }
 

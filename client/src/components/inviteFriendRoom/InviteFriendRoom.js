@@ -2,15 +2,12 @@ import React, { useContext, useEffect, useState } from 'react'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { ReactSVG } from 'react-svg'
 import classnames from 'classnames'
-
 import { ButtonMini } from '../buttonMini/ButtonMini'
 import { Contextmenu } from '../contextmenu/Contextmenu'
 import { ContextConMenu } from '../../contexts/contextmenu/contextConMenu'
 import { ContextCreatingRoom } from '../../contexts/contextCreatingRoom'
-
 import plus from '../../static/icons/plus.svg'
 import trash from '../../static/icons/trash.svg'
-
 import user from '../../static/img/user.jpg'
 import './inviteFriend.scss'
 

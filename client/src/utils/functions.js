@@ -57,7 +57,7 @@ export const distanceInWordsToNowWrapper = create_at => {
   const datetime = new Date(create_at)
 
   if (!isToday(datetime)) {
-    return format(datetime, 'dd.MM.yyyy HH:mm')
+    return format(datetime, 'HH:mm')
   }
 
   return distanceInWordsToNow(datetime, { addSuffix: true, locale: ruLocale })
@@ -228,11 +228,13 @@ export const matrix = () => {
     ';',
     '|',
   ]
+
   let result = ''
 
   for (let i = 0; i < 40; i++) {
     const randomNum = randomRange(0, pattern.length - 1)
     const isUpper = randomRange(0, 1)
+
     let letter
 
     if (isUpper) {

@@ -3,14 +3,11 @@ import { ReactSVG } from 'react-svg'
 import { Emoji } from 'emoji-mart'
 import reactStringReplace from 'react-string-replace'
 import classnames from 'classnames'
-
+import { Image } from './parts/image/Image'
 import { ContextGetInfo } from '../../contexts/contextGetInfo'
 import { ContextChat } from '../../contexts/contextChat'
 import { distanceInWordsToNowWrapper } from '../../utils/functions'
-// import { Racker } from '../../utils/encoder'
-
 import checkedMessage from '../../static/icons/checked.svg'
-
 import './message.scss'
 
 export const Message = ({ objMessage, isMe }) => {
@@ -25,8 +22,6 @@ export const Message = ({ objMessage, isMe }) => {
   const [avatar, setAvatar] = useState('')
   const [textMessage, setTextMessage] = useState('')
   const [isReaded, setIsReaded] = useState(false)
-
-  // const racker                        = new Racker()
 
   useEffect(() => {
     const wrap = async () => {
@@ -47,7 +42,6 @@ export const Message = ({ objMessage, isMe }) => {
       setIsReaded(objMessage.isReaded)
       setMessageId(objMessage.messageId)
 
-      // setTextMessage(await racker.decode(objMessage.text))
       setTextMessage(objMessage.text)
     }
     wrap()
@@ -87,6 +81,15 @@ export const Message = ({ objMessage, isMe }) => {
         <div className='container-message'>
           <p className='text-message'>{messageTextJSX()}</p>
         </div>
+        {!!objMessage.attachments.length && (
+          <div className='attachments'>
+            {objMessage.attachments
+              .filter(file => file.includes('images'))
+              .map((image, i) => (
+                <Image src={image} key={i} />
+              ))}
+          </div>
+        )}
         <span className='datetime'>{timeMessage}</span>
         {isMe && (
           <ReactSVG

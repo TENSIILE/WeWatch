@@ -1,7 +1,6 @@
 import React, { useState, useContext, useRef, useEffect } from 'react'
 import { ReactSVG } from 'react-svg'
 import { ContextChat } from '../../../../contexts/contextChat'
-
 import close from '../../../../static/icons/close2.svg'
 import docs_ico from '../../../../static/icons/documents.svg'
 import video_ico from '../../../../static/icons/youtube (1).svg'
@@ -16,13 +15,9 @@ export const AttachedFile = ({ img, title, size, type }) => {
   useEffect(() => {
     switch (type.split('/')[0]) {
       case 'image':
-        setTypeFile('image')
-        break
       case 'audio':
-        setTypeFile('audio')
-        break
       case 'video':
-        setTypeFile('video')
+        setTypeFile(type.split('/')[0])
         break
       default:
         setTypeFile('documents')

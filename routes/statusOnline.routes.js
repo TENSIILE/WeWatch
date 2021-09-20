@@ -7,17 +7,11 @@ const router = Router()
 
 router.post('/status-change', auth, async (req, res) => {
   try {
-    const userInfo = await UserInfo.findOne({ user: req.user.userId })
-
-    const changeStatus = async status => {
-      await UserInfo.findByIdAndUpdate(
-        { _id: userInfo._id },
-        { $set: { statusOnline: status } },
-        { new: false }
-      )
-    }
-
-    await changeStatus(req.body.status)
+    await UserInfo.findByIdAndUpdate(
+      { _id: req.user.userId },
+      { $set: { statusOnline: req.body.status } },
+      { new: false }
+    )
 
     res.json({ data: req.body.status })
   } catch (e) {

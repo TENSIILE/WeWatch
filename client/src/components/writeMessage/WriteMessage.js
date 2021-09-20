@@ -1,22 +1,17 @@
 import React, { useContext } from 'react'
 import { ReactSVG } from 'react-svg'
-// import { Picker } from 'emoji-mart'
+import { Picker } from 'emoji-mart'
 import classnames from 'classnames'
-
 import { Input } from '../input/Input'
 import { SliderHorizontal } from '../sliderHorizontal/SliderHorizontal'
 import { AttachedFile } from '../sliderHorizontal/parts/attachedFile/AttachedFile'
 import { Contextmenu } from '../contextmenu/Contextmenu'
-
 import { ContextChat } from '../../contexts/contextChat'
 import { ContextConMenu } from '../../contexts/contextmenu/contextConMenu'
-
 import { determiningFileSize } from '../../utils/functions'
-
 import icoSend from '../../static/icons/sendMessage.svg'
 import attachments from '../../static/icons/to-attach.svg'
 import smile from '../../static/icons/smileys.svg'
-
 import 'emoji-mart/css/emoji-mart.css'
 import './writeMessage.scss'
 
@@ -73,14 +68,18 @@ export const WriteMessage = () => {
             onClick={logicChat.toggleVisiblePicker}
           />
 
-          {/* <div className={classnames('picker', {'visible': logicChat.visiblePicker})}>
-                        <Picker
-                            set='twitter'
-                            onSelect={logicChat.onSelectEmoji}
-                            showPreview={false}
-                            showSkinTones={false}
-                        />
-                    </div> */}
+          <div
+            className={classnames('picker', {
+              visible: logicChat.visiblePicker,
+            })}
+          >
+            <Picker
+              set='twitter'
+              onSelect={logicChat.onSelectEmoji}
+              showPreview={false}
+              showSkinTones={false}
+            />
+          </div>
         </div>
         <p
           className={classnames('notification', {

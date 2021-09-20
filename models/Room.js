@@ -9,6 +9,7 @@ const schema = new Schema({
     default: config.get('hostServer') + '/upload/image/USER.jpeg',
   },
   party: [{ type: String }],
+  partyOnline: [{ type: Types.ObjectId, ref: 'User' }],
   securityKey: { type: String, default: '' },
   linkVideo: { type: String },
   listLinkVideos: [{ type: String }],

@@ -2,7 +2,12 @@
   position: relative;
   display: flex;
   width: 100%;
-  margin-bottom: 2em;
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+
+  &:last-child {
+    margin-bottom: 2em;
+  }
 
   &.my-message {
     position: relative;
@@ -117,6 +122,10 @@
           margin-right: 0;
         }
       }
+    }
+
+    .attachments {
+      margin-top: 1em;
     }
 
     p.text-message {

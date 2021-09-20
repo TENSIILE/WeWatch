@@ -15,8 +15,8 @@ const sendMail = async (subjectMail, email) => {
       port: 465,
       secure: true,
       auth: {
-        user: 'wewatch.inc@mail.ru',
-        pass: 'messenger2020',
+        user: '',
+        pass: '',
       },
     },
     {

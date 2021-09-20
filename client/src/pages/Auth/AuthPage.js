@@ -8,7 +8,6 @@ import { ContextAlert } from './../../contexts/alert/contextAlert'
 import { Alert } from './../../components/alert/Alert'
 
 import imageBack from '../../static/icons/video_call.svg'
-// import imageBack from '../../static/img/img_slider.png'
 import config from '../../config.json'
 import './Auth.scss'
 
@@ -150,7 +149,6 @@ export const AuthPage = ({ children }) => {
         </div>
         <div className='right-side'>
           <ReactSVG src={imageBack} className='right-side__icon' />
-          {/* <img src={imageBack} alt=''/> */}
         </div>
       </div>
     </ContextInput.Provider>

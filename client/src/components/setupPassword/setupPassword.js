@@ -2,7 +2,6 @@ import React from 'react'
 import { Button } from '../button/Button'
 import { ButtonMini } from '../buttonMini/ButtonMini'
 import { Input } from '../input/Input'
-
 import plus from '../../static/icons/plus.svg'
 import checked from '../../static/icons/checked.svg'
 import './setupPassword.scss'

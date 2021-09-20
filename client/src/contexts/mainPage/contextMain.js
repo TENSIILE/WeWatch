@@ -15,4 +15,14 @@ export const ContextMain = React.createContext({
   inputDevices: [],
   logout: async () => {},
   onSendImageProfileAsync: async (nameInput, ref) => {},
+  roomsJoined: [],
+  roomHook: {
+    isConnected: false,
+    onConnect: (roomId, userId) => {},
+    onDisconnect: (roomId, userId) => {},
+    onGetRoom: roomId => {},
+    partyRoom: [],
+    infoRoom: {},
+    roomId: '',
+  },
 })

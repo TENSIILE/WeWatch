@@ -244,7 +244,7 @@ export const Profile = () => {
                   onClick={saveDataProfile}
                 />
                 <Button
-                  text='Отмениить'
+                  text='Отменить'
                   classNames='btn half-opacity simple'
                   id='btn-cancel-data'
                   onClick={cancelDataProfile}

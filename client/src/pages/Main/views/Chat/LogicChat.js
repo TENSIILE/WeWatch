@@ -28,6 +28,7 @@ export const LogicChat = ({ children }) => {
   const { infoUserDialogs } = useContext(ContextMain)
   const { userId } = useContext(ContextAuth)
   const { listRequestFriends, infoUser } = useContext(ContextGetInfo)
+
   const httpParams = useParams()
 
   const [visibleSidebar, setVisibleSidebar] = useState(false)
@@ -62,17 +63,17 @@ export const LogicChat = ({ children }) => {
   const dateOne = useRef('')
   const isRender = useRef(true)
 
-  // const racker = new Racker()
-
-  useEffect(() => {
-    if (
+  const isCheckEmptyAttachedFiles = () => {
+    return (
       imagesUpload.length ||
       videosUpload.length ||
       audiosUpload.length ||
       documentsUpload.length
-    ) {
-      setIsEmptyUploader(true)
-    } else setIsEmptyUploader(false)
+    )
+  }
+
+  useEffect(() => {
+    setIsEmptyUploader(isCheckEmptyAttachedFiles())
 
     setCombinedFiles([
       ...imagesUpload,
@@ -140,7 +141,7 @@ export const LogicChat = ({ children }) => {
   const onControllerHeightBlocks = isOpen => {
     if (isOpen && wrapperMessagesDivRef.current) {
       wrapperMessagesDivRef.current.parentNode.style.height =
-        'calc(100% - 320px)'
+        'calc(100% - 325px)'
     } else if (wrapperMessagesDivRef.current) {
       wrapperMessagesDivRef.current.parentNode.style.height =
         'calc(100% - 175px)'
@@ -159,6 +160,14 @@ export const LogicChat = ({ children }) => {
     String(id).includes('video') &&
       setVideosUpload(videosUpload.filter(file => deletes(file)))
     setDocumentsUpload(documentsUpload.filter(file => deletes(file)))
+  }
+
+  const onRemoveAllAttachedFiles = () => {
+    setCombinedFiles([])
+    setImagesUpload([])
+    setAudiosUpload([])
+    setVideosUpload([])
+    setDocumentsUpload([])
   }
 
   const toggleVisiblePicker = useCallback(
@@ -203,7 +212,7 @@ export const LogicChat = ({ children }) => {
   )
 
   const onSendMessage = async (e, checkOnPush = true) => {
-    if (!!textInput.trim().length) {
+    if (!!textInput.trim() || isCheckEmptyAttachedFiles()) {
       if (checkOnPush) {
         if (e.key === 'Enter') await onSocketSenderMessage()
       } else await onSocketSenderMessage()
@@ -237,12 +246,15 @@ export const LogicChat = ({ children }) => {
         attachments: pathImages,
       }
 
+      console.log(currentDialog._id)
+
       socketsClient.socket.emit(DIALOG__SEND_MESSAGE, {
         dialogId: currentDialog._id,
         objMessage,
       })
 
       setTextInput('')
+      onRemoveAllAttachedFiles()
       setMessages([...messages, objMessage])
     }
     wrap()
@@ -254,7 +266,6 @@ export const LogicChat = ({ children }) => {
       userId,
     })
 
-    // const messageText = await racker.encode(textInput)
     await onAwaitLoadedAttachments()
   }
 
@@ -301,7 +312,7 @@ export const LogicChat = ({ children }) => {
     if (pattern.test(message)) {
       const arrayMessage = message.split(' ')
 
-      return addSpaceAtWords(
+      return joinArrayWithObject(
         arrayMessage.map(link => {
           if (link.includes(prefix[0]) || link.includes(prefix[1])) {
             return (
@@ -323,12 +334,25 @@ export const LogicChat = ({ children }) => {
     return message
   }
 
-  const addSpaceAtWords = array => {
-    return array.map(word => {
-      if (word === Object(word)) return word
+  const joinArrayWithObject = array => {
+    const insert = (array, index, item) => {
+      return array.splice(index, 0, item)
+    }
 
-      return word + ' '
+    const indexObjs = array
+      .map(el => el === Object(el) && array.indexOf(el))
+      .filter(el => typeof el === 'number')
+
+    const clearArray = array
+      .filter(el => el !== Object(el))
+      .join(' ')
+      .split()
+
+    indexObjs.map(index => {
+      insert(clearArray, index, array[index])
     })
+
+    return clearArray.filter(Boolean)
   }
 
   return (

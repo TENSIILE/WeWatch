@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react'
+import { useCallback } from 'react'
 
 export const useHeight = (trigger, options = {}) => {
   const ref = useRef()
@@ -20,7 +21,7 @@ export const useHeight = (trigger, options = {}) => {
     }, 100)
   }
 
-  const show = () => {
+  const show = useCallback(() => {
     if (ref.current.style.display === 'none') {
       if (!options.isNotFlex) {
         ref.current.style.display = 'flex'
@@ -46,7 +47,7 @@ export const useHeight = (trigger, options = {}) => {
     setTimeout(() => {
       if (ref.current) ref.current.style.height = null
     }, 500)
-  }
+  }, [])
 
   useEffect(() => {
     if (ref.current) {

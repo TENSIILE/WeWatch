@@ -5,7 +5,6 @@ import { BadgeMini } from '../../../../../../components/badge/Badge'
 import { Table } from '../../../../../../components/table/Table'
 import { ContextSettings } from '../../../../../../contexts/settingsPage/contextSettings'
 import { ContextMain } from '../../../../../../contexts/mainPage/contextMain'
-
 import { DUAL_AUTHENTICATION } from '../../../../../../types/settingsSwitchBtn'
 
 export const Security = () => {

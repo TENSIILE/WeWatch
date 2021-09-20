@@ -1,6 +1,8 @@
-import React, { useState, useEffect, useCallback, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import classnames from 'classnames'
 import { Link, useLocation } from 'react-router-dom'
 import { Badge } from '../../../../components/badge/Badge'
+import { Image } from '../../../../components/image/Image'
 import { Contextmenu } from '../../../../components/contextmenu/Contextmenu'
 import { IndicatorOnline } from '../../../../components/indicatorOnline/IndicatorOnline'
 import { ButtonMini } from '../../../../components/buttonMini/ButtonMini'
@@ -8,6 +10,7 @@ import { ContextGetInfo } from '../../../../contexts/contextGetInfo'
 import { ContextBadge } from '../../../../contexts/contextBadge'
 import { ContextConMenu } from '../../../../contexts/contextmenu/contextConMenu'
 import { ContextIndicatorOnline } from '../../../../contexts/indicatorOnline/contextIndicatorOnline'
+import { ContextMain } from '../../../../contexts/mainPage/contextMain'
 
 import Home from '../../../../static/icons/Home.svg'
 import Video from '../../../../static/icons/Play.svg'
@@ -22,6 +25,7 @@ export const MainMenu = () => {
   const { textBadge, textBadgeChat } = useContext(ContextBadge)
   const contextmenu = useContext(ContextConMenu)
   const { statusIO } = useContext(ContextIndicatorOnline)
+  const { roomHook } = useContext(ContextMain)
 
   const [focus, setFocus] = useState({ home: true })
   const defaultFocus = {
@@ -39,15 +43,12 @@ export const MainMenu = () => {
     .substring(1, location.pathname.length)
     .split('/')[0]
 
-  useCallback(
-    useEffect(() => {
-      setFocus({
-        ...defaultFocus,
-        [page]: true,
-      })
-    }, [page]),
-    [defaultFocus]
-  )
+  useEffect(() => {
+    setFocus({
+      ...defaultFocus,
+      [page]: true,
+    })
+  }, [page])
 
   const setActiveButtonsOnClick = event => {
     setFocus({
@@ -70,7 +71,10 @@ export const MainMenu = () => {
             focus={focus.home}
           />
         </Link>
-        <Link to='/room'>
+        <Link
+          to={`/room/${roomHook.roomId}`}
+          className={classnames({ disabled: !roomHook.isConnected })}
+        >
           <ButtonMini
             icon={Video}
             id='room'
@@ -116,9 +120,9 @@ export const MainMenu = () => {
             style={{ width: 55, height: 55 }}
           >
             <IndicatorOnline status={statusIO} newClass='no-transition' />
-            <img
+            <Image
               src={!!infoUser ? infoUser.userAdditional.avatar : user}
-              alt=''
+              id='avatar'
             />
           </ButtonMini>
         </Link>

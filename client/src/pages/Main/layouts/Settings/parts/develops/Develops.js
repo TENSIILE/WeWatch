@@ -75,7 +75,7 @@ export const Develops = () => {
           })}
           ref={heightDev.ref}
         >
-          <div className='tuning-control'>
+          <div className='tuning-control w-100'>
             <div className='text-info-detail'>
               <div className='text'>
                 <p className='title'>Получение токена</p>
@@ -92,7 +92,7 @@ export const Develops = () => {
             </div>
 
             <div className='w-100'>
-              <div className='input-with-copy'>
+              <div className='input-with-copy w-100'>
                 <Input
                   isWithButton={false}
                   newClass='grey-background w-100 pr-3-i'

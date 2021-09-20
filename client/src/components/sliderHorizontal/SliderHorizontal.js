@@ -4,7 +4,6 @@ import { CSSTransition } from 'react-transition-group'
 import { ReactSVG } from 'react-svg'
 import { ContextSettings } from '../../contexts/settingsPage/contextSettings'
 import { debounce } from '../../utils/functions'
-
 import arrowLeft from '../../static/icons/arrow-left.svg'
 import './sliderHorizontal.scss'
 

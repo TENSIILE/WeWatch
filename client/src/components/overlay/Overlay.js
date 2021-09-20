@@ -7,7 +7,7 @@ import './overlay.scss'
 export const Overlay = () => {
   return (
     <div className='overlay-component position-left-top'>
-      <h1>HELLO WORLD</h1>
+      <h1>Overlay</h1>
     </div>
   )
 }

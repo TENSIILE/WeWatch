@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import classnames from 'classnames'
 import { MainMenu } from './layouts/MainMenu/MainMenu'
 import { Alert } from '../../components/alert/Alert'
-// import { Preloader } from '../../components/preloader/Preloader'
+import { Preloader } from '../../components/preloader/Preloader'
 import { ModalContainer } from '../../components/modal/ModalContainer'
 import { ContextGetInfo } from '../../contexts/contextGetInfo'
 import { ContextAlert } from '../../contexts/alert/contextAlert'
@@ -33,7 +33,7 @@ export const MainPage = ({ children }) => {
   const {
     infoUser,
     listRequestFriends,
-    // finishLoading,
+    finishLoading,
     createdMyRooms,
     rerender,
     setRerender,
@@ -78,7 +78,7 @@ export const MainPage = ({ children }) => {
           )}
           onClick={contextmenu.delegateHiddenContextmenu}
         >
-          {/* <Preloader visible={!finishLoading}/> */}
+          <Preloader visible={!finishLoading} />
           <ModalContainer />
 
           {settings.switchBtn[DUAL_AUTHENTICATION] &&

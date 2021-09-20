@@ -3,9 +3,7 @@ import { ReactSVG } from 'react-svg'
 import { Table } from '../../../components/table/Table'
 import { ContextModal } from '../../../contexts/modal/contextModal'
 import { SWITCH_BTN } from '../../../types/settingsNames'
-
 import lock from '../../../static/icons/padlock.svg'
-
 import './parts.scss'
 
 export const ViewProfile = () => {

@@ -17,45 +17,48 @@ import { CreatingRoom } from './pages/Main/layouts/CreatingRoom/CreatingRoom'
 import { LogicCreatingRoom } from './pages/Main/layouts/CreatingRoom/LogicCreatingRoom'
 import { MainState } from './contexts/mainPage/MainState'
 import { LogicChat } from './pages/Main/views/Chat/LogicChat'
+import { SettingsState } from './contexts/settingsPage/settingsState'
 
 export const useRoutes = isAuthenticated => {
   if (isAuthenticated) {
     return (
-      <MainState>
-        <MainPage>
-          <Switch>
-            <Route path='/home' exact>
-              <Home />
-            </Route>
-            <Route path='/home/creating_room'>
-              <Home>
-                <LogicCreatingRoom>
-                  <CreatingRoom />
-                </LogicCreatingRoom>
-              </Home>
-            </Route>
-            <Route path='/room'>
-              <Room />
-            </Route>
-            <Route path='/chat/:id?'>
-              <LogicChat>
-                <Chat />
-              </LogicChat>
-            </Route>
-            <Route path='/search'>
-              <Search />
-            </Route>
-            <Route path='/settings/:customization?'>
-              <Settings />
-            </Route>
-            <Route path='/profile'>
-              <Profile />
-            </Route>
+      <SettingsState>
+        <MainState>
+          <MainPage>
+            <Switch>
+              <Route path='/home' exact>
+                <Home />
+              </Route>
+              <Route path='/home/creating_room'>
+                <Home>
+                  <LogicCreatingRoom>
+                    <CreatingRoom />
+                  </LogicCreatingRoom>
+                </Home>
+              </Route>
+              <Route path='/room/:id'>
+                <Room />
+              </Route>
+              <Route path='/chat/:id?'>
+                <LogicChat>
+                  <Chat />
+                </LogicChat>
+              </Route>
+              <Route path='/search'>
+                <Search />
+              </Route>
+              <Route path='/settings/:customization?'>
+                <Settings />
+              </Route>
+              <Route path='/profile'>
+                <Profile />
+              </Route>
 
-            <Redirect to='/home' />
-          </Switch>
-        </MainPage>
-      </MainState>
+              <Redirect to='/home' />
+            </Switch>
+          </MainPage>
+        </MainState>
+      </SettingsState>
     )
   }
 
@@ -76,7 +79,7 @@ export const useRoutes = isAuthenticated => {
           <RestorePass />
         </AuthPage>
       </Route>
-      {/* <Redirect to="/login"/> */}
+      <Redirect to='/login' />
     </Switch>
   )
 }

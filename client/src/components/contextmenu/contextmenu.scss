@@ -18,6 +18,14 @@
     visibility: visible;
   }
 
+  &.right {
+    right: 0;
+    top: 0;
+    bottom: unset;
+    left: unset;
+    transform-origin: right top !important;
+  }
+
   &.menu-status {
     left: 20px;
     bottom: 20px;

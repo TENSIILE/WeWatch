@@ -142,7 +142,7 @@ export const Api = () => {
                   Получение полной информации о пользователе
                 </h4>
                 <BadgeMini
-                  text='/getInfo/user/fullInformation?login={Логин пользователя}'
+                  text='/getInfo/fullInformation?login={Логин пользователя}'
                   newClass='success width-unset normal initialcase fullsize ml-0-i mt-1'
                 />
               </div>

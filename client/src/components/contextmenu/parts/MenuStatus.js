@@ -3,10 +3,8 @@ import { ContextAuth } from '../../../contexts/contextAuth'
 import { ContextIndicatorOnline } from '../../../contexts/indicatorOnline/contextIndicatorOnline'
 import { ContextConMenu } from '../../../contexts/contextmenu/contextConMenu'
 import { ContextMain } from '../../../contexts/mainPage/contextMain'
-
 import { socketsClient } from '../../../sockets/sockets'
 import { CLIENT__SET_STATUS } from '../../../types/socket'
-
 import '../contextmenu.scss'
 
 export const MenuStatus = () => {

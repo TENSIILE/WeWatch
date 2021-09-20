@@ -4,24 +4,17 @@ import { ReactSVG } from 'react-svg'
 import { Emoji } from 'emoji-mart'
 import reactStringReplace from 'react-string-replace'
 import classnames from 'classnames'
-
 import { getMessageTime } from '../../utils/functions'
 import { IndicatorOnline } from '../indicatorOnline/IndicatorOnline'
 import { ContextChat } from '../../contexts/contextChat'
 import { ContextGetInfo } from '../../contexts/contextGetInfo'
-// import { ContextMain } from '../../contexts/mainPage/contextMain'
-
-// import { Racker } from '../../utils/encoder'
 import { loader } from '../../utils/functions'
-
 import checked from '../../static/icons/checked.svg'
-
 import './dialog.scss'
 
 export const Dialog = ({ chatID, messages, isMe, dialogData }) => {
   const logicChat = useContext(ContextChat)
   const { infoUser } = useContext(ContextGetInfo)
-  // const { ttlCountUnrMsg, setTtlCountUnrMsg }         = useContext(ContextMain)
 
   const [dataUserDialogs, setDataUserDialogs] = useState(null)
 
@@ -29,8 +22,6 @@ export const Dialog = ({ chatID, messages, isMe, dialogData }) => {
   const [avatarUser, setAvatarUser] = useState(null)
   const [highlightDialog, setHighlightDialog] = useState(false)
   const [countUnreadMessages, setCountUnreadMessages] = useState(null)
-
-  // const racker                                        = new Racker()
 
   useEffect(() => {
     setDataUserDialogs(dialogData)
@@ -48,8 +39,6 @@ export const Dialog = ({ chatID, messages, isMe, dialogData }) => {
     const wrap = async () => {
       await loader(messages, wrap, 500)
 
-      // const textDecoded = await racker.decode(lastMessage.text)
-      // setLastMessage({...lastMessage, text: textDecoded })
       setLastMessage(messages[messages.length - 1])
 
       let counter = 0
@@ -62,11 +51,6 @@ export const Dialog = ({ chatID, messages, isMe, dialogData }) => {
       if (counter > 0) {
         setCountUnreadMessages(counter)
         logicChat.setCountUnreadMsg(counter)
-
-        // let total = ttlCountUnrMsg
-        // total++
-
-        // setTtlCountUnrMsg(total)
       }
     }
     wrap()

@@ -50,8 +50,13 @@
       position: relative;
       margin-bottom: 1.5em;
       text-decoration: none;
-      color: white;
       height: 60px;
+
+      &.disabled {
+        pointer-events: none;
+        filter: brightness(85%);
+        opacity: 0.8;
+      }
     }
   }
 

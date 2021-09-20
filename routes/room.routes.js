@@ -43,11 +43,7 @@ router.get('/getMyRooms', auth, async (req, res) => {
 
 router.get('/getRoomsJoined', auth, async (req, res) => {
   try {
-    const rooms = await Room.find(null, (_, doc) => {
-      return doc.filter(room => {
-        return room.party.find(userId => userId === req.user.userId)
-      })
-    })
+    const rooms = await Room.where('party', req.user.userId)
 
     res.json(rooms)
   } catch (e) {

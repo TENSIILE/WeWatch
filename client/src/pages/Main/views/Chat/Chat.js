@@ -1,13 +1,13 @@
 import React, { useContext } from 'react'
 import { ReactSVG } from 'react-svg'
-// import classnames from 'classnames'
+import classnames from 'classnames'
 import { Loader } from '../../../../components/loader/Loader'
 import { ContainerMessages } from '../../../../components/containerMessages/ContainerMessages'
 import { ChatHeader } from '../../../../components/chatHeader/ChatHeader'
 import { WriteMessage } from '../../../../components/writeMessage/WriteMessage'
 import { Sidebar } from '../../layouts/Sidebar/Sidebar'
 import { DialogsChat } from '../../layouts/Sidebar/parts/dialogsChat/DialogsChat'
-// import { ControllingRoom } from '../../layouts/Sidebar/parts/controllingRoom/ControllingRoom'
+import { ControllingRoom } from '../../layouts/Sidebar/parts/controllingRoom/ControllingRoom'
 import { ContextChat } from '../../../../contexts/contextChat'
 import { ContextMain } from '../../../../contexts/mainPage/contextMain'
 
@@ -52,11 +52,16 @@ export const Chat = () => {
           <Loader />
         )}
       </div>
-      {/* {false ? (
-                <Sidebar newClass={classnames('controlling-current-room', {'rollUp': logicChat.visibleSidebar})}>
-                    <ControllingRoom/>
-                </Sidebar>
-            ) : null} */}
+      {/* During... */}
+      {false ? (
+        <Sidebar
+          newClass={classnames('controlling-current-room', {
+            rollUp: logicChat.visibleSidebar,
+          })}
+        >
+          <ControllingRoom />
+        </Sidebar>
+      ) : null}
     </>
   )
 }

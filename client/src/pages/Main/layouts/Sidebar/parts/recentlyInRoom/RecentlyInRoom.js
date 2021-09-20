@@ -1,42 +1,24 @@
-import React, { useState, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { ReactSVG } from 'react-svg'
-import { useHttp } from '../../../../../../hooks/http.hook'
 import { useSearcher } from '../../../../../../hooks/searcher.hook'
 import { Input } from '../../../../../../components/input/Input'
 import { Item } from '../../../../../../components/itemsGroup/Item'
-import { getUserToken } from '../../../../../../utils/functions'
+import { ContextMain } from '../../../../../../contexts/mainPage/contextMain'
+import { ContextAuth } from '../../../../../../contexts/contextAuth'
 
 import box from '../../../../../../static/icons/open-box.svg'
 import search from '../../../../../../static/icons/Search.svg'
-import config from '../../../../../../config.json'
 import '../../sidebar.scss'
 
 export const RecentlyInRoom = ({ textEmpty = 'Нет посетимых комнат' }) => {
-  const { request } = useHttp()
+  const { roomsJoined, roomHook } = useContext(ContextMain)
+  const { userId } = useContext(ContextAuth)
 
-  const [listRooms, setListRooms] = useState([])
-
-  const searcher = useSearcher(listRooms)
-
-  useEffect(() => {
-    const wrap = async () => {
-      const rooms = await request(
-        `${config.hostServer}/api/room/getRoomsJoined`,
-        'GET',
-        null,
-        {
-          Authorization: `Bearer ${await getUserToken()}`,
-        }
-      )
-
-      setListRooms(rooms)
-    }
-    wrap()
-  }, [])
+  const searcher = useSearcher(roomsJoined)
 
   return (
     <>
-      {listRooms.length ? (
+      {roomsJoined.length ? (
         <>
           <div className='input-form'>
             <Input
@@ -62,6 +44,12 @@ export const RecentlyInRoom = ({ textEmpty = 'Нет посетимых комн
                     text={room.title}
                     isItemRoom={true}
                     isPasswordSetup={!!room.securityKey}
+                    roomId={room._id}
+                    onClickConnectToRoom={roomHook.onConnect.bind(
+                      this,
+                      room._id,
+                      userId
+                    )}
                   />
                 ))
               ) : (

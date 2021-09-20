@@ -3,7 +3,6 @@ import classnames from 'classnames'
 import { SwitchBtn } from '../../../../../../components/switch/Switch'
 import { OverlaySettings } from '../../../../../../components/overlay/Overlay'
 import { ContextSettings } from '../../../../../../contexts/settingsPage/contextSettings'
-
 import { OVERLAY } from '../../../../../../types/settingsSwitchBtn'
 
 export const Overlay = () => {

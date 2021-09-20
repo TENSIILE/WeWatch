@@ -4,7 +4,6 @@ import classnames from 'classnames'
 import { IndicatorOnline } from '../indicatorOnline/IndicatorOnline'
 import { Input } from '../input/Input'
 import { ContextChat } from '../../contexts/contextChat'
-
 import icoSearch from '../../static/icons/Search.svg'
 import dots from '../../static/icons/three-dots-horizontal.svg'
 import './chatHeader.scss'
@@ -16,36 +15,37 @@ export const ChatHeader = ({ logo, title, status }) => {
   const [input, setInput] = useState('')
 
   const cancelSearch = () => {
-    try {
-      ;[...logicChat.wrapperMessagesDivRef.current.children].forEach(item => {
-        console.log(logicChat.wrapperMessagesDivRef.current.children)
+    const messages = logicChat.wrapperMessagesDivRef.current.querySelectorAll(
+      '.message'
+    )
 
-        item
-          .querySelector('.content-message')
-          .classList.contains('highlight') &&
-          item.querySelector('.content-message').classList.remove('highlight')
-      })
-      logicChat.wrapperMessagesDivRef.current.scrollTo(
-        0,
-        logicChat.wrapperMessagesDivRef.current.scrollHeight
-      )
-    } catch (e) {}
+    if (!messages.length) return
+
+    for (let i = 0; i < messages.length; i++) {
+      const message = messages[i].querySelector('.content-message')
+
+      message.classList.contains('highlight') &&
+        message.classList.remove('highlight')
+    }
+
+    logicChat.wrapperMessagesDivRef.current.scrollTo(
+      0,
+      logicChat.wrapperMessagesDivRef.current.scrollHeight
+    )
+
+    return { messages }
   }
 
   useEffect(() => {
     try {
-      cancelSearch()
+      const { messages } = cancelSearch()
 
-      const messageAll = [
-        ...logicChat.wrapperMessagesDivRef.current.children,
-      ].filter(item => item.classList.contains('message'))
-
-      const findedMessage = messageAll.find(element =>
-        element
+      const findedMessage = [...messages].find(message => {
+        return message
           .querySelector('.text-message')
           .textContent.trim()
           .includes(input)
-      )
+      })
 
       if (typeof findedMessage !== 'undefined') {
         logicChat.wrapperMessagesDivRef.current.scrollTo(
